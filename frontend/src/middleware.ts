@@ -38,10 +38,11 @@ export default async function middleware(request: NextRequest) {
   }
 
   return response;
-}
+};
 
 export const config = {
   matcher: [
+    '/auth/:path*',
     '/login',
     '/home',
     '/auth/:path*',

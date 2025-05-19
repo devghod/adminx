@@ -1,23 +1,20 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useAccountStore, type TUser } from '@/stores/accountStore';
-import { getCookie } from 'cookies-next';
+import { useEffect } from 'react';
+import { useAccountStore } from '@/stores/accountStore';
+import { CardListComponent } from '@/components/ui/CardList';
 
 const AccountPage = () => {
   const { getUsers, users, isLoading } = useAccountStore();
-  const token = getCookie('session');
 
   useEffect(() => {
-    console.log(token)
     const fnGetUsers = () => getUsers();
     fnGetUsers();
   }, [getUsers]);
 
   return (
     <>
-      Accounts
-      {token || 'none'}
+      <CardListComponent users={users} isLoading={isLoading} />
     </>
   );
 };

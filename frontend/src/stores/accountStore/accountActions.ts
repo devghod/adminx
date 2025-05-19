@@ -55,10 +55,16 @@ export const createAccountActions: StateCreator<
     try {
       set({ isLoading: true });
 
-      const result = await fetchAuth({
-        api: `user/get-user/${id}`,
-        method: 'GET',
-      });
+      const result = await fetch(
+        `/api/proxy-auth/user/get-user/${id}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },    
+        }
+      );
+
       const data = await result.json();
 
       set({ isLoading: false });
@@ -74,10 +80,15 @@ export const createAccountActions: StateCreator<
     try {
       set({ isLoading: true });
 
-      const result = await fetchAuth({
-        api: 'user/get-users',
-        method: 'GET',
-      });
+      const result = await fetch(
+        '/api/proxy-auth/user/get-users',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },    
+        }
+      );
 
       const { success, data, message } = await result.json();
 
