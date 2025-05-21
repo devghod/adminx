@@ -10,10 +10,11 @@ import { cookies } from 'next/headers';
 
 const ParamsPromise = Promise<{ path: string[] }>;
 
-async function proxyWithBearer(req: NextRequest, paramsPromise: typeof ParamsPromise) {
-
+async function proxyWithBearer(
+  req: NextRequest,
+  paramsPromise: typeof ParamsPromise,
+) {
   try {
-
     const params = await paramsPromise;
 
     // Access session token from cookie
@@ -21,7 +22,10 @@ async function proxyWithBearer(req: NextRequest, paramsPromise: typeof ParamsPro
     const token = cookieStore.get('session')?.value;
 
     if (!token) {
-      return NextResponse.json({ error: 'Unauthorized: No session token found' }, { status: 401 });
+      return NextResponse.json(
+        { error: 'Unauthorized: No session token found' },
+        { status: 401 },
+      );
     }
 
     // Build backend API url from path segments
@@ -63,28 +67,45 @@ async function proxyWithBearer(req: NextRequest, paramsPromise: typeof ParamsPro
       headers: resHeaders,
     });
   } catch (error) {
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 },
+    );
   }
 }
 
 // Export handlers for common HTTP methods
-export async function GET(req: NextRequest, { params }: { params: typeof ParamsPromise }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: typeof ParamsPromise },
+) {
   return proxyWithBearer(req, params);
 }
 
-export async function POST(req: NextRequest, { params }: { params: typeof ParamsPromise }) {
+export async function POST(
+  req: NextRequest,
+  { params }: { params: typeof ParamsPromise },
+) {
   return proxyWithBearer(req, params);
 }
 
-export async function PUT(req: NextRequest, { params }: { params: typeof ParamsPromise }) {
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: typeof ParamsPromise },
+) {
   return proxyWithBearer(req, params);
 }
 
-export async function PATCH(req: NextRequest, { params }: { params: typeof ParamsPromise }) {
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: typeof ParamsPromise },
+) {
   return proxyWithBearer(req, params);
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: typeof ParamsPromise }) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: typeof ParamsPromise },
+) {
   return proxyWithBearer(req, params);
 }
-
