@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useAccountStore } from '@/stores/accountStore';
-import { CardListComponent } from '@/components/ui/CardList';
+import { CardList } from '@/components/accounts/CardList';
 
 const AccountPage = () => {
   const { getUsers, users, isLoading } = useAccountStore();
@@ -14,7 +14,7 @@ const AccountPage = () => {
 
   return (
     <>
-      <CardListComponent users={users} isLoading={isLoading} />
+      <CardList users={users} isLoading={isLoading} />
     </>
   );
 };

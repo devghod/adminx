@@ -6,9 +6,7 @@ const BodyDashoard = ({ children }: { children: ReactNode }) => {
       <div className='text-xs text-gray-500 font-semibold uppercase subpixel-antialiased'>
         {`Dashboard > Users`}
       </div>
-      <div className="">
-        {children}
-      </div>
+      <div className=''>{children}</div>
     </div>
   );
 };

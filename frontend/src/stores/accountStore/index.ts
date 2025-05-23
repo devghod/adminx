@@ -4,7 +4,7 @@ import {
   TAccountActions,
   createAccountActions,
 } from './accountActions';
-import { TUser, TCreateUser, TStatistics } from './type'; 
+import { TUser, TCreateUser, TStatistics } from './type';
 
 export type TAccountStore = TAccountState & TAccountActions;
 

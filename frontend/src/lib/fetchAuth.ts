@@ -14,7 +14,7 @@ export async function fetchAuth(params: TFetchAuth) {
   const { api, id, method, body } = params;
   const token = getCookie('session');
   // const token = getSession();
-  console.log(token, hasCookie('session'))
+  console.log(token, hasCookie('session'));
   const authToken = `Bearer ${token}`;
 
   return await fetch(`http://localhost:4001/api/${api}/${id ?? ''}`, {
