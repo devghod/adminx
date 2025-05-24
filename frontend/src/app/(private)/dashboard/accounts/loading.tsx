@@ -1,7 +1,7 @@
-import Loader from "@/components/ui/Loader";
+import Loader from '@/components/ui/Loader';
 
 const Loading = () => {
-  return <Loader page="Accounts" />;
+  return <Loader page='Accounts' />;
 };
 
 export default Loading;

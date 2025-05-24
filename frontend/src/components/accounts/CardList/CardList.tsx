@@ -7,7 +7,6 @@ const CardListComponent = ({
   users: any;
   isLoading: boolean;
 }) => {
-
   if (isLoading) {
     return <div>Loading...</div>;
   }

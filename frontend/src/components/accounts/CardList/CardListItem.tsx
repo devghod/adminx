@@ -22,8 +22,9 @@ const CardListItem = memo(({ user }: { user: any }) => {
         <Badge
           data={user?.status}
           size='xs'
-          colorTheme='info'
-          variant='subtle'
+          colorTheme={
+            user?.status === 'active' ? 'success' : 'danger'
+          }
           className='capitalize rounded'
         />
       </div>

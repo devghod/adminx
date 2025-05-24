@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/utils/tailwindMerge';
 
-const badgeVariants = cva('font-semibold', {
+const badgeVariants = cva('font-semibold px-1', {
   variants: {
     variant: {
       default: 'bg-gray-200 text-gray-900',
@@ -15,19 +15,19 @@ const badgeVariants = cva('font-semibold', {
       link: 'border-0 bg-transparent',
     },
     colorTheme: {
-      primary: 'text-white border-blue-600 bg-blue-600',
-      success: 'text-white border-green-600 bg-green-600',
-      danger: 'text-white border-rose-500 bg-rose-500',
-      warning: 'text-white border-amber-500 bg-amber-500',
-      info: 'text-white border-sky-500 bg-sky-500',
-      default: 'text-white border-gray-500 bg-gray-500',
+      primary: 'text-blue-600 border-blue-600 bg-blue-600/20',
+      success: 'text-green-600 border-green-600 bg-green-600/20',
+      danger: 'text-rose-500 border-rose-500 bg-rose-500/20',
+      warning: 'text-amber-500 border-amber-500 bg-amber-500/20',
+      info: 'text-sky-500 border-sky-500 bg-sky-500/20',
+      default: 'text-gray-500 border-gray-500 bg-gray-500/20',
     },
     size: {
-      default: 'text-md p-2',
-      xs: 'text-xs p-1',
-      sm: 'text-sm p-1',
-      md: 'text-md p-2',
-      lg: 'text-lg p-3',
+      default: 'text-md',
+      xs: 'text-xs',
+      sm: 'text-sm',
+      md: 'text-md',
+      lg: 'text-lg',
     },
   },
   defaultVariants: {
@@ -39,14 +39,23 @@ const badgeVariants = cva('font-semibold', {
 
 const Badge = React.forwardRef<
   React.ElementRef<'span'>,
-  React.ComponentPropsWithoutRef<'span'> & VariantProps<typeof badgeVariants> & {
-    data: string
-    size?: 'default' | 'xs' | 'sm' | 'md' | 'lg'
-    colorTheme?: 'default' | 'primary' | 'success' | 'danger' | 'warning' | 'info'
-  }
+  React.ComponentPropsWithoutRef<'span'> &
+    VariantProps<typeof badgeVariants> & {
+      data: string;
+      size?: 'default' | 'xs' | 'sm' | 'md' | 'lg';
+      colorTheme?:
+        | 'default'
+        | 'primary'
+        | 'success'
+        | 'danger'
+        | 'warning'
+        | 'info';
+    }
 >(({ className, variant, size, colorTheme, ...props }, ref) => (
   <span
-    className={cn(badgeVariants({ className, variant, size, colorTheme }))}
+    className={cn(
+      badgeVariants({ className, variant, size, colorTheme }),
+    )}
     ref={ref}
     {...props}
   >
