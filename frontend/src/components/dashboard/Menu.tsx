@@ -8,7 +8,7 @@ import {
   NavMenuLink,
   NavMenuList,
   NavMenuRoot,
-} from '../ui/NavigationMenu';
+} from '@/components/ui/NavigationMenu';
 
 const MenuData = [
   {

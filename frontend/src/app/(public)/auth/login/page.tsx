@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import LoginForm from './form';
+import LoginForm from '@/features/login/form';
 
 export interface ILogins {}
 

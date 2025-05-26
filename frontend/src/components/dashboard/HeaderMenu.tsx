@@ -13,7 +13,7 @@ import {
   MenuIcon,
   UsersIcon,
 } from '@/components/ui/Icons';
-import { logout } from '@/app/(public)/auth/authentications';
+import { logout } from '@/features/login/authentications';
 
 const HeaderMenu = () => {
   return (

@@ -1,4 +1,4 @@
-import LightSwitch from '@/components/ui/LightSwitch';
+import LightSwitch from '@/components/ui/;ightSwitch';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {

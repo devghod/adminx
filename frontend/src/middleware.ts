@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { decrypt } from '@/app/(public)/auth/stateless-session';
+import { decrypt } from '@/features/login/stateless-session';
 
 const protectedRoutes = ['/dashboard', '/dashboard/accounts'];
 const publicRoutes = [

@@ -4,11 +4,8 @@ import {
   FormState,
   LoginFormSchema,
   // SignupFormSchema,
-} from '@/app/(public)/auth/definitions';
-import {
-  createSession,
-  deleteSession,
-} from '@/app/(public)/auth/stateless-session';
+} from './definitions';
+import { createSession, deleteSession } from './stateless-session';
 // import bcrypt from 'bcrypt';
 
 // export async function signup(
