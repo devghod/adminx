@@ -9,14 +9,14 @@ import {
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/tailwindMerge';
 
-export const DropdownMenu = DropdownMenuPrimitive.Root;
-export const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
+const DropdownMenu = DropdownMenuPrimitive.Root;
+const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
 
 const dropdownMenuContentVariants = cva(
   'min-w-[220px] rounded-md bg-gray-50 dark:bg-gray-950 py-2 px-2 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade',
 );
 
-export const DropdownMenuContent = React.forwardRef<
+const DropdownMenuContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentPropsWithoutRef<
     typeof DropdownMenuPrimitive.Content
@@ -39,13 +39,13 @@ export const DropdownMenuContent = React.forwardRef<
   );
 });
 
-export const DropdownMenuLabel = DropdownMenuPrimitive.Label;
+const DropdownMenuLabel = DropdownMenuPrimitive.Label;
 
 const dropdownMenuItemVariants = cva(
   'group relative font-semibold flex h-[25px] select-none items-center justify-between rounded hover:bg-sky-200 dark:hover:bg-sky-500 p-4 text-[13px] leading-none outline-none',
 );
 
-export const DropdownMenuItem = React.forwardRef<
+const DropdownMenuItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Root> &
     VariantProps<typeof dropdownMenuItemVariants> & {
@@ -66,7 +66,7 @@ export const DropdownMenuItem = React.forwardRef<
   );
 });
 
-export const DropdownMenuGroup = DropdownMenuPrimitive.Group;
+const DropdownMenuGroup = DropdownMenuPrimitive.Group;
 
 type CheckboxItemProps = React.ComponentPropsWithoutRef<
   typeof DropdownMenuPrimitive.CheckboxItem
@@ -74,7 +74,7 @@ type CheckboxItemProps = React.ComponentPropsWithoutRef<
   checked?: boolean | 'indeterminate';
 };
 
-export const DropdownMenuCheckboxItem = React.forwardRef<
+const DropdownMenuCheckboxItem = React.forwardRef<
   HTMLInputElement,
   CheckboxItemProps
 >(({ children, ...props }, forwardedRef) => {
@@ -91,10 +91,10 @@ export const DropdownMenuCheckboxItem = React.forwardRef<
   );
 });
 
-export const DropdownMenuRadioGroup =
+const DropdownMenuRadioGroup =
   DropdownMenuPrimitive.RadioGroup;
 
-export const DropdownMenuRadioItem = React.forwardRef<
+const DropdownMenuRadioItem = React.forwardRef<
   HTMLInputElement,
   { value: string; children: React.ReactNode }
 >(({ children, ...props }, forwardedRef) => {
@@ -108,7 +108,7 @@ export const DropdownMenuRadioItem = React.forwardRef<
   );
 });
 
-export const DropdownMenuSeparator = React.forwardRef<
+const DropdownMenuSeparator = React.forwardRef<
   HTMLDivElement,
   React.ComponentPropsWithoutRef<
     typeof DropdownMenuPrimitive.Separator
@@ -118,3 +118,16 @@ export const DropdownMenuSeparator = React.forwardRef<
     <DropdownMenuPrimitive.Separator {...props} ref={forwardedRef} />
   );
 });
+
+export {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuItem,
+  DropdownMenuGroup,
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+}

@@ -1,10 +1,11 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import { TUser } from '@/stores/accountStore/type';
 import { columns } from './constants';
 import {
   useReactTable,
   getCoreRowModel,
   flexRender,
+  getPaginationRowModel,
 } from '@tanstack/react-table';
 import {
   Table,
@@ -14,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { Button } from '@/components/ui/Button';
 
 const fallbackData: TUser[] = [];
 
@@ -24,18 +26,29 @@ const AccountDatatable = ({
   accounts: TUser[];
   isLoading: boolean;
 }) => {
-  const [data, setData] = useState<TUser[]>([]);
 
-  useEffect(() => {
-    setData(accounts);
-  }, [accounts]);
+  const data = useMemo(
+    () =>
+      isLoading || !accounts ? Array(4).fill({}) : [...accounts],
+    [isLoading, accounts],
+  );
 
-  const defaultColumns = useMemo(() => [...columns], [data]);
+  const defaultColumns: any = useMemo(
+    () =>
+      isLoading
+        ? columns.map(column => ({
+            ...column,
+            cell: <Skeleton />,
+          }))
+        : columns,
+    [isLoading, columns],
+  );
 
   const table = useReactTable({
     data: data || fallbackData,
     columns: defaultColumns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   return (
@@ -88,44 +101,39 @@ const AccountDatatable = ({
           )}
         </TableBody>
       </Table>
+
+      <PaginationController table={table} />
     </div>
-    // <>
-    //   <table className="table-auto w-full">
-    //     <thead>
-    //       <tr>
-    //         {table.getHeaderGroups().map(headerGroup => (
-    //           <th key={headerGroup.id} className='flex flex-row flex-nowrap'>
-    //             {headerGroup.headers.map(header => (
-    //               <div key={header.id} className='w-80 text-left border'>
-    //                 {header.isPlaceholder
-    //                   ? null
-    //                   : flexRender(
-    //                       header.column.columnDef.header,
-    //                       header.getContext(),
-    //                     )}
-    //               </div>
-    //             ))}
-    //           </th>
-    //         ))}
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       {table.getRowModel().rows.map(row => (
-    //         <tr key={row.id} className='flex flex-row flex-nowrap'>
-    //           {row.getVisibleCells().map(cell => (
-    //             <td key={cell.id} className='w-80 text-left border'>
-    //               {flexRender(
-    //                 cell.column.columnDef.cell,
-    //                 cell.getContext(),
-    //               )}
-    //             </td>
-    //           ))}
-    //         </tr>
-    //       ))}
-    //     </tbody>
-    //   </table>
-    // </>
   );
 };
 
 export default AccountDatatable;
+
+const PaginationController = ({ table }: { table: any }) => {
+  return (
+    <div className="flex items-center justify-end space-x-2 py-3">
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => table.previousPage()}
+        disabled={!table.getCanPreviousPage()}
+      >
+        Previous
+      </Button>
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => table.nextPage()}
+        disabled={!table.getCanNextPage()}
+      >
+        Next
+      </Button>
+    </div>
+  );
+}
+
+const Skeleton = () => {
+  return (
+    <div className='animate-pulse bg-gray-200 dark:bg-gray-700 h-4 rounded-full'></div>
+  );
+};
