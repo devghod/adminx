@@ -1,7 +1,4 @@
-import {
-  TCredentials,
-  TRegistrationForm,
-} from './type';
+import { TCredentials, TRegistrationForm } from './type';
 
 export type TAuthState = {
   profile: object;

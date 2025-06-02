@@ -1,10 +1,7 @@
 import { StateCreator } from 'zustand';
 import { TAuthState } from './authState';
 import { setCookie, deleteCookie } from '../../utils/cookies';
-import {
-  TCredentials,
-  TRegistrationForm,
-} from './type';
+import { TCredentials, TRegistrationForm } from './type';
 
 export type TAuthActions = {
   verify: (tokens: {
