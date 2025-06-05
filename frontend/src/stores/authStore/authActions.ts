@@ -4,7 +4,7 @@ import { setCookie, deleteCookie } from '../../utils/cookies';
 import {
   TCredentials,
   TRegistrationForm,
-} from '../../types/AuthTypes';
+} from './type';
 
 export type TAuthActions = {
   verify: (tokens: {
@@ -93,7 +93,7 @@ export const createAuthActions: StateCreator<
       set({ isLoading: false });
     } catch (error) {
       set({ isLoading: false, isAuthentic: false });
-      console.log('>', error);
+      console.error('>', error);
     }
   },
 
@@ -124,7 +124,7 @@ export const createAuthActions: StateCreator<
       set({ isLoading: false });
     } catch (error) {
       set({ isLoading: false });
-      console.log('>', error);
+      console.error('>', error);
     }
   },
 
@@ -176,7 +176,7 @@ export const createAuthActions: StateCreator<
         });
       }
     } catch (error) {
-      console.log('> ' + error);
+      console.error('> ' + error);
     }
   },
 

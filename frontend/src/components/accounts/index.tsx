@@ -1,18 +1,22 @@
 import { useEffect } from 'react';
 import { useAccountStore } from '@/stores/accountStore';
-import AccountDatatable from './DataTable/data-table';
+import AccountDatatable from './AccountDatatable/AccountDatatable';
 
 const Account = () => {
   const { getUsers, users, isLoading } = useAccountStore();
 
   useEffect(() => {
-    const fnGetUsers = () => getUsers();
     fnGetUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getUsers]);
+
+  const fnGetUsers = () => getUsers();
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <>
-      <AccountDatatable accounts={users} isLoading={isLoading} />
+      <AccountDatatable accounts={users} fetchUsers={fnGetUsers} />
     </>
   );
 };

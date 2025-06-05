@@ -1,7 +1,7 @@
-import { TInventory } from '../../types/InventoryType';
+import { TInventory } from '../inventoryStore/type';
 
 export type TInventoryState = {
-  inventory: {};
+  inventory: object;
   inventories: TInventory[];
   message: string;
   isLoading: boolean;

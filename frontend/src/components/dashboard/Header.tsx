@@ -1,4 +1,4 @@
-import LightSwitch from '@/components/ui/LightSwitch';
+import LightSwitch from '../ui/lightSwitch';
 import HeaderMenu from './HeaderMenu';
 
 const HeaderDashboard = () => {

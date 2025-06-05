@@ -15,33 +15,28 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 
 const fallbackData: TUser[] = [];
 
 const AccountDatatable = ({
   accounts,
-  isLoading,
 }: {
   accounts: TUser[];
-  isLoading: boolean;
+  fetchUsers: () => void;
 }) => {
-
   const data = useMemo(
-    () =>
-      isLoading || !accounts ? Array(4).fill({}) : [...accounts],
-    [isLoading, accounts],
+    () => (!accounts ? Array(4).fill({}) : [...accounts]),
+    [accounts],
   );
 
   const defaultColumns: any = useMemo(
     () =>
-      isLoading
-        ? columns.map(column => ({
-            ...column,
-            cell: <Skeleton />,
-          }))
-        : columns,
-    [isLoading, columns],
+      columns.map(column => ({
+        ...column,
+        cell: <Skeleton />,
+      })) || columns,
+    [],
   );
 
   const table = useReactTable({
@@ -111,18 +106,18 @@ export default AccountDatatable;
 
 const PaginationController = ({ table }: { table: any }) => {
   return (
-    <div className="flex items-center justify-end space-x-2 py-3">
+    <div className='flex items-center justify-end space-x-2 py-3'>
       <Button
-        variant="outline"
-        size="sm"
+        variant='outline'
+        size='sm'
         onClick={() => table.previousPage()}
         disabled={!table.getCanPreviousPage()}
       >
         Previous
       </Button>
       <Button
-        variant="outline"
-        size="sm"
+        variant='outline'
+        size='sm'
         onClick={() => table.nextPage()}
         disabled={!table.getCanNextPage()}
       >
@@ -130,7 +125,7 @@ const PaginationController = ({ table }: { table: any }) => {
       </Button>
     </div>
   );
-}
+};
 
 const Skeleton = () => {
   return (

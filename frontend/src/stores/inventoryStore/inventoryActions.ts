@@ -1,6 +1,6 @@
 import { StateCreator } from 'zustand';
 import { TInventoryState } from './inventoryState';
-import { fetchAuth } from '../../utils';
+import { fetchAuth } from '@/lib/fetchAuth';
 
 export type TInventoryActions = {
   getInventories: () => Promise<void>;

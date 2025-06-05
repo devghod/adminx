@@ -89,7 +89,7 @@ export const createAccountActions: StateCreator<
 
       const { success, data, message } = await result.json();
 
-      await debounce(() => console.log('3s delay'), 3000);
+      await debounce(() => console.debug('3s delay'), 3000);
 
       if (result.ok && success) {
         // get().getUsersStatistics();

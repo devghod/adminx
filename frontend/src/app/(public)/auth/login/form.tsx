@@ -2,9 +2,9 @@
 
 import { useFormStatus } from 'react-dom';
 import { useActionState } from 'react';
-import { login } from '@/app/(public)/auth/authentications';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/Label';
+import { login } from '@/features/login/authentications';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 const LoginForm = () => {
   const [state, action] = useActionState(login, undefined);

@@ -8,11 +8,11 @@ import { cookies } from 'next/headers';
  * Supports all common HTTP methods.
  */
 
-const ParamsPromise = Promise<{ path: string[] }>;
+type ParamsPromise = Promise<{ path: string[] }>;
 
 async function proxyWithBearer(
   req: NextRequest,
-  paramsPromise: typeof ParamsPromise,
+  paramsPromise: ParamsPromise,
 ) {
   try {
     const params = await paramsPromise;
@@ -68,7 +68,7 @@ async function proxyWithBearer(
     });
   } catch (error) {
     return NextResponse.json(
-      { error: 'Internal Server Error' },
+      { error: `Internal Server Error: ${error}` },
       { status: 500 },
     );
   }
@@ -77,35 +77,35 @@ async function proxyWithBearer(
 // Export handlers for common HTTP methods
 export async function GET(
   req: NextRequest,
-  { params }: { params: typeof ParamsPromise },
+  { params }: { params: ParamsPromise },
 ) {
   return proxyWithBearer(req, params);
 }
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: typeof ParamsPromise },
+  { params }: { params: ParamsPromise },
 ) {
   return proxyWithBearer(req, params);
 }
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: typeof ParamsPromise },
+  { params }: { params: ParamsPromise },
 ) {
   return proxyWithBearer(req, params);
 }
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: typeof ParamsPromise },
+  { params }: { params: ParamsPromise },
 ) {
   return proxyWithBearer(req, params);
 }
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: typeof ParamsPromise },
+  { params }: { params: ParamsPromise },
 ) {
   return proxyWithBearer(req, params);
 }

@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { HomeIcon, UsersIcon } from '../ui/Icons';
+import { HomeIcon, UsersIcon } from '../ui/icons';
 import {
   NavMenuItem,
   NavMenuLink,
   NavMenuList,
   NavMenuRoot,
-} from '@/components/ui/NavigationMenu';
+} from '../ui/navigationMenu';
 
 const MenuData = [
   {
@@ -97,7 +97,17 @@ const ProfileDetails = ({
 
   return (
     <div className='flex space-x-4'>
-      <img
+      <Image
+        src={img}
+        width={32}
+        height={32}
+        sizes='32x32'
+        alt='Profile Image'
+        onError={handleImgFallback}
+        blurDataURL={fallbackImg}
+        loading='lazy'
+      />
+      {/* <img
         src={img}
         width={32}
         height={32}
@@ -105,7 +115,7 @@ const ProfileDetails = ({
         loading='lazy'
         onError={handleImgFallback}
         alt='Profile Image'
-      />
+      /> */}
       <div className=''>
         <div className='text-sm font-medium text-gray-800 dark:text-gray-300'>
           {`${data?.name ? data.name : 'Not assigned'}`}

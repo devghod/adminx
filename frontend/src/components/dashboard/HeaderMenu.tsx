@@ -6,13 +6,13 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/DropdownMenu';
+} from '@/components/ui/dropdownMenu';
 import {
   GearIcon,
   LogOutIcon,
   MenuIcon,
   UsersIcon,
-} from '@/components/ui/Icons';
+} from '@/components/ui/icons';
 import { logout } from '@/features/login/authentications';
 
 const HeaderMenu = () => {

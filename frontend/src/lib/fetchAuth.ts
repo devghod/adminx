@@ -1,7 +1,6 @@
 'use client';
 
-import { getCookie, hasCookie } from 'cookies-next';
-// import { getSession } from '@/app/api/session';
+import { getCookie } from 'cookies-next';
 
 type TFetchAuth = {
   api: string;
@@ -13,8 +12,6 @@ type TFetchAuth = {
 export async function fetchAuth(params: TFetchAuth) {
   const { api, id, method, body } = params;
   const token = getCookie('session');
-  // const token = getSession();
-  console.log(token, hasCookie('session'));
   const authToken = `Bearer ${token}`;
 
   return await fetch(`http://localhost:4001/api/${api}/${id ?? ''}`, {

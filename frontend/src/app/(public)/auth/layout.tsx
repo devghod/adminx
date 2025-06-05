@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import LightSwitch from '@/components/ui/LightSwitch';
+import LightSwitch from '@/components/ui/lightSwitch';
 
 export const metadata: Metadata = {
   title: 'AdminX | Landing Page',

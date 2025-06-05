@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { dateFormat } from '@/utils/dateHelper';
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 
 const CardListItem = memo(({ user }: { user: any }) => {
   const fullName =
@@ -32,5 +32,7 @@ const CardListItem = memo(({ user }: { user: any }) => {
     </div>
   );
 });
+
+CardListItem.displayName = 'CardListItem';
 
 export default CardListItem;

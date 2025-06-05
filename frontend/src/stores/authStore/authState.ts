@@ -1,7 +1,7 @@
 import {
   TCredentials,
   TRegistrationForm,
-} from '../../types/AuthTypes';
+} from './type';
 
 export type TAuthState = {
   profile: object;

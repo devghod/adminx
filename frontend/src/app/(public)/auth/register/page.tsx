@@ -2,9 +2,7 @@
 
 import UnderConstruction from '@/components/UnderConstruction';
 
-export interface IRegisterPage {}
-
-const RegisterPage = (): IRegisterPage => {
+const RegisterPage = () => {
   return (
     <div>
       <UnderConstruction />

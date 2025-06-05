@@ -1,6 +1,4 @@
-export interface IDashboardPage {}
-
-const DashboardPage = (): IDashboardPage => {
+const DashboardPage = () => {
   return <div>Hey</div>;
 };
 

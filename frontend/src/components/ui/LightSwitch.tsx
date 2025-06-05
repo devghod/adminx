@@ -15,7 +15,7 @@ const LightSwitch = () => {
     setMounted(true);
     setDark(isDark());
     setTheme(isDark() ? 'dark' : 'light');
-  }, []);
+  }, [setTheme]);
 
   function handleSwitch() {
     setDark(theme === 'dark' ? false : true);

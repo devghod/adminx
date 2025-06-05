@@ -3,9 +3,7 @@
 import { useRouter } from 'next/navigation';
 import LoginForm from '@/features/login/form';
 
-export interface ILogins {}
-
-const LoginPage = (): ILogins => {
+const LoginPage = () => {
   const router = useRouter();
 
   return (

@@ -9,6 +9,8 @@ export type TUser = {
   last_name?: string;
 };
 
+export type TUsers = TUser[] | [];
+
 export type TCreateUser = {
   _id?: string;
   username?: string;

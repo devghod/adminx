@@ -4,5 +4,6 @@
 /frontend/.env*
 /frontend/.next/
 /frontend/DS_Store
+/frontend/yarn.lock
 
 #/backend/node_modules/
