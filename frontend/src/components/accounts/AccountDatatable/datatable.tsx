@@ -166,9 +166,9 @@ const EditCreateAccountModal = ({
   <DialogMenu open={open} onOpenChange={onOpenChange} modal>
     <DialogMenuTitle>Create Account</DialogMenuTitle>
     <DialogMenuDescription>Your Form here</DialogMenuDescription>
-    <DialogMenuClose position='bottomRight'>
+    <DialogMenuClose position='right'>
       <Button variant='primary' size='md' shape='rounded'>
-        SaveX
+        Create
       </Button>
     </DialogMenuClose>
   </DialogMenu>
@@ -185,12 +185,13 @@ const DetailAccountModal = ({
 }) => (
   <DialogMenu open={open} onOpenChange={onOpenChange} modal>
     <DialogMenuTitle>Details Account</DialogMenuTitle>
+    <DialogMenuClose closeIcon />
     <DialogMenuDescription asChild>
       <pre>{JSON.stringify(details, null, 2)}</pre>
     </DialogMenuDescription>
-    <DialogMenuClose>
-      <Button variant='primary' size='md' shape='rounded'>
-        Done
+    <DialogMenuClose position='right'>
+      <Button variant='outline' size='md' shape='rounded'>
+        Close
       </Button>
     </DialogMenuClose>
   </DialogMenu>
@@ -203,17 +204,16 @@ const DeleteDialog = ({
   open?: boolean;
   onOpenChange?: any;
 }) => (
-  <DialogMenu open={open} onOpenChange={onOpenChange}>
+  <DialogMenu
+    open={open}
+    onOpenChange={onOpenChange}
+    className='w-96'
+  >
     <DialogMenuTitle>Delete Account</DialogMenuTitle>
     <DialogMenuDescription>Your Form here</DialogMenuDescription>
-    <DialogMenuClose>
+    <DialogMenuClose position='right'>
       <Button variant='danger' size='md' shape='rounded'>
         Yes
-      </Button>
-    </DialogMenuClose>
-    <DialogMenuClose>
-      <Button variant='outline' size='md' shape='rounded'>
-        No
       </Button>
     </DialogMenuClose>
   </DialogMenu>

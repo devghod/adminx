@@ -4,9 +4,10 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/tailwindMerge';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { CloseIcon } from './icons';
 
 const dialogMenuContentVariants = cva(
-  'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-6',
+  'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-6 min-w-80',
 );
 
 /**
@@ -111,18 +112,17 @@ const DialogMenuOverlay = React.forwardRef<
 DialogMenuOverlay.displayName = 'DialogMenuOverlay';
 
 const dialogMenuCloseVariants = cva(
-  'absolute flex items-center justify-center transition',
+  'flex items-center transition mt-2',
   {
     variants: {
       position: {
-        topRight: 'top-2 right-2',
-        topLeft: 'top-2 left-2',
-        bottomRight: 'bottom-2 right-2',
-        bottomLeft: 'bottom-2 left-2',
+        left: 'justify-start',
+        center: 'justify-center',
+        right: 'justify-end',
       },
     },
     defaultVariants: {
-      position: 'topRight',
+      position: 'left',
     },
   },
 );
@@ -132,17 +132,37 @@ const DialogMenuClose = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close> &
     VariantProps<typeof dialogMenuCloseVariants> & {
       position?: string;
+      closeIcon?: boolean;
     }
->(({ children, className, position, ...props }, forwardedRef) => (
-  <DialogPrimitive.Close
-    {...props}
-    ref={forwardedRef}
-    asChild
-    className={cn(dialogMenuCloseVariants({ position }), className)}
-  >
-    {children}
-  </DialogPrimitive.Close>
-));
+>(
+  (
+    { children, className, position, closeIcon, ...props },
+    forwardedRef,
+  ) => (
+    <div
+      className={cn(dialogMenuCloseVariants({ position }), className)}
+    >
+      {closeIcon ? (
+        <DialogPrimitive.Close
+          asChild
+          className='absolute top-2 right-2'
+        >
+          <button
+            className='hover:text-gray-600'
+            {...props}
+            ref={forwardedRef}
+          >
+            <CloseIcon className='w-8 h-8' />
+          </button>
+        </DialogPrimitive.Close>
+      ) : (
+        <DialogPrimitive.Close {...props} ref={forwardedRef} asChild>
+          {children}
+        </DialogPrimitive.Close>
+      )}
+    </div>
+  ),
+);
 
 DialogMenuClose.displayName = 'DialogMenuClose';
 
