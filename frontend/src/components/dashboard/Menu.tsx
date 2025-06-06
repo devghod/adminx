@@ -107,15 +107,6 @@ const ProfileDetails = ({
         blurDataURL={fallbackImg}
         loading='lazy'
       />
-      {/* <img
-        src={img}
-        width={32}
-        height={32}
-        sizes='32x32'
-        loading='lazy'
-        onError={handleImgFallback}
-        alt='Profile Image'
-      /> */}
       <div className=''>
         <div className='text-sm font-medium text-gray-800 dark:text-gray-300'>
           {`${data?.name ? data.name : 'Not assigned'}`}

@@ -9,8 +9,6 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          'bg-gray-900 dark:bg-gray-900/50 text-gray-50 hover:bg-gray-900/90',
         primary:
           'bg-blue-500 dark:bg-blue-500/50 text-gray-50 hover:bg-blue-500/90',
         danger:
@@ -23,7 +21,6 @@ const buttonVariants = cva(
         link: 'text-gray-900 underline-offset-4 hover:underline',
       },
       size: {
-        default: 'rounded-md px-3 px-2',
         xs: 'rounded-md p-1',
         sm: 'rounded-md px-2 py-1',
         md: 'rounded-md px-3 py-2',
@@ -37,21 +34,30 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: 'default',
-      size: 'default',
+      variant: 'ghost',
+      size: 'md',
+      shape: 'square',
     },
   },
 );
 
-interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
-}
-
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement> &
+    VariantProps<typeof buttonVariants> & {
+      asChild?: boolean;
+    }
+>(
   (
-    { className, variant, size, shape, asChild = false, ...props },
+    {
+      className,
+      children,
+      variant,
+      size,
+      shape,
+      asChild = false,
+      ...props
+    },
     ref,
   ) => {
     const Comp = asChild ? Slot : 'button';
@@ -63,10 +69,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         ref={ref}
         {...props}
-      />
+      >
+        {children}
+      </Comp>
     );
   },
 );
+
 Button.displayName = 'Button';
 
 export { Button };

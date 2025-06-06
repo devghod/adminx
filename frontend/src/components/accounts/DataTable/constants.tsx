@@ -1,25 +1,6 @@
 import { TUser } from '@/stores/accountStore';
 import { ColumnDef } from '@tanstack/react-table';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdownMenu';
-import { Button } from '@/components/ui/button';
-import {
-  CopyIcon,
-  DotsHorizontalIcon,
-  EditIcon,
-  TrashIcon,
-} from '@/components/ui/icons';
 import { Badge } from '@/components/ui/badge';
-import {
-  DialogMenu,
-  DialogMenuContent,
-  DialogMenuTrigger,
-} from '@/components/ui/dialog';
 
 export const columns: ColumnDef<TUser>[] = [
   {
@@ -92,54 +73,4 @@ export const columns: ColumnDef<TUser>[] = [
     size: 100,
     enableSorting: false,
   },
-  {
-    id: 'actions',
-    cell: ({ row }) => {
-      const data = row.original;
-      const { _id } = data;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant='ghost' className='h-8 w-8 p-0'>
-              <span className='sr-only'>Open menu</span>
-              <DotsHorizontalIcon />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            <DropdownMenuItem
-              onClick={() =>
-                _id && navigator.clipboard.writeText(_id)
-              }
-            >
-              Copy payment ID <CopyIcon />
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className='text-green-600'>
-              {/* Edit <EditIcon /> */}
-              <EditDialog />
-            </DropdownMenuItem>
-            <DropdownMenuItem className='text-rose-500 dark:text-rose-700'>
-              Delete <TrashIcon />
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
 ];
-
-const EditDialog = () => {
-  return (
-    <DialogMenu>
-      <DialogMenuTrigger asChild>
-        <button className='IconButton' aria-label='Customise options'>
-          Edit <EditIcon />
-        </button>
-      </DialogMenuTrigger>
-      <DialogMenuContent>
-        <h1 className='text-lg font-semibold'>Edit User</h1>
-      </DialogMenuContent>
-    </DialogMenu>
-  );
-};

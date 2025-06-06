@@ -5,54 +5,94 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/tailwindMerge';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 
-const DialogMenu = DialogPrimitive.Root;
-const DialogMenuTrigger = DialogPrimitive.Trigger;
-
 const dialogMenuContentVariants = cva(
-  'fixed left-1/2 top-1/2 max-h-[85vh] w-[90vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-gray1 p-[25px] shadow-[var(--shadow-6)] focus:outline-none data-[state=open]:animate-contentShow',
+  'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-6',
 );
 
-const DialogMenuContent = React.forwardRef<
+/**
+ * DialogMenu arguments
+ * {
+ *   open: display
+ *   onOpenChange: function
+ *   modal: if modal or dialog view
+ * }
+ */
+const DialogMenu = React.forwardRef<
   HTMLDivElement,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> &
     VariantProps<typeof dialogMenuContentVariants> & {
       className?: string;
+      open: boolean;
+      onOpenChange: (open: boolean) => void;
+      modal?: boolean;
     }
->(({ children, className, ...props }, forwardedRef) => {
-  return (
-    <DialogPrimitive.Portal>
-      {/* <DialogPrimitive.Overlay className='fixed inset-0 bg-blackA6 data-[state=open]:animate-overlayShow' /> */}
-      <DialogPrimitive.Overlay />
-      <DialogPrimitive.Content
-        {...props}
-        ref={forwardedRef}
-        className={cn(dialogMenuContentVariants(), className)}
+>(
+  (
+    {
+      children,
+      className,
+      open,
+      onOpenChange,
+      modal = false, // default to false = dialog, true = modal
+      ...props
+    },
+    forwardedRef,
+  ) => {
+    return (
+      <DialogPrimitive.Root
+        open={open}
+        onOpenChange={onOpenChange}
+        modal={modal}
       >
-        {children}
-        <DialogPrimitive.Close asChild />
-      </DialogPrimitive.Content>
-    </DialogPrimitive.Portal>
-  );
-});
+        <DialogPrimitive.Portal>
+          <DialogPrimitive.Overlay className='fixed inset-0 bg-black opacity-30' />
+          <DialogPrimitive.Content
+            className={cn(dialogMenuContentVariants(), className)}
+            ref={forwardedRef}
+            {...props}
+          >
+            {children}
+          </DialogPrimitive.Content>
+        </DialogPrimitive.Portal>
+      </DialogPrimitive.Root>
+    );
+  },
+);
 
-DialogMenuContent.displayName = 'DialogMenuContent';
+DialogMenu.displayName = 'DialogMenu';
+
+const DialogMenuTrigger = DialogPrimitive.Trigger;
+
+const dialogMenuTitleVariants = cva('text-lg font-bold');
 
 const DialogMenuTitle = React.forwardRef<
   HTMLDivElement,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >(({ children, ...props }, forwardedRef) => (
-  <DialogPrimitive.Title {...props} ref={forwardedRef}>
+  <DialogPrimitive.Title
+    className={cn(dialogMenuTitleVariants())}
+    {...props}
+    ref={forwardedRef}
+  >
     {children}
   </DialogPrimitive.Title>
 ));
 
 DialogMenuTitle.displayName = 'DialogMenuTitle';
 
+const dialogMenuDescriptionVariants = cva(
+  'mt-2 text-sm text-gray-600',
+);
+
 const DialogMenuDescription = React.forwardRef<
   HTMLDivElement,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >(({ children, ...props }, forwardedRef) => (
-  <DialogPrimitive.Description {...props} ref={forwardedRef}>
+  <DialogPrimitive.Description
+    className={cn(dialogMenuDescriptionVariants())}
+    {...props}
+    ref={forwardedRef}
+  >
     {children}
   </DialogPrimitive.Description>
 ));
@@ -70,11 +110,47 @@ const DialogMenuOverlay = React.forwardRef<
 
 DialogMenuOverlay.displayName = 'DialogMenuOverlay';
 
+const dialogMenuCloseVariants = cva(
+  'absolute flex items-center justify-center transition',
+  {
+    variants: {
+      position: {
+        topRight: 'top-2 right-2',
+        topLeft: 'top-2 left-2',
+        bottomRight: 'bottom-2 right-2',
+        bottomLeft: 'bottom-2 left-2',
+      },
+    },
+    defaultVariants: {
+      position: 'topRight',
+    },
+  },
+);
+
+const DialogMenuClose = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close> &
+    VariantProps<typeof dialogMenuCloseVariants> & {
+      position?: string;
+    }
+>(({ children, className, position, ...props }, forwardedRef) => (
+  <DialogPrimitive.Close
+    {...props}
+    ref={forwardedRef}
+    asChild
+    className={cn(dialogMenuCloseVariants({ position }), className)}
+  >
+    {children}
+  </DialogPrimitive.Close>
+));
+
+DialogMenuClose.displayName = 'DialogMenuClose';
+
 export {
   DialogMenu,
   DialogMenuTrigger,
-  DialogMenuContent,
+  DialogMenuOverlay,
   DialogMenuTitle,
   DialogMenuDescription,
-  DialogMenuOverlay,
+  DialogMenuClose,
 };

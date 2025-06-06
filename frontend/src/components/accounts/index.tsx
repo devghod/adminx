@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAccountStore } from '@/stores/accountStore';
-import AccountDatatable from './AccountDatatable/AccountDatatable';
+import AccountDatatable from './AccountDatatable';
 
 const Account = () => {
   const { getUsers, users, isLoading } = useAccountStore();
