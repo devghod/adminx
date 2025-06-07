@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import {
   AddIcon,
   EditIcon,
+  ReloadIcon,
   TrashIcon,
   ViewIcon,
 } from '@/components/ui/icons';
@@ -20,6 +21,7 @@ import {
   DialogMenuDescription,
   DialogMenuTitle,
 } from '@/components/ui/dialog';
+import CreateAccountForm from '@/features/account/createEdit/form';
 
 const Datatable = ({
   accounts = [],
@@ -29,7 +31,7 @@ const Datatable = ({
   fetchUsers: () => void;
 }) => {
   const [openDetail, setOpenDetail] = useState(false);
-  const [openEditCreate, setOpenEditCreate] = useState(false);
+  const [openCreateEdit, setOpenCreateEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [accountDetails, setAccountDetails] = useState({});
 
@@ -59,7 +61,7 @@ const Datatable = ({
                 variant='primary'
                 shape='rounded'
                 size='xs'
-                onClick={() => setOpenEditCreate(true)}
+                onClick={() => setOpenCreateEdit(true)}
               >
                 <EditIcon />
               </Button>
@@ -95,15 +97,26 @@ const Datatable = ({
 
   return (
     <>
-      <Button
-        variant='primary'
-        shape='rounded'
-        size='sm'
-        onClick={() => fetchUsers()}
-      >
-        <AddIcon />
-        Create Account
-      </Button>
+      <div className='gap-x-2 flex'>
+        <Button
+          variant='success'
+          shape='rounded'
+          size='sm'
+          onClick={fetchUsers}
+        >
+          <ReloadIcon />
+        </Button>
+
+        <Button
+          variant='primary'
+          shape='rounded'
+          size='sm'
+          onClick={() => setOpenCreateEdit(true)}
+        >
+          <AddIcon />
+          Create Account
+        </Button>
+      </div>
 
       <table className='table-auto w-full'>
         <thead className=''>
@@ -138,9 +151,9 @@ const Datatable = ({
         </tbody>
       </table>
 
-      <EditCreateAccountModal
-        open={openEditCreate}
-        onOpenChange={setOpenEditCreate}
+      <CreateEditAccountModal
+        open={openCreateEdit}
+        onOpenChange={setOpenCreateEdit}
       />
 
       <DetailAccountModal
@@ -156,7 +169,7 @@ const Datatable = ({
 
 export default Datatable;
 
-const EditCreateAccountModal = ({
+const CreateEditAccountModal = ({
   open = false,
   onOpenChange,
 }: {
@@ -165,12 +178,10 @@ const EditCreateAccountModal = ({
 }) => (
   <DialogMenu open={open} onOpenChange={onOpenChange} modal>
     <DialogMenuTitle>Create Account</DialogMenuTitle>
-    <DialogMenuDescription>Your Form here</DialogMenuDescription>
-    <DialogMenuClose position='right'>
-      <Button variant='primary' size='md' shape='rounded'>
-        Create
-      </Button>
-    </DialogMenuClose>
+    <DialogMenuClose closeIcon />
+    <DialogMenuDescription asChild>
+      <CreateAccountForm />
+    </DialogMenuDescription>
   </DialogMenu>
 );
 
@@ -189,11 +200,6 @@ const DetailAccountModal = ({
     <DialogMenuDescription asChild>
       <pre>{JSON.stringify(details, null, 2)}</pre>
     </DialogMenuDescription>
-    <DialogMenuClose position='right'>
-      <Button variant='outline' size='md' shape='rounded'>
-        Close
-      </Button>
-    </DialogMenuClose>
   </DialogMenu>
 );
 
@@ -210,11 +216,18 @@ const DeleteDialog = ({
     className='w-96'
   >
     <DialogMenuTitle>Delete Account</DialogMenuTitle>
-    <DialogMenuDescription>Your Form here</DialogMenuDescription>
+    <DialogMenuDescription>
+      Are you sure you want to delete this account?
+    </DialogMenuDescription>
     <DialogMenuClose position='right'>
-      <Button variant='danger' size='md' shape='rounded'>
-        Yes
-      </Button>
+      <div className='gap-x-2 flex'>
+        <Button variant='outline' size='md' shape='rounded'>
+          No
+        </Button>
+        <Button variant='danger' size='md' shape='rounded'>
+          Yes
+        </Button>
+      </div>
     </DialogMenuClose>
   </DialogMenu>
 );

@@ -7,7 +7,7 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { CloseIcon } from './icons';
 
 const dialogMenuContentVariants = cva(
-  'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-6 min-w-80',
+  'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-950 rounded-lg shadow-lg p-6 min-w-80',
 );
 
 /**
@@ -51,6 +51,7 @@ const DialogMenu = React.forwardRef<
             className={cn(dialogMenuContentVariants(), className)}
             ref={forwardedRef}
             {...props}
+            aria-describedby={undefined}
           >
             {children}
           </DialogPrimitive.Content>
@@ -82,7 +83,7 @@ const DialogMenuTitle = React.forwardRef<
 DialogMenuTitle.displayName = 'DialogMenuTitle';
 
 const dialogMenuDescriptionVariants = cva(
-  'mt-2 text-sm text-gray-600',
+  'my-2 text-sm text-gray-600',
 );
 
 const DialogMenuDescription = React.forwardRef<

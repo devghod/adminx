@@ -5,6 +5,7 @@ import { useActionState } from 'react';
 import { login } from './authentications';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { PasswordInput } from '@/components/ui/password';
 
 const LoginForm = () => {
   const [state, action] = useActionState(login, undefined);
@@ -24,12 +25,13 @@ const LoginForm = () => {
             <p className='text-sm text-red-500'>{state.message}</p>
           )}
           <div className='w-full flex-col'>
-            <Label htmlFor='email'>Username / Email / Mobile</Label>
             <Input
               id='email'
               name='email'
               placeholder='m@example.com'
               type='email'
+              hasLabel
+              label='Username / Email / Mobile'
             />
             {state?.errors?.email && (
               <p className='text-sm text-red-500'>
@@ -39,7 +41,7 @@ const LoginForm = () => {
           </div>
           <div className='w-full flex-col'>
             <Label htmlFor='password'>Password</Label>
-            <Input id='password' type='password' name='password' />
+            <PasswordInput id='password' name='password' />
             {state?.errors?.password && (
               <p className='text-sm text-red-500'>
                 {state.errors.password}

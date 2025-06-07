@@ -1,4 +1,4 @@
-import { BackIcon } from '@/utils/icons';
+import { BackIcon } from '@/components/ui/icons';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 

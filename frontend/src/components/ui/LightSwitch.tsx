@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { DarkIcon, LightIcon } from '@/utils/icons';
+import { DarkIcon, LightIcon } from '@/components/ui/icons';
 import { isDark, setIsDark } from '@/utils/darkMode';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';

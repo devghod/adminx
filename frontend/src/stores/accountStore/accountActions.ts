@@ -1,6 +1,5 @@
 import { StateCreator } from 'zustand';
 import { TAccountState } from './accountState';
-import { fetchAuth } from '@/lib/fetchAuth';
 import { debounce } from '@/utils/debounce';
 
 export type TAccountActions = {
@@ -26,10 +25,12 @@ export const createAccountActions: StateCreator<
     try {
       set({ isLoading: true });
 
-      const result = await fetchAuth({
-        api: 'user/create-user',
+      const result = await fetch('/api/proxy-auth/user/create-user', {
         method: 'POST',
-        body: body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
       });
 
       if (result.ok) {
