@@ -22,6 +22,7 @@ import {
   DialogMenuTitle,
 } from '@/components/ui/dialog';
 import CreateAccountForm from '@/features/account/createEdit/form';
+import DeleteAccount from '@/features/account/delete/form';
 
 const Datatable = ({
   accounts = [],
@@ -48,7 +49,7 @@ const Datatable = ({
           <div className='inline-flex rounded-md gap-1'>
             <ToolTip title='Details' className='text-xs'>
               <Button
-                variant='primary'
+                theme='fill-primary'
                 shape='rounded'
                 size='xs'
                 onClick={() => handleDetails(props.row.original)}
@@ -58,20 +59,20 @@ const Datatable = ({
             </ToolTip>
             <ToolTip title='Edit' className='text-xs'>
               <Button
-                variant='primary'
+                theme='fill-primary'
                 shape='rounded'
                 size='xs'
-                onClick={() => setOpenCreateEdit(true)}
+                onClick={() => handleCreateEdit(props.row.original)}
               >
                 <EditIcon />
               </Button>
             </ToolTip>
             <ToolTip title='Delete' className='text-xs'>
               <Button
-                variant='danger'
+                theme='fill-danger'
                 shape='rounded'
                 size='xs'
-                onClick={() => setOpenDelete(true)}
+                onClick={() => handleDelete(props.row.original)}
               >
                 <TrashIcon />
               </Button>
@@ -90,16 +91,26 @@ const Datatable = ({
     getCoreRowModel: getCoreRowModel(),
   });
 
-  const handleDetails = (data: any) => {
+  const handleDetails = (data = {}): any => {
     setOpenDetail(true);
+    setAccountDetails(data);
+  };
+
+  const handleCreateEdit = (data = {}): any => {
+    setOpenCreateEdit(true);
+    setAccountDetails(data);
+  };
+
+  const handleDelete = (data = {}): any => {
+    setOpenDelete(true);
     setAccountDetails(data);
   };
 
   return (
     <>
-      <div className='gap-x-2 flex'>
+      <div className='gap-x-1 flex'>
         <Button
-          variant='success'
+          theme='fill-success'
           shape='rounded'
           size='sm'
           onClick={fetchUsers}
@@ -108,10 +119,10 @@ const Datatable = ({
         </Button>
 
         <Button
-          variant='primary'
+          theme='fill-primary'
           shape='rounded'
           size='sm'
-          onClick={() => setOpenCreateEdit(true)}
+          onClick={() => handleCreateEdit()}
         >
           <AddIcon />
           Create Account
@@ -154,6 +165,7 @@ const Datatable = ({
       <CreateEditAccountModal
         open={openCreateEdit}
         onOpenChange={setOpenCreateEdit}
+        data={accountDetails}
       />
 
       <DetailAccountModal
@@ -162,7 +174,11 @@ const Datatable = ({
         details={accountDetails}
       />
 
-      <DeleteDialog open={openDelete} onOpenChange={setOpenDelete} />
+      <DeleteDialog
+        open={openDelete}
+        onOpenChange={setOpenDelete}
+        data={accountDetails}
+      />
     </>
   );
 };
@@ -172,15 +188,19 @@ export default Datatable;
 const CreateEditAccountModal = ({
   open = false,
   onOpenChange,
+  data = {},
 }: {
   open?: boolean;
   onOpenChange?: any;
+  data?: any;
 }) => (
   <DialogMenu open={open} onOpenChange={onOpenChange} modal>
-    <DialogMenuTitle>Create Account</DialogMenuTitle>
+    <DialogMenuTitle>
+      {data && data?._id ? 'Edit' : 'Create'} Account
+    </DialogMenuTitle>
     <DialogMenuClose closeIcon />
     <DialogMenuDescription asChild>
-      <CreateAccountForm />
+      <CreateAccountForm data={data} />
     </DialogMenuDescription>
   </DialogMenu>
 );
@@ -206,9 +226,11 @@ const DetailAccountModal = ({
 const DeleteDialog = ({
   open = false,
   onOpenChange,
+  data = {},
 }: {
   open?: boolean;
   onOpenChange?: any;
+  data?: any;
 }) => (
   <DialogMenu
     open={open}
@@ -216,18 +238,8 @@ const DeleteDialog = ({
     className='w-96'
   >
     <DialogMenuTitle>Delete Account</DialogMenuTitle>
-    <DialogMenuDescription>
-      Are you sure you want to delete this account?
+    <DialogMenuDescription asChild>
+      <DeleteAccount data={data} onClose={onOpenChange} />
     </DialogMenuDescription>
-    <DialogMenuClose position='right'>
-      <div className='gap-x-2 flex'>
-        <Button variant='outline' size='md' shape='rounded'>
-          No
-        </Button>
-        <Button variant='danger' size='md' shape='rounded'>
-          Yes
-        </Button>
-      </div>
-    </DialogMenuClose>
   </DialogMenu>
 );

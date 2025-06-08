@@ -1,48 +1,78 @@
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { schema } from './schema';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { createAccountschema, updateAccountSchema } from './schema';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { PasswordInput } from '@/components/ui/password';
 import { useAccountStore } from '@/stores/accountStore';
 import { Select } from '@/components/ui/select';
 
-const CreateEditAccountForm = () => {
+const CreateEditAccountForm = ({ data = {} }: any) => {
+  const { createUser, updateUser, isLoading } = useAccountStore();
+  const [isEdit, setIsEdit] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      username: '',
-      first_name: '',
-      middle_name: '',
-      last_name: '',
-      email: '',
-      mobile: '',
-      password: '',
+      username: data.username || '',
+      first_name: data.first_name || '',
+      middle_name: data.middle_name || '',
+      last_name: data.last_name || '',
+      email: data.email || '',
+      mobile: data.mobile || '',
+      status: data.status || '',
+      new_password: '',
       confirm_password: '',
     },
-    resolver: yupResolver(schema),
+    resolver: zodResolver(
+      isEdit ? updateAccountSchema : createAccountschema,
+    ),
   });
-  const { createUser, isLoading } = useAccountStore();
 
-  const onSubmit = async (data: any) => {
-    console.debug(data);
+  useEffect(() => {
+    if (data._id) setIsEdit(true);
+  }, [data._id]);
 
-    delete data.confirm_password;
+  const onSubmit = async (account: any) => {
+    account.password = account.new_password;
 
-    await createUser(data)
-      .then(res => {
-        console.debug(res);
-        if (res) {
+    delete account.new_password;
+    delete account.confirm_password;
+
+    if (isEdit) {
+      account._id = data._id;
+      delete account.password;
+
+      await updateUser(account)
+        .then(res => {
           console.debug(res);
-        } else {
-        }
-      })
-      .catch(err => {
-        console.error(err);
-      });
+          if (res) {
+            console.debug(res);
+          } else {
+            // pop up
+          }
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    } else {
+      await createUser(account)
+        .then(res => {
+          console.debug(res);
+          if (res) {
+            console.debug(res);
+          } else {
+            // pop up
+          }
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
   };
 
   return (
@@ -117,34 +147,34 @@ const CreateEditAccountForm = () => {
             ]}
             {...register('status')}
           />
-          <div className='flex flex-row gap-x-4'>
-            <PasswordInput
-              id='password'
-              hasLabel
-              label='Password'
-              hasError
-              errors={errors}
-              className='w-full'
-              {...register('password')}
-            />
-            <PasswordInput
-              id='confirm_password'
-              hasLabel
-              label='Confirm password'
-              hasError
-              errors={errors}
-              className='w-full'
-              {...register('confirm_password')}
-            />
-          </div>
+          {!isEdit && (
+            <div className='flex flex-row gap-x-4 '>
+              <PasswordInput
+                hasLabel
+                label='New Password'
+                hasError
+                errors={errors}
+                className='w-full'
+                {...register('new_password')}
+              />
+              <PasswordInput
+                hasLabel
+                label='Confirm password'
+                hasError
+                errors={errors}
+                className='w-full'
+                {...register('confirm_password')}
+              />
+            </div>
+          )}
         </div>
         <Button
           type='submit'
-          variant='primary'
+          theme={isEdit ? 'fill-success' : 'fill-primary'}
           shape='rounded'
           isLoading={isLoading}
         >
-          Submit
+          {isEdit ? 'Update' : 'Create'}
         </Button>
       </form>
     </>

@@ -47,6 +47,7 @@ const Input = React.forwardRef<
           )}
           ref={ref}
           {...props}
+          autoComplete='off'
         />
         {hasError && (
           <p className='text-red-500 text-sm'>{handleError()}</p>

@@ -1,9 +1,12 @@
 import { StateCreator } from 'zustand';
 import { TAccountState } from './accountState';
 import { debounce } from '@/utils/debounce';
+import { TUser } from './type';
 
 export type TAccountActions = {
-  createUser: (body: object) => Promise<boolean | undefined>;
+  createUser: (body: TUser) => Promise<boolean | undefined>;
+  updateUser: (body: TUser) => Promise<boolean | undefined>;
+  deleteUser: (id: string) => Promise<boolean | undefined>;
   getUser: (id: string) => Promise<{
     success: boolean;
     message?: string;
@@ -21,7 +24,7 @@ export const createAccountActions: StateCreator<
   [],
   TAccountActions
 > = (set, get) => ({
-  createUser: async (body: object) => {
+  createUser: async (body: TUser) => {
     try {
       set({ isLoading: true });
 
@@ -37,6 +40,74 @@ export const createAccountActions: StateCreator<
         const { data } = await result.json();
         set({
           users: [...get().users, data],
+          isLoading: false,
+          message: '',
+        });
+        return true;
+      } else {
+        const data = await result.json();
+        set({ isLoading: false, message: data.message });
+        return false;
+      }
+    } catch (err) {
+      console.error('Error', err);
+      set({ isLoading: false });
+    }
+  },
+
+  updateUser: async (body: TUser) => {
+    try {
+      set({ isLoading: true });
+
+      const { _id: id, ...restBody } = body;
+
+      const result = await fetch(
+        `/api/proxy-auth/user/update-user/${id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(restBody),
+        },
+      );
+
+      if (result.ok) {
+        const { data } = await result.json();
+        set({
+          users: [...get().users, data],
+          isLoading: false,
+          message: '',
+        });
+        return true;
+      } else {
+        const data = await result.json();
+        set({ isLoading: false, message: data.message });
+        return false;
+      }
+    } catch (err) {
+      console.error('Error', err);
+      set({ isLoading: false });
+    }
+  },
+
+  deleteUser: async (id: string) => {
+    try {
+      set({ isLoading: true });
+
+      const result = await fetch(
+        `/api/proxy-auth/user/delete-user/${id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      if (result.ok) {
+        set({
+          users: get().users.filter(user => user._id !== id),
           isLoading: false,
           message: '',
         });

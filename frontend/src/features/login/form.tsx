@@ -1,14 +1,13 @@
 'use client';
 
-import { useFormStatus } from 'react-dom';
 import { useActionState } from 'react';
 import { login } from './authentications';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { PasswordInput } from '@/components/ui/password';
+import { Button } from '@/components/ui/button';
 
 const LoginForm = () => {
-  const [state, action] = useActionState(login, undefined);
+  const [state, action, loading] = useActionState(login, undefined);
 
   return (
     <form action={action}>
@@ -29,7 +28,7 @@ const LoginForm = () => {
               id='email'
               name='email'
               placeholder='m@example.com'
-              type='email'
+              type='text'
               hasLabel
               label='Username / Email / Mobile'
             />
@@ -40,8 +39,13 @@ const LoginForm = () => {
             )}
           </div>
           <div className='w-full flex-col'>
-            <Label htmlFor='password'>Password</Label>
-            <PasswordInput id='password' name='password' />
+            <PasswordInput
+              id='password'
+              name='password'
+              hasLabel
+              label='Password'
+              className='w-full'
+            />
             {state?.errors?.password && (
               <p className='text-sm text-red-500'>
                 {state.errors.password}
@@ -50,7 +54,16 @@ const LoginForm = () => {
           </div>
         </div>
         <div className='w-full'>
-          <LoginButton />
+          <Button
+            type='submit'
+            theme='fill-primary'
+            className='w-full'
+            isLoading={loading}
+            loadingText='Submitting...'
+            shape='rounded'
+          >
+            Sign In
+          </Button>
         </div>
       </div>
     </form>
@@ -58,17 +71,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-export function LoginButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <button
-      aria-disabled={pending}
-      type='submit'
-      className='bg-black text-white p-2 rounded-lg mt-4 w-full'
-    >
-      {pending ? 'Submitting...' : 'Sign In'}
-    </button>
-  );
-}

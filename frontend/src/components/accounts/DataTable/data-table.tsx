@@ -108,7 +108,7 @@ const PaginationController = ({ table }: { table: any }) => {
   return (
     <div className='flex items-center justify-end space-x-2 py-3'>
       <Button
-        variant='outline'
+        theme='outline-success'
         size='sm'
         onClick={() => table.previousPage()}
         disabled={!table.getCanPreviousPage()}
@@ -116,7 +116,7 @@ const PaginationController = ({ table }: { table: any }) => {
         Previous
       </Button>
       <Button
-        variant='outline'
+        theme='outline-success'
         size='sm'
         onClick={() => table.nextPage()}
         disabled={!table.getCanNextPage()}

@@ -32,7 +32,7 @@ const PasswordInput = React.forwardRef<
     },
     ref,
   ) => {
-    const { name, ...inputPropse } = props;
+    const { name, ...inputProps } = props;
 
     const handleError = () => {
       if (
@@ -49,15 +49,21 @@ const PasswordInput = React.forwardRef<
     return (
       <PasswordInputPrimitive.Root>
         <div className='flex flex-col gap-y-1'>
-          {hasLabel && <Label htmlFor={props.name}>{label}</Label>}
-          <div className='relative flex items-center'>
+          {hasLabel && (
+            <Label htmlFor={`password_${name}`}>{label}</Label>
+          )}
+          <div className='relative flex items-center' id={name}>
             <PasswordInputPrimitive.Input
               ref={ref}
               className={cn(passwordInputVariants(), className)}
-              {...inputPropse}
+              {...inputProps}
               name={name}
+              id={`password_${name}`}
             />
-            <PasswordInputPrimitive.Toggle className='absolute right-0 flex items-center justify-center h-full p-2'>
+            <PasswordInputPrimitive.Toggle
+              id={`toggle_${name}`}
+              className='absolute right-0 flex items-center justify-center h-full p-2'
+            >
               <PasswordInputPrimitive.Icon
                 visible={<EyeOpenIcon height={16} width={16} />}
                 hidden={<EyeClosedIcon height={16} width={16} />}

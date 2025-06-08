@@ -1,22 +1,45 @@
-import * as yup from 'yup';
+import { z } from 'zod';
 
-export const schema = yup
+export const createAccountschema = z
   .object({
-    username: yup.string().required('Username is required'),
-    first_name: yup.string().required('First name is required'),
-    middle_name: yup.string(),
-    last_name: yup.string().required('Last name is required'),
-    email: yup.string().email().required('Email is required'),
-    status: yup
-      .mixed()
-      .oneOf(['active', 'inactive', 'hold'] as const)
-      .defined()
-      .required('Status is required'),
-    mobile: yup.string().required('Mobile is required'),
-    password: yup.string().required('Password is required'),
-    confirm_password: yup
+    username: z.string().nonempty('Username is required'),
+    first_name: z.string().nonempty('First name is required'),
+    middle_name: z.string().optional(),
+    last_name: z.string().nonempty('Last name is required'),
+    email: z
       .string()
-      .required('Confirm password is required')
-      .oneOf([yup.ref('password')], 'Passwords must match'),
+      .email('Email is required')
+      .nonempty('Email is required'),
+    status: z.enum(['active', 'inactive', 'hold'], {
+      required_error: 'Status is required',
+    }),
+    mobile: z.string().nonempty('Mobile is required'),
+    new_password: z
+      .string()
+      .nonempty('New Password is required')
+      .min(6, 'Password must be at least 6 characters long'),
+    confirm_password: z
+      .string()
+      .nonempty('Confirm password is required'),
   })
-  .required();
+  .refine(data => data.new_password === data.confirm_password, {
+    message: 'Passwords must match',
+    path: ['confirm_password'],
+  });
+
+export const updateAccountSchema = z.object({
+  username: z.string().nonempty('Username is required'),
+  first_name: z.string().nonempty('First name is required'),
+  middle_name: z.string().optional(),
+  last_name: z.string().nonempty('Last name is required'),
+  email: z
+    .string()
+    .email('Email is required')
+    .nonempty('Email is required'),
+  status: z.enum(['active', 'inactive', 'hold'], {
+    required_error: 'Status is required',
+  }),
+  mobile: z.string().nonempty('Mobile is required'),
+  new_password: z.string().optional(),
+  confirm_password: z.string().optional(),
+});
