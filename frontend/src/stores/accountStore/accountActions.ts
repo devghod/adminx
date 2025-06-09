@@ -74,11 +74,13 @@ export const createAccountActions: StateCreator<
 
       if (result.ok) {
         const { data } = await result.json();
-        set({
-          users: [...get().users, data],
+        set(state => ({
+          users: state.users.map(user =>
+            user._id === data._id ? data : user,
+          ),
           isLoading: false,
           message: '',
-        });
+        }));
         return true;
       } else {
         const data = await result.json();

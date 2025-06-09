@@ -8,7 +8,13 @@ import { PasswordInput } from '@/components/ui/password';
 import { useAccountStore } from '@/stores/accountStore';
 import { Select } from '@/components/ui/select';
 
-const CreateEditAccountForm = ({ data = {} }: any) => {
+const CreateEditAccountForm = ({
+  data,
+  onClose,
+}: {
+  data: any;
+  onClose: any;
+}) => {
   const { createUser, updateUser, isLoading } = useAccountStore();
   const [isEdit, setIsEdit] = useState(false);
 
@@ -52,6 +58,7 @@ const CreateEditAccountForm = ({ data = {} }: any) => {
           console.debug(res);
           if (res) {
             console.debug(res);
+            onClose();
           } else {
             // pop up
           }
@@ -65,6 +72,7 @@ const CreateEditAccountForm = ({ data = {} }: any) => {
           console.debug(res);
           if (res) {
             console.debug(res);
+            onClose();
           } else {
             // pop up
           }

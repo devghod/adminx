@@ -220,7 +220,7 @@ const CreateEditAccountModal = ({
     </DialogMenuTitle>
     <DialogMenuClose closeIcon />
     <DialogMenuDescription asChild>
-      <CreateAccountForm data={data} />
+      <CreateAccountForm data={data} onClose={onOpenChange} />
     </DialogMenuDescription>
   </DialogMenu>
 );

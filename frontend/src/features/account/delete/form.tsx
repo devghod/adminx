@@ -3,7 +3,13 @@ import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-const DeleteAccount = ({ data = {}, onClose }: any) => {
+const DeleteAccount = ({
+  data,
+  onClose,
+}: {
+  data: any;
+  onClose: any;
+}) => {
   const { deleteUser, isLoading } = useAccountStore();
 
   const { register, handleSubmit } = useForm({
@@ -18,6 +24,7 @@ const DeleteAccount = ({ data = {}, onClose }: any) => {
         console.debug(res);
         if (res) {
           console.debug(res);
+          onClose();
         } else {
           // pop up
         }
