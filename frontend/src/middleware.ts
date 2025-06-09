@@ -24,23 +24,31 @@ export default async function middleware(request: NextRequest) {
   const isPublicRoute = publicRoutes.includes(path);
 
   const cookie = request.cookies.get('session')?.value;
-  const session = await decrypt(cookie);
 
-  response.headers.set('x-middleware-status', 'ran');
+  try {
+    const session = await decrypt(cookie);
 
-  if (isProtectedRoute && !session?.userId) {
+    response.headers.set('x-middleware-status', 'ran');
+
+    if (isProtectedRoute && !session?.userId) {
+      return NextResponse.redirect(
+        new URL('/auth/login', request.nextUrl),
+      );
+    }
+
+    if (
+      isPublicRoute &&
+      session?.userId &&
+      !request.nextUrl.pathname.startsWith('/dashboard')
+    ) {
+      return NextResponse.redirect(
+        new URL('/dashboard', request.nextUrl),
+      );
+    }
+  } catch (error) {
+    console.debug(error);
     return NextResponse.redirect(
       new URL('/auth/login', request.nextUrl),
-    );
-  }
-
-  if (
-    isPublicRoute &&
-    session?.userId &&
-    !request.nextUrl.pathname.startsWith('/dashboard')
-  ) {
-    return NextResponse.redirect(
-      new URL('/dashboard', request.nextUrl),
     );
   }
 
