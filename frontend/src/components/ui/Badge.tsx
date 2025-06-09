@@ -36,6 +36,12 @@ const badgeVariants = cva('font-semibold px-1', {
   },
 });
 
+/**
+ * @param {string} className
+ * @param {VariantProps<typeof badgeVariants>} variant
+ * @param {VariantProps<typeof badgeVariants>} size ['default' | 'xs' | 'sm' | 'md' | 'lg']
+ * @param {VariantProps<typeof badgeVariants>} colorTheme ['default' | 'primary' | 'success' | 'danger' | 'warning' | 'info']
+ */
 const Badge = React.forwardRef<
   React.ElementRef<'span'>,
   React.ComponentPropsWithoutRef<'span'> &

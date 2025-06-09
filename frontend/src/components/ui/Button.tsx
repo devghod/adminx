@@ -82,6 +82,11 @@ const buttonVariants = cva(
   },
 );
 
+/**
+ * @param {string} className
+ * @param {VariantProps<typeof buttonVariants>} variant
+ * @param {VariantProps<typeof buttonVariants>} size ['default' | 'xs' | 'sm' | 'md' | 'lg']
+ */
 const Button = React.forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement> &

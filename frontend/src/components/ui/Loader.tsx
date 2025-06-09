@@ -6,4 +6,12 @@ const Loader = ({ page }: { page: string }) => {
   );
 };
 
-export default Loader;
+const LoaderTable = () => {
+  return (
+    <div className='absolute w-screen h-screen animate-pulse text-shadow bg-white dark:bg-black rounded-lg'>
+      Table Loading
+    </div>
+  );
+};
+
+export { Loader, LoaderTable };

@@ -16,6 +16,13 @@ const dropdownMenuContentVariants = cva(
   'min-w-[220px] rounded-md bg-gray-50 dark:bg-gray-950 py-2 px-2 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade',
 );
 
+/**
+ * @param {VariantProps<typeof dropdownMenuContentVariants>}
+ * @param {string} className
+ * @param {React.ReactNode} children
+ * @param {React.Ref<HTMLDivElement>} forwardedRef
+ * @param {React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>}
+ */
 const DropdownMenuContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentPropsWithoutRef<
@@ -47,6 +54,16 @@ const dropdownMenuItemVariants = cva(
   'group relative font-semibold flex h-[25px] select-none items-center justify-between rounded hover:bg-sky-200 dark:hover:bg-sky-500 p-4 text-[13px] leading-none outline-none',
 );
 
+/**
+ * @param {VariantProps<typeof dropdownMenuItemVariants>}
+ * @param {string} className
+ * @param {React.ReactNode} children
+ * @param {React.Ref<HTMLDivElement>} forwardedRef
+ * @param {React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item>}
+ * @param {React.MouseEventHandler<HTMLDivElement>} onClick
+ * @param {React.MouseEventHandler<HTMLDivElement>} onMouseEnter
+ * @param {React.MouseEventHandler<HTMLDivElement>} onMouseLeave
+ */
 const DropdownMenuItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Root> &
@@ -78,6 +95,13 @@ type CheckboxItemProps = React.ComponentPropsWithoutRef<
   checked?: boolean | 'indeterminate';
 };
 
+/**
+ * @param {React.ReactNode} children
+ * @param {React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>}
+ * @param {string} className
+ * @param {React.Ref<HTMLDivElement>} forwardedRef
+ * @param {string} checked
+ */
 const DropdownMenuCheckboxItem = React.forwardRef<
   HTMLInputElement,
   CheckboxItemProps
@@ -99,6 +123,12 @@ DropdownMenuCheckboxItem.displayName = 'DropdownMenuCheckboxItem';
 
 const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
 
+/**
+ * @param {React.ReactNode} children
+ * @param {React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>}
+ * @param {string} className
+ * @param {React.Ref<HTMLDivElement>} forwardedRef
+ */
 const DropdownMenuRadioItem = React.forwardRef<
   HTMLInputElement,
   { value: string; children: React.ReactNode }
@@ -115,6 +145,11 @@ const DropdownMenuRadioItem = React.forwardRef<
 
 DropdownMenuRadioItem.displayName = 'DropdownMenuRadioItem';
 
+/**
+ * @param {string} className
+ * @param {React.Ref<HTMLDivElement>} forwardedRef
+ * @param {React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>}
+ */
 const DropdownMenuSeparator = React.forwardRef<
   HTMLDivElement,
   React.ComponentPropsWithoutRef<

@@ -1,5 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { TUsers as TAccounts } from '@/stores/accountStore/type';
+import { useAccountStore } from '@/stores/accountStore';
 import { columns, columnHelper } from './constants';
 import {
   useReactTable,
@@ -10,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import {
   AddIcon,
   EditIcon,
+  LoadingIcon,
   ReloadIcon,
   TrashIcon,
   ViewIcon,
@@ -24,17 +26,20 @@ import {
 import CreateAccountForm from '@/features/account/createEdit/form';
 import DeleteAccount from '@/features/account/delete/form';
 
-const Datatable = ({
-  accounts = [],
-  fetchUsers,
-}: {
-  accounts: TAccounts;
-  fetchUsers: () => void;
-}) => {
+const Datatable = () => {
+  const {
+    users: accounts,
+    getUsers: fetchUsers,
+    isLoading,
+  } = useAccountStore();
   const [openDetail, setOpenDetail] = useState(false);
   const [openCreateEdit, setOpenCreateEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [accountDetails, setAccountDetails] = useState({});
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   const tableData: TAccounts = useMemo(() => {
     if (accounts.length === 0) return [];
@@ -114,6 +119,7 @@ const Datatable = ({
           shape='rounded'
           size='sm'
           onClick={fetchUsers}
+          isLoading={isLoading}
         >
           <ReloadIcon />
         </Button>
@@ -123,44 +129,58 @@ const Datatable = ({
           shape='rounded'
           size='sm'
           onClick={() => handleCreateEdit()}
+          disabled={isLoading}
         >
           <AddIcon />
           Create Account
         </Button>
       </div>
 
-      <table className='table-auto w-full'>
-        <thead className=''>
-          {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <th key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map(cell => (
-                <td key={cell.id}>
-                  {flexRender(
-                    cell.column.columnDef.cell,
-                    cell.getContext(),
-                  )}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <section className='max-w-[1200px] mx-auto bg-white dark:bg-black rounded-xl shadow-md p-6 my-5 relative'>
+        {isLoading && (
+          <div className='absolute inset-0 bg-white/90 dark:bg-black/90 rounded-xl pointer-events-none'>
+            <div className='flex flex-col items-center justify-center h-full'>
+              <LoadingIcon />
+              <span className='mt-2 text-gray-600 font-medium text-lg select-none'>
+                Loading...
+              </span>
+            </div>
+          </div>
+        )}
+
+        <table className='w-full table-auto border-collapse'>
+          <thead className=''>
+            {table.getHeaderGroups().map(headerGroup => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map(header => (
+                  <th key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map(row => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map(cell => (
+                  <td key={cell.id}>
+                    {flexRender(
+                      cell.column.columnDef.cell,
+                      cell.getContext(),
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
 
       <CreateEditAccountModal
         open={openCreateEdit}

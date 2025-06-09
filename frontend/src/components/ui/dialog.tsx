@@ -11,12 +11,12 @@ const dialogMenuContentVariants = cva(
 );
 
 /**
- * DialogMenu arguments
- * {
- *   open: display
- *   onOpenChange: function
- *   modal: if modal or dialog view
- * }
+ * @param {VariantProps<typeof dialogMenuContentVariants>}
+ * @param {string} className
+ * @param {React.ReactNode} children
+ * @param {boolean} modal
+ * @param {boolean} open
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} onOpenChange
  */
 const DialogMenu = React.forwardRef<
   HTMLDivElement,
@@ -67,6 +67,12 @@ const DialogMenuTrigger = DialogPrimitive.Trigger;
 
 const dialogMenuTitleVariants = cva('text-lg font-bold');
 
+/**
+ * @param {React.ReactNode} children
+ * @param {React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>}
+ * @param {string} className
+ * @param {React.Ref<HTMLDivElement>} forwardedRef
+ */
 const DialogMenuTitle = React.forwardRef<
   HTMLDivElement,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
@@ -86,6 +92,12 @@ const dialogMenuDescriptionVariants = cva(
   'my-2 text-sm text-gray-600',
 );
 
+/**
+ * @param {React.ReactNode} children
+ * @param {React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>}
+ * @param {string} className
+ * @param {React.Ref<HTMLDivElement>} forwardedRef
+ */
 const DialogMenuDescription = React.forwardRef<
   HTMLDivElement,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
@@ -101,6 +113,12 @@ const DialogMenuDescription = React.forwardRef<
 
 DialogMenuDescription.displayName = 'DialogMenuDescription';
 
+/**
+ * @param {React.ReactNode} children
+ * @param {React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>}
+ * @param {React.Ref<HTMLDivElement>} forwardedRef
+ * @param {string} className
+ */
 const DialogMenuOverlay = React.forwardRef<
   HTMLDivElement,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
@@ -128,6 +146,14 @@ const dialogMenuCloseVariants = cva(
   },
 );
 
+/**
+ * @param {React.ReactNode} children
+ * @param {React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close>}
+ * @param {string} className
+ * @param {React.Ref<HTMLDivElement>} forwardedRef
+ * @param {string} position
+ * @param {boolean} closeIcon
+ */
 const DialogMenuClose = React.forwardRef<
   HTMLButtonElement,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close> &

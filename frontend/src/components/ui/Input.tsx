@@ -2,6 +2,17 @@ import * as React from 'react';
 import { Label } from './label';
 import { cn } from '@/utils/tailwindMerge';
 
+/**
+ * @type {VariantProps<typeof inputVariants>}
+ * @param {string} className
+ * @param {boolean} hasLabel
+ * @param {string} label
+ * @param {boolean} hasError
+ * @param {any} errors
+ * @param {string} type
+ * @param {string} ref
+ * @param {any} props
+ */
 const Input = React.forwardRef<
   HTMLInputElement,
   React.InputHTMLAttributes<HTMLInputElement> & {
