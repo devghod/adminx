@@ -148,15 +148,18 @@ const Datatable = () => {
           </div>
         )}
 
-        <div className="overflow-x-auto">
-          <div className="inline-block min-w-full border rounded-lg overflow-hidden">
-            <div className="max-h-[400px] overflow-y-auto"> 
+        <div className='overflow-x-auto'>
+          <div className='inline-block min-w-full border rounded-lg overflow-hidden'>
+            <div className='max-h-[400px] overflow-y-auto'>
               <table className='min-w-full border-collapse'>
                 <thead className=''>
                   {table.getHeaderGroups().map(headerGroup => (
                     <tr key={headerGroup.id}>
                       {headerGroup.headers.map(header => (
-                        <th key={header.id} className='p-2 bg-gray-100 dark:bg-gray-800 text-md sm:text-sm font-bold sm:font-semibold '>
+                        <th
+                          key={header.id}
+                          className='p-2 bg-gray-100 dark:bg-gray-800 text-md sm:text-sm font-bold sm:font-semibold '
+                        >
                           {header.isPlaceholder
                             ? null
                             : flexRender(
@@ -170,9 +173,15 @@ const Datatable = () => {
                 </thead>
                 <tbody className='divide-y'>
                   {table.getRowModel().rows.map(row => (
-                    <tr key={row.id} className='hover:bg-gray-100 dark:hover:bg-gray-800'>
+                    <tr
+                      key={row.id}
+                      className='hover:bg-gray-100 dark:hover:bg-gray-800'
+                    >
                       {row.getVisibleCells().map(cell => (
-                        <td key={cell.id} className='p-3 text-md sm:text-sm '>
+                        <td
+                          key={cell.id}
+                          className='p-3 text-md sm:text-sm '
+                        >
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext(),
