@@ -16,68 +16,52 @@ const PasswordInput = React.forwardRef<
       className?: string;
       name?: string;
       label?: string;
-      hasLabel?: boolean;
-      hasError?: boolean;
       errors?: any;
     }
->(
-  (
-    {
-      className,
-      hasLabel = false,
-      label,
-      hasError,
-      errors,
-      ...props
-    },
-    ref,
-  ) => {
-    const { name, ...inputProps } = props;
+>(({ className, label, errors, ...props }, ref) => {
+  const { name, ...inputProps } = props;
 
-    const handleError = () => {
-      if (
-        errors &&
-        typeof errors === 'object' &&
-        Object.keys(errors).length > 0 &&
-        props.name
-      ) {
-        return errors[props.name]?.message || '';
-      }
-      return '';
-    };
+  const handleError = () => {
+    if (
+      errors &&
+      typeof errors === 'object' &&
+      Object.keys(errors).length > 0 &&
+      name
+    ) {
+      return errors[name]?.message || '';
+    }
+    return '';
+  };
 
-    return (
-      <PasswordInputPrimitive.Root>
-        <div className='flex flex-col gap-y-1'>
-          {hasLabel && (
-            <Label htmlFor={`password_${name}`}>{label}</Label>
-          )}
-          <div className='relative flex items-center' id={name}>
-            <PasswordInputPrimitive.Input
-              ref={ref}
-              className={cn(passwordInputVariants(), className)}
-              {...inputProps}
-              name={name}
-              id={`password_${name}`}
+  return (
+    <PasswordInputPrimitive.Root>
+      <div className='flex flex-col gap-y-1'>
+        {label && <Label htmlFor={`password_${name}`}>{label}</Label>}
+        <div className='relative flex items-center' id={name}>
+          <PasswordInputPrimitive.Input
+            ref={ref}
+            className={cn(passwordInputVariants(), className)}
+            {...inputProps}
+            name={name}
+            id={`password_${name}`}
+          />
+          <PasswordInputPrimitive.Toggle
+            id={`toggle_${name}`}
+            className='absolute right-0 flex items-center justify-center h-full p-2'
+          >
+            <PasswordInputPrimitive.Icon
+              visible={<EyeOpenIcon height={16} width={16} />}
+              hidden={<EyeClosedIcon height={16} width={16} />}
             />
-            <PasswordInputPrimitive.Toggle
-              id={`toggle_${name}`}
-              className='absolute right-0 flex items-center justify-center h-full p-2'
-            >
-              <PasswordInputPrimitive.Icon
-                visible={<EyeOpenIcon height={16} width={16} />}
-                hidden={<EyeClosedIcon height={16} width={16} />}
-              />
-            </PasswordInputPrimitive.Toggle>
-          </div>
-          {hasError && (
-            <p className='text-red-500 text-sm'>{handleError()}</p>
-          )}
+          </PasswordInputPrimitive.Toggle>
         </div>
-      </PasswordInputPrimitive.Root>
-    );
-  },
-);
+        {handleError() && (
+          <p className='text-red-500 text-sm'>{handleError()}</p>
+        )}
+      </div>
+    </PasswordInputPrimitive.Root>
+  );
+});
 
 PasswordInput.displayName = 'PasswordInput';
 

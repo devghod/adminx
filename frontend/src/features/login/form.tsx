@@ -11,7 +11,7 @@ const LoginForm = () => {
 
   return (
     <form action={action}>
-      <div className='sm:w-80 sm:rounded-lg px-4 py-8 justify-items-center space-y-6'>
+      <div className='sm:w-80 sm:rounded-lg px-4 py-4 justify-items-center space-y-6'>
         <div className='text-center'>
           <div className='font-bold text-2xl uppercase tracking-wide'>
             Admin
@@ -25,16 +25,15 @@ const LoginForm = () => {
           )}
           <div className='w-full flex-col'>
             <Input
-              id='email'
-              name='email'
-              placeholder='m@example.com'
+              id='username'
+              name='username'
+              placeholder='Username / Email / Mobile'
               type='text'
-              hasLabel
               label='Username / Email / Mobile'
             />
-            {state?.errors?.email && (
+            {state?.errors?.username && (
               <p className='text-sm text-red-500'>
-                {state.errors.email}
+                {state.errors.username}
               </p>
             )}
           </div>
@@ -42,7 +41,6 @@ const LoginForm = () => {
             <PasswordInput
               id='password'
               name='password'
-              hasLabel
               label='Password'
               className='w-full'
             />

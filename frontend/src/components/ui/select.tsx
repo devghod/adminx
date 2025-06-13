@@ -20,23 +20,11 @@ const Select = React.forwardRef<
       className?: string;
       label: string;
       items: itemProps[];
-      hasLabel?: boolean;
-      hasError?: boolean;
       errors?: any; // Ojbect
     }
 >(
   (
-    {
-      className,
-      onChange,
-      onBlur,
-      items,
-      hasLabel = false,
-      label,
-      errors,
-      hasError,
-      ...props
-    },
+    { className, onChange, onBlur, items, label, errors, ...props },
     ref,
   ) => {
     const handleError = () => {
@@ -53,7 +41,7 @@ const Select = React.forwardRef<
 
     return (
       <div className='flex flex-col gap-y-1'>
-        {hasLabel && <Label htmlFor={props.name}>{label}</Label>}
+        {label && <Label htmlFor={props.name}>{label}</Label>}
         <select
           name={props.name}
           ref={ref}
@@ -72,7 +60,7 @@ const Select = React.forwardRef<
             </option>
           ))}
         </select>
-        {hasError && (
+        {handleError() && (
           <p className='text-red-500 text-sm'>{handleError()}</p>
         )}
       </div>

@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { PasswordInput } from '@/components/ui/password';
 import { useAccountStore } from '@/stores/accountStore';
 import { Select } from '@/components/ui/select';
+import { toast } from '@/utils/toastHelper';
 
 const CreateEditAccountForm = ({
   data,
@@ -55,12 +56,20 @@ const CreateEditAccountForm = ({
 
       await updateUser(account)
         .then(res => {
-          console.debug(res);
           if (res) {
-            console.debug(res);
+            toast({
+              type: 'success',
+              title: 'Success',
+              description: 'Account updated successfully',
+              className: 'text-green-500',
+            });
             onClose();
           } else {
-            // pop up
+            toast({
+              type: 'error',
+              title: 'Error',
+              description: 'Account update failed',
+            });
           }
         })
         .catch(err => {
@@ -71,10 +80,18 @@ const CreateEditAccountForm = ({
         .then(res => {
           console.debug(res);
           if (res) {
-            console.debug(res);
+            toast({
+              type: 'success',
+              title: 'Success',
+              description: 'Account created successfully',
+            });
             onClose();
           } else {
-            // pop up
+            toast({
+              type: 'error',
+              title: 'Error',
+              description: 'Account creation failed',
+            });
           }
         })
         .catch(err => {
@@ -91,62 +108,48 @@ const CreateEditAccountForm = ({
             <Input
               type='text'
               placeholder='First name'
-              hasLabel
               label='First name'
               {...register('first_name')}
-              hasError
               errors={errors}
             />
             <Input
               type='text'
               placeholder='Middle name'
-              hasLabel
               label='Middle name'
               {...register('middle_name')}
-              hasError
               errors={errors}
             />
             <Input
               type='text'
               placeholder='Last name'
-              hasLabel
               label='Last name'
               {...register('last_name')}
-              hasError
               errors={errors}
             />
           </div>
           <Input
             type='text'
             placeholder='Username'
-            hasLabel
             label='Username'
             {...register('username')}
-            hasError
             errors={errors}
           />
           <Input
             type='text'
             placeholder='Email'
-            hasLabel
             label='Email'
             {...register('email')}
-            hasError
             errors={errors}
           />
           <Input
             type='tel'
             placeholder='Mobile number'
-            hasLabel
             label='Mobile number'
             {...register('mobile')}
-            hasError
             errors={errors}
           />
           <Select
             label='Status'
-            hasLabel
-            hasError
             errors={errors}
             items={[
               { value: 'active', label: 'Active' },
@@ -158,17 +161,13 @@ const CreateEditAccountForm = ({
           {!isEdit && (
             <div className='flex flex-row gap-x-4 '>
               <PasswordInput
-                hasLabel
                 label='New Password'
-                hasError
                 errors={errors}
                 className='w-full'
                 {...register('new_password')}
               />
               <PasswordInput
-                hasLabel
                 label='Confirm password'
-                hasError
                 errors={errors}
                 className='w-full'
                 {...register('confirm_password')}

@@ -2,6 +2,7 @@ import { useAccountStore } from '@/stores/accountStore';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { toast } from '@/utils/toastHelper';
 
 const DeleteAccount = ({
   data,
@@ -21,12 +22,19 @@ const DeleteAccount = ({
   const onSubmit = async (account: any) => {
     await deleteUser(account.id)
       .then(res => {
-        console.debug(res);
         if (res) {
-          console.debug(res);
+          toast({
+            type: 'success',
+            title: 'Success',
+            description: 'Account deleted successfully',
+          });
           onClose();
         } else {
-          // pop up
+          toast({
+            type: 'error',
+            title: 'Error',
+            description: 'Account delete failed',
+          });
         }
       })
       .catch(err => {

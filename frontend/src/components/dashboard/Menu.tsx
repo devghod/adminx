@@ -88,6 +88,7 @@ const ProfileDetails = ({
     return (
       <Image
         src={fallbackImg}
+        style={{ width: 'auto', height: 'auto' }}
         width={32}
         height={32}
         sizes='32x32'
@@ -103,6 +104,7 @@ const ProfileDetails = ({
         height={32}
         sizes='32x32'
         alt='Profile Image'
+        style={{ width: 'auto', height: 'auto' }}
         onError={handleImgFallback}
         blurDataURL={fallbackImg}
         loading='lazy'
