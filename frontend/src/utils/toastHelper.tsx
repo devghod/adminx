@@ -1,25 +1,4 @@
 import { toast as SonnerToast } from 'sonner';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/utils/tailwindMerge';
-
-const toastVariants = cva(
-  'bg-white dark:bg-gray-800 w-80 rounded-md shadow',
-  {
-    variants: {
-      type: {
-        default: 'text-gray-500',
-        error: 'text-red-500',
-        success:
-          'text-green-500 dark:text-green-200 bg-green-100 dark:bg-green-900 border border-green-200 dark:border-green-800',
-        warning: 'text-yellow-500',
-        info: 'text-blue-500',
-      },
-    },
-    defaultVariants: {
-      type: 'default',
-    },
-  },
-);
 
 export const toast = ({
   type = 'default',
@@ -37,7 +16,14 @@ export const toast = ({
   promiseProps = null,
   button = null,
 }: {
-  type: VariantProps<typeof toastVariants>['type'];
+  type:
+    | 'default'
+    | 'success'
+    | 'error'
+    | 'loading'
+    | 'promise'
+    | 'info'
+    | 'warning';
   title?: string;
   message?: string;
   description?: string;
@@ -54,7 +40,7 @@ export const toast = ({
 }) => {
   const toastConfigs: any = {};
 
-  toastConfigs.className = cn(toastVariants({ type }), className);
+  toastConfigs.className = className;
 
   if (duration) toastConfigs.duration = duration;
   if (icon) toastConfigs.icon = icon;
@@ -78,7 +64,5 @@ export const toast = ({
     loading: () => SonnerToast.loading({ ...toastConfigs }),
   };
 
-  const idx = type || 'default';
-
-  return toastFns[idx]();
+  return toastFns[type]();
 };

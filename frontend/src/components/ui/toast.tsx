@@ -6,6 +6,7 @@ const ToasterProvider = () => {
   const { resolvedTheme } = useTheme();
   return (
     <Toaster
+      richColors
       position='top-right'
       theme={resolvedTheme as ToasterProps['theme']}
     />
