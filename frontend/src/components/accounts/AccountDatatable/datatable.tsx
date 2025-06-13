@@ -136,7 +136,7 @@ const Datatable = () => {
         </Button>
       </div>
 
-      <section className='max-w-[1200px] mx-auto bg-white dark:bg-black rounded-xl shadow-md p-6 my-5 relative'>
+      <section className='max-w-[1200px] mx-auto bg-white dark:bg-black rounded-xl shadow-md p-3 my-5 relative'>
         {isLoading && (
           <div className='absolute inset-0 bg-white/90 dark:bg-black/90 rounded-xl pointer-events-none'>
             <div className='flex flex-col items-center justify-center h-full'>
@@ -148,38 +148,44 @@ const Datatable = () => {
           </div>
         )}
 
-        <table className='w-full table-auto border-collapse'>
-          <thead className=''>
-            {table.getHeaderGroups().map(headerGroup => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map(header => (
-                  <th key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map(row => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map(cell => (
-                  <td key={cell.id}>
-                    {flexRender(
-                      cell.column.columnDef.cell,
-                      cell.getContext(),
-                    )}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="overflow-x-auto">
+          <div className="inline-block min-w-full border rounded-lg overflow-hidden">
+            <div className="max-h-[400px] overflow-y-auto"> 
+              <table className='min-w-full border-collapse'>
+                <thead className=''>
+                  {table.getHeaderGroups().map(headerGroup => (
+                    <tr key={headerGroup.id}>
+                      {headerGroup.headers.map(header => (
+                        <th key={header.id} className='p-2 bg-gray-100 dark:bg-gray-800 text-md sm:text-sm font-bold sm:font-semibold '>
+                          {header.isPlaceholder
+                            ? null
+                            : flexRender(
+                                header.column.columnDef.header,
+                                header.getContext(),
+                              )}
+                        </th>
+                      ))}
+                    </tr>
+                  ))}
+                </thead>
+                <tbody className='divide-y'>
+                  {table.getRowModel().rows.map(row => (
+                    <tr key={row.id} className='hover:bg-gray-100 dark:hover:bg-gray-800'>
+                      {row.getVisibleCells().map(cell => (
+                        <td key={cell.id} className='p-3 text-md sm:text-sm '>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </section>
 
       <CreateEditAccountModal
