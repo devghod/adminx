@@ -21,17 +21,18 @@ export const SignupFormSchema = z.object({
 });
 
 export const LoginFormSchema = z.object({
-  email: z.string().email({ message: 'Please enter a valid email.' }),
+  username: z
+    .string()
+    .min(1, { message: 'Username field must not be empty.' }),
   password: z
     .string()
     .min(1, { message: 'Password field must not be empty.' }),
 });
 
-export type FormState =
+export type LoginFormState =
   | {
       errors?: {
-        name?: string[];
-        email?: string[];
+        username?: string[];
         password?: string[];
       };
       message?: string;

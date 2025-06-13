@@ -1,7 +1,7 @@
 'use server';
 
 import {
-  FormState,
+  LoginFormState,
   LoginFormSchema,
   // SignupFormSchema,
 } from './definitions';
@@ -67,11 +67,11 @@ import { createSession, deleteSession } from './stateless-session';
 // }
 
 export async function login(
-  state: FormState,
+  state: LoginFormState,
   formData: FormData,
-): Promise<FormState> {
+): Promise<LoginFormState> {
   const validatedFields = LoginFormSchema.safeParse({
-    email: formData.get('email'),
+    username: formData.get('username'),
     password: formData.get('password'),
   });
 
