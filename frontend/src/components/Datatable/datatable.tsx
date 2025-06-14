@@ -23,7 +23,6 @@ const Datatable = ({
   columnData: any;
   isLoading: boolean;
 }) => {
-
   const column = useMemo(() => columnData, [columnData]);
   const data = useMemo(() => rowData, [rowData]);
 

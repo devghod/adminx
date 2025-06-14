@@ -1,5 +1,3 @@
 import Datatable from './datatable';
 
-export {
-  Datatable,
-};
+export { Datatable };
