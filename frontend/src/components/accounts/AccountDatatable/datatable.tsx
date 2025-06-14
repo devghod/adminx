@@ -2,16 +2,10 @@ import { useState, useMemo, useEffect } from 'react';
 import { TUsers as TAccounts } from '@/stores/accountStore/type';
 import { useAccountStore } from '@/stores/accountStore';
 import { columns, columnHelper } from './constants';
-import {
-  useReactTable,
-  getCoreRowModel,
-  flexRender,
-} from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
 import {
   AddIcon,
   EditIcon,
-  LoadingIcon,
   ReloadIcon,
   TrashIcon,
   ViewIcon,
@@ -25,8 +19,9 @@ import {
 } from '@/components/ui/dialog';
 import CreateAccountForm from '@/features/account/createEdit/form';
 import DeleteAccount from '@/features/account/delete/form';
+import { Datatable } from '@/components/Datatable';
 
-const Datatable = () => {
+const AccountDatatable = () => {
   const {
     users: accounts,
     getUsers: fetchUsers,
@@ -90,12 +85,6 @@ const Datatable = () => {
     [],
   );
 
-  const table = useReactTable({
-    columns: tableColumns,
-    data: tableData as any,
-    getCoreRowModel: getCoreRowModel(),
-  });
-
   const handleDetails = (data = {}): any => {
     setOpenDetail(true);
     setAccountDetails(data);
@@ -136,66 +125,11 @@ const Datatable = () => {
         </Button>
       </div>
 
-      <section className='max-w-[1200px] mx-auto bg-white dark:bg-black rounded-xl shadow-md p-3 my-5 relative'>
-        {isLoading && (
-          <div className='absolute inset-0 bg-white/90 dark:bg-black/90 rounded-xl pointer-events-none'>
-            <div className='flex flex-col items-center justify-center h-full'>
-              <LoadingIcon />
-              <span className='mt-2 text-gray-600 font-medium text-lg select-none'>
-                Loading...
-              </span>
-            </div>
-          </div>
-        )}
-
-        <div className='overflow-x-auto'>
-          <div className='inline-block min-w-full border rounded-lg overflow-hidden'>
-            <div className='max-h-[400px] overflow-y-auto'>
-              <table className='min-w-full border-collapse'>
-                <thead className=''>
-                  {table.getHeaderGroups().map(headerGroup => (
-                    <tr key={headerGroup.id}>
-                      {headerGroup.headers.map(header => (
-                        <th
-                          key={header.id}
-                          className='p-2 bg-gray-100 dark:bg-gray-800 text-md sm:text-sm font-bold sm:font-semibold '
-                        >
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext(),
-                              )}
-                        </th>
-                      ))}
-                    </tr>
-                  ))}
-                </thead>
-                <tbody className='divide-y'>
-                  {table.getRowModel().rows.map(row => (
-                    <tr
-                      key={row.id}
-                      className='hover:bg-gray-100 dark:hover:bg-gray-800'
-                    >
-                      {row.getVisibleCells().map(cell => (
-                        <td
-                          key={cell.id}
-                          className='p-3 text-md sm:text-sm '
-                        >
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Datatable
+        rowData={tableData as TAccounts}
+        columnData={tableColumns}
+        isLoading={isLoading}
+      />
 
       <CreateEditAccountModal
         open={openCreateEdit}
@@ -218,7 +152,7 @@ const Datatable = () => {
   );
 };
 
-export default Datatable;
+export default AccountDatatable;
 
 const CreateEditAccountModal = ({
   open = false,

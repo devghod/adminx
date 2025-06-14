@@ -6,24 +6,27 @@ import { cn } from '@/lib/utils';
 
 function Table({
   className,
+  children,
   ...props
 }: React.ComponentProps<'table'>) {
   return (
     <div
       data-slot='table-container'
-      className='relative w-full overflow-x-auto'
     >
       <table
         data-slot='table'
         className={cn('w-full caption-bottom text-sm', className)}
         {...props}
-      />
+      >
+        {children}
+      </table>
     </div>
   );
 }
 
 function TableHeader({
   className,
+  children,
   ...props
 }: React.ComponentProps<'thead'>) {
   return (
@@ -31,12 +34,15 @@ function TableHeader({
       data-slot='table-header'
       className={cn('[&_tr]:border-b', className)}
       {...props}
-    />
+    >
+      {children}
+    </thead>
   );
 }
 
 function TableBody({
   className,
+  children,
   ...props
 }: React.ComponentProps<'tbody'>) {
   return (
@@ -44,12 +50,15 @@ function TableBody({
       data-slot='table-body'
       className={cn('[&_tr:last-child]:border-0', className)}
       {...props}
-    />
+    >
+      {children}
+    </tbody>
   );
 }
 
 function TableFooter({
   className,
+  children,
   ...props
 }: React.ComponentProps<'tfoot'>) {
   return (
@@ -60,12 +69,15 @@ function TableFooter({
         className,
       )}
       {...props}
-    />
+    >
+      {children}
+    </tfoot>
   );
 }
 
 function TableRow({
   className,
+  children,
   ...props
 }: React.ComponentProps<'tr'>) {
   return (
@@ -76,12 +88,15 @@ function TableRow({
         className,
       )}
       {...props}
-    />
+    >
+      {children}
+    </tr>
   );
 }
 
 function TableHead({
   className,
+  children,
   ...props
 }: React.ComponentProps<'th'>) {
   return (
@@ -92,12 +107,15 @@ function TableHead({
         className,
       )}
       {...props}
-    />
+    >
+      {children}
+    </th>
   );
 }
 
 function TableCell({
   className,
+  children,
   ...props
 }: React.ComponentProps<'td'>) {
   return (
@@ -108,12 +126,15 @@ function TableCell({
         className,
       )}
       {...props}
-    />
+    >
+      {children}
+    </td>
   );
 }
 
 function TableCaption({
   className,
+  children,
   ...props
 }: React.ComponentProps<'caption'>) {
   return (
@@ -121,7 +142,9 @@ function TableCaption({
       data-slot='table-caption'
       className={cn('text-muted-foreground mt-4 text-sm', className)}
       {...props}
-    />
+    > 
+      {children}
+    </caption>
   );
 }
 
