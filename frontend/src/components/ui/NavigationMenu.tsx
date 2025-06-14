@@ -21,9 +21,7 @@ const NavMenuList = React.forwardRef<
 
 NavMenuList.displayName = 'NavMenuList';
 
-const navMenuItemVariants = cva(
-  'flex rounded text-slate-800 dark:text-slate-200 font-medium hover:bg-sky-200 dark:hover:bg-sky-500 mx-1',
-);
+const navMenuItemVariants = cva('flex rounded mx-1');
 
 const NavMenuItem = React.forwardRef<
   React.ElementRef<typeof NavMenuPrimitive.Item>,
@@ -51,9 +49,24 @@ NavMenuItem.displayName = 'NavMenuItem';
 const NavMenuTrigger = NavMenuPrimitive.Trigger;
 const NavMenuContent = NavMenuPrimitive.Content;
 
-const navMenuLinkVariants = cva(
-  'flex w-full rounded text-slate-800 dark:text-slate-200 py-1.5 px-4 font-medium hover:bg-sky-200 dark:hover:bg-sky-500 mx-1',
-);
+const navMenuLinkVariants = cva(`
+  flex 
+  w-full 
+  data-active:text-white 
+  data-active:bg-black
+  data-active:hover:text-black 
+  data-active:hover:bg-sky-200 
+  data-active:dark:bg-gray-700 
+  data-active:dark:hover:text-slate-900 
+  data-active:dark:hover:bg-sky-500
+  rounded 
+  text-slate-800 
+  dark:text-slate-200 
+  py-1.5 
+  px-4 
+  font-medium 
+  hover:bg-sky-200 
+  dark:hover:bg-sky-500 mx-1`);
 
 const NavMenuLink = React.forwardRef<
   React.ElementRef<typeof NavMenuPrimitive.Link>,
@@ -65,24 +78,44 @@ const NavMenuLink = React.forwardRef<
       className?: string;
       title: string;
       href: string;
+      active?: boolean;
       icon?: React.ReactNode;
     }
->(({ className, title, icon, ...props }, forwardedRef) => {
+>(({ className, title, icon, active, ...props }, forwardedRef) => (
+  <NavMenuPrimitive.Link asChild active={active}>
+    <Link
+      {...props}
+      ref={forwardedRef}
+      className={cn(navMenuLinkVariants(), className)}
+    >
+      <div className='mr-4 text-xs h-[2px] font-bold'>{icon}</div>
+      <div className=''>{title}</div>
+    </Link>
+  </NavMenuPrimitive.Link>
+));
+
+NavMenuLink.displayName = 'NavMenuLink';
+
+const navMenuIndicatorVariants = cva('bg-sky-500');
+
+const NavMenuIndicator = React.forwardRef<
+  React.ElementRef<typeof NavMenuPrimitive.Indicator>,
+  React.ComponentPropsWithoutRef<typeof NavMenuPrimitive.Indicator> &
+    VariantProps<typeof navMenuIndicatorVariants> & {
+      className?: string;
+    }
+>(({ className, ...props }, ref) => {
   return (
-    <NavMenuPrimitive.Link asChild>
-      <Link
-        {...props}
-        ref={forwardedRef}
-        className={cn(navMenuLinkVariants(), className)}
-      >
-        <div className='mr-4 text-xs h-[2px] font-bold'>{icon}</div>
-        <div className=''>{title}</div>
-      </Link>
-    </NavMenuPrimitive.Link>
+    <NavMenuPrimitive.Indicator
+      {...props}
+      className={cn(navMenuIndicatorVariants(), className)}
+      ref={ref}
+      forceMount
+    />
   );
 });
 
-NavMenuLink.displayName = 'NavMenuLink';
+NavMenuIndicator.displayName = 'NavMenuIndicator';
 
 export {
   NavMenuRoot,
@@ -91,4 +124,5 @@ export {
   NavMenuTrigger,
   NavMenuContent,
   NavMenuLink,
+  NavMenuIndicator,
 };

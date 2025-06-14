@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { HomeIcon, UsersIcon } from '../ui/icons';
 import {
+  NavMenuIndicator,
   NavMenuItem,
   NavMenuLink,
   NavMenuList,
@@ -32,6 +34,13 @@ const ProfileData = {
 const fallbackImg =
   'data:image/svg+xml;base64,PHN2ZyBzdHJva2U9IiNGRkZGRkYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMCIgdmlld0JveD0iMCAwIDI0IDI0IiBoZWlnaHQ9IjIwMHB4IiB3aWR0aD0iMjAwcHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB4PSIyIiB5PSIyIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjIiIHJ4PSIyIj48L3JlY3Q+PC9zdmc+Cg==';
 
+const Link = ({ href, ...props }: any) => {
+  const pathname = usePathname();
+  const isActive = href === pathname;
+
+  return <NavMenuLink href={href} {...props} active={isActive} />;
+};
+
 const MenuDashboard = () => {
   return (
     <>
@@ -43,9 +52,10 @@ const MenuDashboard = () => {
         <NavMenuList className='py-1 space-y-0.5'>
           {MenuData.map(({ title, url, icon }, index) => (
             <NavMenuItem key={index}>
-              <NavMenuLink href={url} title={title} icon={icon} />
+              <Link href={url} title={title} icon={icon} />
             </NavMenuItem>
           ))}
+          <NavMenuIndicator />
         </NavMenuList>
       </NavMenuRoot>
     </>
