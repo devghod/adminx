@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { TUsers as TAccounts } from '@/stores/accountStore/type';
 import { useAccountStore } from '@/stores/accountStore';
 import { columns, columnHelper } from './constants';
@@ -24,17 +24,16 @@ import { Datatable } from '@/components/Datatable';
 const AccountDatatable = () => {
   const {
     users: accounts,
-    getUsers: fetchUsers,
+    size,
+    page,
+    totalUsers,
+    getUsersPaginated: fetchUsersPaginated,
     isLoading,
   } = useAccountStore();
   const [openDetail, setOpenDetail] = useState(false);
   const [openCreateEdit, setOpenCreateEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [accountDetails, setAccountDetails] = useState({});
-
-  useEffect(() => {
-    fetchUsers();
-  }, [fetchUsers]);
 
   const tableData: TAccounts = useMemo(() => {
     if (accounts.length === 0) return [];
@@ -107,7 +106,7 @@ const AccountDatatable = () => {
           theme='fill-success'
           shape='rounded'
           size='sm'
-          onClick={fetchUsers}
+          onClick={() => fetchUsersPaginated(page, size)}
           isLoading={isLoading}
         >
           <ReloadIcon />
@@ -129,6 +128,10 @@ const AccountDatatable = () => {
         rowData={tableData as TAccounts}
         columnData={tableColumns}
         isLoading={isLoading}
+        size={size}
+        page={page}
+        total={totalUsers}
+        fnQuery={fetchUsersPaginated}
       />
 
       <CreateEditAccountModal

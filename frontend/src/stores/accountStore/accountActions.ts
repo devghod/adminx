@@ -14,6 +14,7 @@ export type TAccountActions = {
   }>;
   getUsers: () => Promise<void>;
   // getUsersStatistics: () => Promise<void>;
+  getUsersPaginated: (page: number, limit: number) => Promise<void>;
 };
 
 export type TAccountStore = TAccountState & TAccountActions;
@@ -168,6 +169,52 @@ export const createAccountActions: StateCreator<
       if (result.ok && success) {
         // get().getUsersStatistics();
         set({ users: data, isLoading: false });
+      } else {
+        set({ message });
+      }
+    } catch (err) {
+      console.error('Error', err);
+      set({ isLoading: false });
+    }
+  },
+
+  getUsersPaginated: async (page: number, size: number) => {
+    try {
+      set({ isLoading: true });
+
+      const body = {
+        page,
+        size,
+      };
+
+      const result = await fetch(
+        `/api/proxy-auth/user/post-users-list`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        },
+      );
+
+      const {
+        success,
+        data,
+        message,
+        total,
+        size: currentSize,
+        page: currentPage,
+      } = await result.json();
+
+      if (result.ok && success) {
+        set({
+          users: data,
+          size: currentSize,
+          page: currentPage,
+          totalUsers: total,
+          isLoading: false,
+        });
       } else {
         set({ message });
       }

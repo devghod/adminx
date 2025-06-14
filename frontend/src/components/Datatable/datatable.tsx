@@ -2,6 +2,7 @@ import {
   useReactTable,
   getCoreRowModel,
   flexRender,
+  getPaginationRowModel,
 } from '@tanstack/react-table';
 import {
   Table,
@@ -12,24 +13,55 @@ import {
   TableCell,
 } from '@/components/ui/table';
 import { LoadingIcon } from '@/components/ui/icons';
-import { useMemo } from 'react';
+import { Button } from '../ui/button';
+import { useEffect, useMemo, useState } from 'react';
 
 const Datatable = ({
   rowData,
   columnData,
+  size,
+  page,
+  total,
   isLoading = false,
+  fnQuery,
 }: {
   rowData: any;
   columnData: any;
+  size: number;
+  page: number;
+  total: number;
   isLoading: boolean;
+  fnQuery: (page: number, size: number) => void;
 }) => {
+  const [pagination, setPagination] = useState({
+    pageIndex: page - 1, //initial page index
+    pageSize: size, //default page size
+  });
   const column = useMemo(() => columnData, [columnData]);
   const data = useMemo(() => rowData, [rowData]);
+
+  useEffect(() => {
+    fnQuery(pagination.pageIndex + 1, pagination.pageSize);
+  }, [pagination, fnQuery]);
 
   const table = useReactTable({
     data,
     columns: column,
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    manualPagination: true, // turn off client-side pagination
+    rowCount: total,
+    // debugTable: true, // turn on table debug
+    state: {
+      pagination,
+    },
+    initialState: {
+      pagination: {
+        pageIndex: page - 1, //custom initial page index
+        pageSize: size, //custom default page size
+      },
+    },
   });
 
   return (
@@ -47,7 +79,7 @@ const Datatable = ({
 
       <div className='overflow-x-auto'>
         <div className='inline-block min-w-full border rounded-lg overflow-hidden'>
-          <div className='max-h-[450px] overflow-y-auto'>
+          <div className='max-h-[600px] overflow-y-auto'>
             <Table className='min-w-full border-collapse'>
               <TableHeader className=''>
                 {table.getHeaderGroups().map(headerGroup => (
@@ -92,8 +124,51 @@ const Datatable = ({
           </div>
         </div>
       </div>
+
+      <PaginationComponent table={table} />
     </section>
   );
 };
 
 export default Datatable;
+
+const PaginationComponent = ({ table }: { table: any }) => (
+  <>
+    <Button
+      onClick={() => table.firstPage()}
+      disabled={!table.getCanPreviousPage()}
+    >
+      {'<<'}
+    </Button>
+    <Button
+      onClick={() => table.previousPage()}
+      disabled={!table.getCanPreviousPage()}
+    >
+      {'<'}
+    </Button>
+    <Button
+      onClick={() => table.nextPage()}
+      disabled={!table.getCanNextPage()}
+    >
+      {'>'}
+    </Button>
+    <Button
+      onClick={() => table.lastPage()}
+      disabled={!table.getCanNextPage()}
+    >
+      {'>>'}
+    </Button>
+    <select
+      value={table.getState().pagination.pageSize}
+      onChange={e => {
+        table.setPageSize(Number(e.target.value));
+      }}
+    >
+      {[10, 20, 30, 40, 50].map(pageSize => (
+        <option key={pageSize} value={pageSize}>
+          {pageSize}
+        </option>
+      ))}
+    </select>
+  </>
+);
