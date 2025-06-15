@@ -62,10 +62,10 @@ const buttonVariants = cva(
           'text-gray-300 underline-offset-4 hover:underline',
       },
       size: {
-        xs: 'rounded-md p-1',
-        sm: 'rounded-md px-2 py-1',
+        xs: 'rounded-xs p-1',
+        sm: 'rounded-sm px-2 py-1',
         md: 'rounded-md px-3 py-2',
-        lg: 'rounded-md px-4 py-3',
+        lg: 'rounded-lg px-4 py-3',
         icon: 'p-2',
       },
       shape: {

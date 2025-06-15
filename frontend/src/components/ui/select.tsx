@@ -8,7 +8,7 @@ const selectVariants = cva(
 );
 
 type itemProps = {
-  value: string;
+  value: string | number;
   label: string;
 };
 
@@ -18,13 +18,25 @@ const Select = React.forwardRef<
     React.OptionHTMLAttributes<HTMLOptionElement> &
     VariantProps<typeof selectVariants> & {
       className?: string;
-      label: string;
+      label?: string;
+      placeholder?: string;
+      defaultValue?: string;
       items: itemProps[];
       errors?: any; // Ojbect
     }
 >(
   (
-    { className, onChange, onBlur, items, label, errors, ...props },
+    {
+      className,
+      onChange,
+      onBlur,
+      items,
+      defaultValue = '',
+      label,
+      placeholder,
+      errors,
+      ...props
+    },
     ref,
   ) => {
     const handleError = () => {
@@ -48,12 +60,14 @@ const Select = React.forwardRef<
           onChange={onChange}
           onBlur={onBlur}
           {...props}
-          defaultValue={''}
+          defaultValue={defaultValue}
           className={cn(selectVariants(), className)}
         >
-          <option value='' disabled>
-            Select an {label}
-          </option>
+          {placeholder && (
+            <option value='' disabled>
+              {placeholder}
+            </option>
+          )}
           {items.map((item: itemProps) => (
             <option key={item.value} value={item.value}>
               {item.label}

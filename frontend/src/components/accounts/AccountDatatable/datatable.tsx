@@ -28,6 +28,7 @@ const AccountDatatable = () => {
     page,
     totalUsers,
     getUsersPaginated: fetchUsersPaginated,
+    setSize,
     isLoading,
   } = useAccountStore();
   const [openDetail, setOpenDetail] = useState(false);
@@ -131,7 +132,9 @@ const AccountDatatable = () => {
         size={size}
         page={page}
         total={totalUsers}
+        searchBar
         fnQuery={fetchUsersPaginated}
+        fnSetSize={setSize}
       />
 
       <CreateEditAccountModal

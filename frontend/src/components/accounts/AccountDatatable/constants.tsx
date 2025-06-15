@@ -6,9 +6,9 @@ export const columnHelper = createColumnHelper<TAccounts>();
 export const columns = [
   columnHelper.accessor('_id', {
     id: '_id',
-    header: () => <div className='text-left'>ID</div>,
     size: 100,
     enableSorting: false,
+    header: () => <div className='text-left'>ID</div>,
     cell: (props: any) => (
       <div className='text-left'>{props.getValue()}</div>
     ),
@@ -18,9 +18,12 @@ export const columns = [
   }),
   columnHelper.accessor('username', {
     id: 'username',
-    header: () => <div className='text-left'>Username</div>,
     size: 100,
-    enableSorting: false,
+    enableGlobalFilter: true,
+    enableColumnFilter: true,
+    enableSorting: true,
+    meta: { isHidden: true },
+    header: () => <div className='text-left'>Username</div>,
     cell: (props: any) => (
       <div className='text-left'>{props.getValue()}</div>
     ),
@@ -39,6 +42,7 @@ export const columns = [
   }),
   columnHelper.accessor('middle_name', {
     id: 'middle_name',
+    enableGlobalFilter: true,
     header: () => <div className='text-left'>Middle Name</div>,
     cell: (props: any) => (
       <div className='text-left'>{props.getValue()}</div>
@@ -59,6 +63,7 @@ export const columns = [
   }),
   columnHelper.accessor('email', {
     id: 'email',
+    enableGlobalFilter: true,
     header: () => <div className='text-left'>Email</div>,
     cell: info => info.getValue(),
     footer: props => (

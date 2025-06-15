@@ -151,6 +151,7 @@ const CreateEditAccountForm = ({
           <Select
             label='Status'
             errors={errors}
+            placeholder='Select status'
             items={[
               { value: 'active', label: 'Active' },
               { value: 'inactive', label: 'Inactive' },

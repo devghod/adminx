@@ -13,7 +13,9 @@ import {
   TableCell,
 } from '@/components/ui/table';
 import { LoadingIcon } from '@/components/ui/icons';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
+import { Select } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
 import { useEffect, useMemo, useState } from 'react';
 
 const Datatable = ({
@@ -24,6 +26,8 @@ const Datatable = ({
   total,
   isLoading = false,
   fnQuery,
+  fnSetSize,
+  searchBar = false,
 }: {
   rowData: any;
   columnData: any;
@@ -31,18 +35,23 @@ const Datatable = ({
   page: number;
   total: number;
   isLoading: boolean;
+  searchBar?: boolean;
   fnQuery: (page: number, size: number) => void;
+  fnSetSize: (size: number) => void;
 }) => {
+  const [search, setSearch] = useState('');
   const [pagination, setPagination] = useState({
     pageIndex: page - 1, //initial page index
     pageSize: size, //default page size
   });
+
   const column = useMemo(() => columnData, [columnData]);
   const data = useMemo(() => rowData, [rowData]);
 
   useEffect(() => {
+    if (search) console.debug(search);
     fnQuery(pagination.pageIndex + 1, pagination.pageSize);
-  }, [pagination, fnQuery]);
+  }, [pagination, fnQuery, search]);
 
   const table = useReactTable({
     data,
@@ -64,8 +73,15 @@ const Datatable = ({
     },
   });
 
+  const globalFilterColumns = table
+    .getAllColumns()
+    .filter(col => col.getCanGlobalFilter())
+    .map(col => col.id);
+
+  console.debug(globalFilterColumns);
+
   return (
-    <section className='max-w-[1200px] mx-auto bg-white dark:bg-black rounded-xl shadow-md p-3 my-5 relative'>
+    <section className='max-w-[1200px] mx-auto bg-white dark:bg-black rounded-xl shadow-md p-3 my-3 relative'>
       {isLoading && (
         <div className='absolute inset-0 bg-white/90 dark:bg-black/90 rounded-xl pointer-events-none'>
           <div className='flex flex-col items-center justify-center h-full'>
@@ -76,6 +92,20 @@ const Datatable = ({
           </div>
         </div>
       )}
+
+      <div className=''>
+        {searchBar && (
+          <div className='flex space-x-4 justify-start bg-transparent'>
+            <Input
+              type='search'
+              placeholder='Search here'
+              onChange={e => setSearch(e.target.value)}
+              value={search}
+            />
+            {search}
+          </div>
+        )}
+      </div>
 
       <div className='overflow-x-auto'>
         <div className='inline-block min-w-full border rounded-lg overflow-hidden'>
@@ -125,50 +155,83 @@ const Datatable = ({
         </div>
       </div>
 
-      <PaginationComponent table={table} />
+      <PaginationComponent
+        table={table}
+        fnSetSize={() => fnSetSize}
+      />
     </section>
   );
 };
 
 export default Datatable;
 
-const PaginationComponent = ({ table }: { table: any }) => (
-  <>
+const PaginationComponent = ({
+  table,
+  fnSetSize,
+}: {
+  table: any;
+  fnSetSize: any;
+}) => (
+  <div className='flex gap-x-1'>
     <Button
       onClick={() => table.firstPage()}
       disabled={!table.getCanPreviousPage()}
+      shape='rounded'
+      theme='outline-neutral'
+      size='sm'
+      className='text-xs'
     >
       {'<<'}
     </Button>
     <Button
       onClick={() => table.previousPage()}
       disabled={!table.getCanPreviousPage()}
+      shape='rounded'
+      theme='outline-neutral'
+      size='sm'
+      className='text-xs'
     >
       {'<'}
     </Button>
     <Button
       onClick={() => table.nextPage()}
       disabled={!table.getCanNextPage()}
+      shape='rounded'
+      theme='outline-neutral'
+      size='sm'
+      className='text-xs'
     >
       {'>'}
     </Button>
     <Button
       onClick={() => table.lastPage()}
       disabled={!table.getCanNextPage()}
+      shape='rounded'
+      theme='outline-neutral'
+      size='sm'
+      className='text-xs'
     >
       {'>>'}
     </Button>
-    <select
-      value={table.getState().pagination.pageSize}
-      onChange={e => {
+
+    <Select
+      className='h-8 p-0 w-14'
+      items={[
+        { value: 5, label: '5' },
+        { value: 10, label: '10' },
+        { value: 20, label: '20' },
+        { value: 50, label: '50' },
+        { value: 100, label: '100' },
+        { value: 250, label: '250' },
+        { value: 500, label: '500' },
+        { value: 1000, label: '1000' },
+      ]}
+      defaultValue={table.getState().pagination.pageSize}
+      placeholder='Limit'
+      onChange={(e: any) => {
         table.setPageSize(Number(e.target.value));
+        fnSetSize(Number(e.target.value));
       }}
-    >
-      {[10, 20, 30, 40, 50].map(pageSize => (
-        <option key={pageSize} value={pageSize}>
-          {pageSize}
-        </option>
-      ))}
-    </select>
-  </>
+    />
+  </div>
 );

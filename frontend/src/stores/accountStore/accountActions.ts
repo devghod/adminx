@@ -15,6 +15,7 @@ export type TAccountActions = {
   getUsers: () => Promise<void>;
   // getUsersStatistics: () => Promise<void>;
   getUsersPaginated: (page: number, limit: number) => Promise<void>;
+  setSize: (size: number) => void;
 };
 
 export type TAccountStore = TAccountState & TAccountActions;
@@ -25,6 +26,9 @@ export const createAccountActions: StateCreator<
   [],
   TAccountActions
 > = (set, get) => ({
+  setSize: (size: number) => {
+    set({ size });
+  },
   createUser: async (body: TUser) => {
     try {
       set({ isLoading: true });
