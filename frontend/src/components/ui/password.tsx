@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/tailwindMerge';
 import * as PasswordInputPrimitive from '@radix-ui/react-password-toggle-field';
 import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
-import { Label } from '@components/ui/label';
+import { Label } from '@/components/ui/label';
 
 const passwordInputVariants = cva(
   'flex h-10 w-full rounded-md border text-slate-700 border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
