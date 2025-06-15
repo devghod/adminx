@@ -11,7 +11,7 @@ const DeleteAccount = ({
   data: any;
   onClose: any;
 }) => {
-  const { deleteUser, isLoading } = useAccountStore();
+  const { deleteUser, isLoading, message } = useAccountStore();
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -33,7 +33,7 @@ const DeleteAccount = ({
           toast({
             type: 'error',
             title: 'Error',
-            description: 'Account delete failed',
+            description: message,
           });
         }
       })

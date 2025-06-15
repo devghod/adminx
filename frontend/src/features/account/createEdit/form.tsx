@@ -16,7 +16,8 @@ const CreateEditAccountForm = ({
   data: any;
   onClose: any;
 }) => {
-  const { createUser, updateUser, isLoading } = useAccountStore();
+  const { createUser, updateUser, isLoading, message } =
+    useAccountStore();
   const [isEdit, setIsEdit] = useState(false);
 
   const {
@@ -68,7 +69,7 @@ const CreateEditAccountForm = ({
             toast({
               type: 'error',
               title: 'Error',
-              description: 'Account update failed',
+              description: message,
             });
           }
         })
@@ -90,11 +91,12 @@ const CreateEditAccountForm = ({
             toast({
               type: 'error',
               title: 'Error',
-              description: 'Account creation failed',
+              description: message,
             });
           }
         })
         .catch(err => {
+          console.debug(`>> ${err}`);
           console.error(err);
         });
     }

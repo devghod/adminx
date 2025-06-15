@@ -36,7 +36,7 @@ const Datatable = ({
   total: number;
   isLoading: boolean;
   searchBar?: boolean;
-  fnQuery: (page: number, size: number) => void;
+  fnQuery: (page: number, size: number, filters?: any) => void;
   fnSetSize: (size: number) => void;
 }) => {
   const [search, setSearch] = useState('');
@@ -48,12 +48,7 @@ const Datatable = ({
   const column = useMemo(() => columnData, [columnData]);
   const data = useMemo(() => rowData, [rowData]);
 
-  useEffect(() => {
-    if (search) console.debug(search);
-    fnQuery(pagination.pageIndex + 1, pagination.pageSize);
-  }, [pagination, fnQuery, search]);
-
-  const table = useReactTable({
+  const tableConfig = useReactTable({
     data,
     columns: column,
     onPaginationChange: setPagination,
@@ -73,15 +68,26 @@ const Datatable = ({
     },
   });
 
-  const globalFilterColumns = table
-    .getAllColumns()
-    .filter(col => col.getCanGlobalFilter())
-    .map(col => col.id);
+  const globalColumnSearch = useMemo(() => {
+    return tableConfig.getAllColumns().map(col => col.id);
+  }, [tableConfig]);
 
-  console.debug(globalFilterColumns);
+  useEffect(() => {
+    const filtersSet: any = {};
+
+    if (search) filtersSet.search = search;
+    if (globalColumnSearch.length > 0)
+      filtersSet.fields = [...globalColumnSearch];
+
+    fnQuery(
+      pagination.pageIndex + 1,
+      pagination.pageSize,
+      filtersSet,
+    );
+  }, [pagination, fnQuery, search, globalColumnSearch]);
 
   return (
-    <section className='max-w-[1200px] mx-auto bg-white dark:bg-black rounded-xl shadow-md p-3 my-3 relative'>
+    <section className='flex flex-col gap-y-2 max-w-[1200px] mx-auto bg-white dark:bg-black rounded-xl shadow-md p-3 my-3 relative'>
       {isLoading && (
         <div className='absolute inset-0 bg-white/90 dark:bg-black/90 rounded-xl pointer-events-none'>
           <div className='flex flex-col items-center justify-center h-full'>
@@ -102,7 +108,6 @@ const Datatable = ({
               onChange={e => setSearch(e.target.value)}
               value={search}
             />
-            {search}
           </div>
         )}
       </div>
@@ -112,7 +117,7 @@ const Datatable = ({
           <div className='max-h-[600px] overflow-y-auto'>
             <Table className='min-w-full border-collapse'>
               <TableHeader className=''>
-                {table.getHeaderGroups().map(headerGroup => (
+                {tableConfig.getHeaderGroups().map(headerGroup => (
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map(header => (
                       <TableHead
@@ -131,7 +136,7 @@ const Datatable = ({
                 ))}
               </TableHeader>
               <TableBody className='divide-y'>
-                {table.getRowModel().rows.map(row => (
+                {tableConfig.getRowModel().rows.map(row => (
                   <TableRow
                     key={row.id}
                     className='hover:bg-gray-100 dark:hover:bg-gray-800'
@@ -156,7 +161,7 @@ const Datatable = ({
       </div>
 
       <PaginationComponent
-        table={table}
+        table={tableConfig}
         fnSetSize={() => fnSetSize}
       />
     </section>

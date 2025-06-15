@@ -14,7 +14,11 @@ export type TAccountActions = {
   }>;
   getUsers: () => Promise<void>;
   // getUsersStatistics: () => Promise<void>;
-  getUsersPaginated: (page: number, limit: number) => Promise<void>;
+  getUsersPaginated: (
+    page: number,
+    limit: number,
+    filters?: any,
+  ) => Promise<void>;
   setSize: (size: number) => void;
 };
 
@@ -182,13 +186,18 @@ export const createAccountActions: StateCreator<
     }
   },
 
-  getUsersPaginated: async (page: number, size: number) => {
+  getUsersPaginated: async (
+    page: number,
+    size: number,
+    filters?: any,
+  ) => {
     try {
       set({ isLoading: true });
 
       const body = {
         page,
         size,
+        filters,
       };
 
       const result = await fetch(
