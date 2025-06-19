@@ -21,6 +21,7 @@ export type TAccountActions = {
     filters?: any,
   ) => Promise<void>;
   setSize: (size: number) => void;
+  setFilters: (filters: any) => void;
 };
 
 export type TAccountStore = TAccountState & TAccountActions;
@@ -31,6 +32,9 @@ export const createAccountActions: StateCreator<
   [],
   TAccountActions
 > = (set, get) => ({
+  setFilters: (filters: any) => {
+    set({ filters });
+  },
   setSize: (size: number) => {
     set({ size });
   },
@@ -47,9 +51,8 @@ export const createAccountActions: StateCreator<
       });
 
       if (result.ok) {
-        const { data } = await result.json();
+        get().getUsersPaginated(get().page, get().size, get().filters);
         set({
-          users: [...get().users, data],
           isLoading: false,
           message: '',
         });
@@ -83,14 +86,11 @@ export const createAccountActions: StateCreator<
       );
 
       if (result.ok) {
-        const { data } = await result.json();
-        set(state => ({
-          users: state.users.map(user =>
-            user._id === data._id ? data : user,
-          ),
+        get().getUsersPaginated(get().page, get().size, get().filters);
+        set({
           isLoading: false,
           message: '',
-        }));
+        });
         return true;
       } else {
         const data = await result.json();
@@ -121,14 +121,11 @@ export const createAccountActions: StateCreator<
       );
 
       if (result.ok) {
-        const { data } = await result.json();
-        set(state => ({
-          users: state.users.map(user =>
-            user._id === data._id ? data : user,
-          ),
+        get().getUsersPaginated(get().page, get().size, get().filters);
+        set({
           isLoading: false,
           message: '',
-        }));
+        });
         return true;
       } else {
         const data = await result.json();
@@ -156,8 +153,8 @@ export const createAccountActions: StateCreator<
       );
 
       if (result.ok) {
+        get().getUsersPaginated(get().page, get().size, get().filters);
         set({
-          users: get().users.filter(user => user._id !== id),
           isLoading: false,
           message: '',
         });

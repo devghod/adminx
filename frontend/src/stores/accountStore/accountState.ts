@@ -9,6 +9,7 @@ export type TAccountState = {
   statistics: TStatistics;
   message: string;
   isLoading: boolean;
+  filters?: any;
 };
 
 export const initialAccountState: TAccountState = {
@@ -27,4 +28,5 @@ export const initialAccountState: TAccountState = {
   },
   message: '',
   isLoading: false,
+  filters: {},
 };

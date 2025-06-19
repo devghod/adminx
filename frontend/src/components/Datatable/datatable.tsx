@@ -27,6 +27,7 @@ const Datatable = ({
   isLoading = false,
   fnQuery,
   fnSetSize,
+  fnSetFilters,
   searchBar = false,
 }: {
   rowData: any;
@@ -38,6 +39,7 @@ const Datatable = ({
   searchBar?: boolean;
   fnQuery: (page: number, size: number, filters?: any) => void;
   fnSetSize: (size: number) => void;
+  fnSetFilters: (filters: object) => void | undefined;
 }) => {
   const [search, setSearch] = useState('');
   const [pagination, setPagination] = useState({
@@ -76,15 +78,17 @@ const Datatable = ({
     const filtersSet: any = {};
 
     if (search) filtersSet.search = search;
-    if (globalColumnSearch.length > 0)
+    if (globalColumnSearch.length > 0) {
       filtersSet.fields = [...globalColumnSearch];
-
+    }
+    
+    fnSetFilters(filtersSet);
     fnQuery(
       pagination.pageIndex + 1,
       pagination.pageSize,
       filtersSet,
     );
-  }, [pagination, fnQuery, search, globalColumnSearch]);
+  }, [pagination, fnQuery, fnSetFilters, search, globalColumnSearch]);
 
   return (
     <section className='flex flex-col gap-y-2 max-w-[2000px] mx-auto bg-white dark:bg-black rounded-xl shadow-md p-3 my-3 relative'>

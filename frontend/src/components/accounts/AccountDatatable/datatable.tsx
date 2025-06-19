@@ -28,9 +28,11 @@ const AccountDatatable = () => {
     users: accounts,
     size,
     page,
+    filters,
     totalUsers,
     getUsersPaginated: fetchUsersPaginated,
     setSize,
+    setFilters,
     isLoading,
   } = useAccountStore();
   const [openDetail, setOpenDetail] = useState(false);
@@ -127,7 +129,7 @@ const AccountDatatable = () => {
           theme='fill-success'
           shape='rounded'
           size='sm'
-          onClick={() => fetchUsersPaginated(page, size)}
+          onClick={() => fetchUsersPaginated(page, size, filters)}
           isLoading={isLoading}
         >
           <ReloadIcon />
@@ -155,6 +157,7 @@ const AccountDatatable = () => {
         searchBar
         fnQuery={fetchUsersPaginated}
         fnSetSize={setSize}
+        fnSetFilters={setFilters}
       />
 
       <CreateEditAccountModal
