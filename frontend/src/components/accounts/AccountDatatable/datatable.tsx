@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import {
   AddIcon,
   EditIcon,
+  GearIcon,
   ReloadIcon,
   TrashIcon,
   ViewIcon,
@@ -19,6 +20,7 @@ import {
 } from '@/components/ui/dialog';
 import CreateAccountForm from '@/features/account/createEdit/form';
 import DeleteAccount from '@/features/account/delete/form';
+import ChangePasswordForm from '@/features/account/changePassword/form';
 import { Datatable } from '@/components/Datatable';
 
 const AccountDatatable = () => {
@@ -34,6 +36,7 @@ const AccountDatatable = () => {
   const [openDetail, setOpenDetail] = useState(false);
   const [openCreateEdit, setOpenCreateEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openChangePassword, setOpenChangePassword] = useState(false);
   const [accountDetails, setAccountDetails] = useState({});
 
   const tableData: TAccounts = useMemo(() => {
@@ -67,6 +70,18 @@ const AccountDatatable = () => {
                 <EditIcon />
               </Button>
             </ToolTip>
+            <ToolTip title='Change Password' className='text-xs'>
+              <Button
+                theme='fill-success'
+                shape='rounded'
+                size='xs'
+                onClick={() =>
+                  handleChangePassword(props.row.original)
+                }
+              >
+                <GearIcon />
+              </Button>
+            </ToolTip>
             <ToolTip title='Delete' className='text-xs'>
               <Button
                 theme='fill-danger'
@@ -97,6 +112,11 @@ const AccountDatatable = () => {
 
   const handleDelete = (data = {}): any => {
     setOpenDelete(true);
+    setAccountDetails(data);
+  };
+
+  const handleChangePassword = (data = {}): any => {
+    setOpenChangePassword(true);
     setAccountDetails(data);
   };
 
@@ -143,6 +163,12 @@ const AccountDatatable = () => {
         data={accountDetails}
       />
 
+      <ChangePasswordModal
+        open={openChangePassword}
+        onOpenChange={setOpenChangePassword}
+        data={accountDetails}
+      />
+
       <DetailAccountModal
         open={openDetail}
         onOpenChange={setOpenDetail}
@@ -159,6 +185,24 @@ const AccountDatatable = () => {
 };
 
 export default AccountDatatable;
+
+const ChangePasswordModal = ({
+  open = false,
+  onOpenChange,
+  data = {},
+}: {
+  open?: boolean;
+  onOpenChange?: any;
+  data?: any;
+}) => (
+  <DialogMenu open={open} onOpenChange={onOpenChange} modal>
+    <DialogMenuTitle>Account Change Password</DialogMenuTitle>
+    <DialogMenuClose closeIcon />
+    <DialogMenuDescription asChild>
+      <ChangePasswordForm data={data} onClose={onOpenChange} />
+    </DialogMenuDescription>
+  </DialogMenu>
+);
 
 const CreateEditAccountModal = ({
   open = false,

@@ -6,6 +6,7 @@ import { TUser } from './type';
 export type TAccountActions = {
   createUser: (body: TUser) => Promise<boolean | undefined>;
   updateUser: (body: TUser) => Promise<boolean | undefined>;
+  updateUserPassword: (body: TUser) => Promise<boolean | undefined>;
   deleteUser: (id: string) => Promise<boolean | undefined>;
   getUser: (id: string) => Promise<{
     success: boolean;
@@ -72,6 +73,44 @@ export const createAccountActions: StateCreator<
 
       const result = await fetch(
         `/api/proxy-auth/user/update-user/${id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(restBody),
+        },
+      );
+
+      if (result.ok) {
+        const { data } = await result.json();
+        set(state => ({
+          users: state.users.map(user =>
+            user._id === data._id ? data : user,
+          ),
+          isLoading: false,
+          message: '',
+        }));
+        return true;
+      } else {
+        const data = await result.json();
+        set({ isLoading: false, message: data.message });
+        return false;
+      }
+    } catch (err) {
+      console.error('Error', err);
+      set({ isLoading: false });
+    }
+  },
+
+  updateUserPassword: async (body: TUser) => {
+    try {
+      set({ isLoading: true });
+
+      const { _id: id, ...restBody } = body;
+
+      const result = await fetch(
+        `/api/proxy-auth/user/update-user-password/${id}`,
         {
           method: 'PUT',
           headers: {
