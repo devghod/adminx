@@ -51,7 +51,11 @@ export const createAccountActions: StateCreator<
       });
 
       if (result.ok) {
-        get().getUsersPaginated(get().page, get().size, get().filters);
+        get().getUsersPaginated(
+          get().page,
+          get().size,
+          get().filters,
+        );
         set({
           isLoading: false,
           message: '',
@@ -86,7 +90,11 @@ export const createAccountActions: StateCreator<
       );
 
       if (result.ok) {
-        get().getUsersPaginated(get().page, get().size, get().filters);
+        get().getUsersPaginated(
+          get().page,
+          get().size,
+          get().filters,
+        );
         set({
           isLoading: false,
           message: '',
@@ -121,7 +129,11 @@ export const createAccountActions: StateCreator<
       );
 
       if (result.ok) {
-        get().getUsersPaginated(get().page, get().size, get().filters);
+        get().getUsersPaginated(
+          get().page,
+          get().size,
+          get().filters,
+        );
         set({
           isLoading: false,
           message: '',
@@ -153,7 +165,11 @@ export const createAccountActions: StateCreator<
       );
 
       if (result.ok) {
-        get().getUsersPaginated(get().page, get().size, get().filters);
+        get().getUsersPaginated(
+          get().page,
+          get().size,
+          get().filters,
+        );
         set({
           isLoading: false,
           message: '',

@@ -81,7 +81,7 @@ const Datatable = ({
     if (globalColumnSearch.length > 0) {
       filtersSet.fields = [...globalColumnSearch];
     }
-    
+
     fnSetFilters(filtersSet);
     fnQuery(
       pagination.pageIndex + 1,
