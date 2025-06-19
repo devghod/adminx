@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { HomeIcon, UsersIcon } from '../ui/icons';
+import { HomeIcon, ServicesIcon, UsersIcon } from '../ui/icons';
 import {
   NavMenuIndicator,
   NavMenuItem,
@@ -22,6 +22,11 @@ const MenuData = [
     title: 'Accounts',
     url: '/dashboard/accounts',
     icon: <UsersIcon />,
+  },
+  {
+    title: 'Services',
+    url: '/dashboard/services',
+    icon: <ServicesIcon />,
   },
 ];
 

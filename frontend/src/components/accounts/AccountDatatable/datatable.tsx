@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import {
   AddIcon,
   EditIcon,
-  GearIcon,
+  PasswordIcon,
   ReloadIcon,
   TrashIcon,
   ViewIcon,
@@ -81,7 +81,7 @@ const AccountDatatable = () => {
                   handleChangePassword(props.row.original)
                 }
               >
-                <GearIcon />
+                <PasswordIcon />
               </Button>
             </ToolTip>
             <ToolTip title='Delete' className='text-xs'>

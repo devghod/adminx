@@ -1,4 +1,4 @@
-export function HomeIcon(props: React.SVGProps<SVGSVGElement>) {
+function HomeIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -30,9 +30,7 @@ export function HomeIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function ShoppingCartIcon(
-  props: React.SVGProps<SVGSVGElement>,
-) {
+function ShoppingCartIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -53,7 +51,7 @@ export function ShoppingCartIcon(
   );
 }
 
-export function PackageIcon(props: React.SVGProps<SVGSVGElement>) {
+function PackageIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -75,7 +73,7 @@ export function PackageIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function UsersIcon(props: React.SVGProps<SVGSVGElement>) {
+function UsersIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -92,7 +90,7 @@ export function UsersIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function LineChartIcon(props: React.SVGProps<SVGSVGElement>) {
+function LineChartIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -112,7 +110,7 @@ export function LineChartIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function LogOutIcon(props: React.SVGProps<SVGSVGElement>) {
+function LogOutIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -136,7 +134,7 @@ export function LogOutIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
+function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -157,7 +155,7 @@ export function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function GearIcon(props: React.SVGProps<SVGSVGElement>) {
+function GearIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -190,7 +188,7 @@ export function GearIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function TrashIcon(props: React.SVGProps<SVGSVGElement>) {
+function TrashIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -232,7 +230,7 @@ export function TrashIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function EditIcon(props: React.SVGProps<SVGSVGElement>) {
+function EditIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -254,7 +252,7 @@ export function EditIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function ViewIcon(props: React.SVGProps<SVGSVGElement>) {
+function ViewIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -273,7 +271,7 @@ export function ViewIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function CloseIcon(props: React.SVGProps<SVGSVGElement>) {
+function CloseIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -301,7 +299,7 @@ export function CloseIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function CopyIcon(props: React.SVGProps<SVGSVGElement>) {
+function CopyIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -323,9 +321,7 @@ export function CopyIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function DotsHorizontalIcon(
-  props: React.SVGProps<SVGSVGElement>,
-) {
+function DotsHorizontalIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -346,7 +342,7 @@ export function DotsHorizontalIcon(
   );
 }
 
-export function AddIcon(props: React.SVGProps<SVGSVGElement>) {
+function AddIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -375,7 +371,7 @@ export function AddIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function EyeOpenIcon(props: React.SVGProps<SVGSVGElement>) {
+function EyeOpenIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -392,7 +388,7 @@ export function EyeOpenIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function EyeClosedIcon(props: React.SVGProps<SVGSVGElement>) {
+function EyeClosedIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -414,7 +410,7 @@ export function EyeClosedIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function LoadingIcon(props: React.SVGProps<SVGSVGElement>) {
+function LoadingIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -436,7 +432,7 @@ export function LoadingIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function ReloadIcon(props: React.SVGProps<SVGSVGElement>) {
+function ReloadIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -457,7 +453,7 @@ export function ReloadIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function BackIcon(props: React.SVGProps<SVGSVGElement>) {
+function BackIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -474,7 +470,7 @@ export function BackIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function LightIcon(props: React.SVGProps<SVGSVGElement>) {
+function LightIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -492,7 +488,7 @@ export function LightIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function DarkIcon(props: React.SVGProps<SVGSVGElement>) {
+function DarkIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -511,3 +507,71 @@ export function DarkIcon(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+function PasswordIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+    >
+      <path
+        fill='currentColor'
+        d='M2 16c0-2.828 0-4.243.879-5.121C3.757 10 5.172 10 8 10h8c2.828 0 4.243 0 5.121.879C22 11.757 22 13.172 22 16s0 4.243-.879 5.121C20.243 22 18.828 22 16 22H8c-2.828 0-4.243 0-5.121-.879C2 20.243 2 18.828 2 16'
+        opacity='0.5'
+      />
+      <path
+        fill='currentColor'
+        d='M8 17a1 1 0 1 0 0-2a1 1 0 0 0 0 2m4 0a1 1 0 1 0 0-2a1 1 0 0 0 0 2m5-1a1 1 0 1 1-2 0a1 1 0 0 1 2 0M6.75 8a5.25 5.25 0 0 1 10.5 0v2.004c.567.005 1.064.018 1.5.05V8a6.75 6.75 0 0 0-13.5 0v2.055a24 24 0 0 1 1.5-.051z'
+      />
+    </svg>
+  );
+}
+
+function ServicesIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+    >
+      <path
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        d='M6 9a3 3 0 1 0 0-6a3 3 0 0 0 0 6Zm0-6V0m0 12V9M0 6h3m6 0h3M2 2l2 2m4 4l2 2m0-8L8 4M4 8l-2 2m16 2a3 3 0 1 0 0-6a3 3 0 0 0 0 6Zm0-6V3m0 12v-3m-6-3h3m6 0h3M14 5l2 2m4 4l2 2m0-8l-2 2m-4 4l-2 2m-5 8a3 3 0 1 0 0-6a3 3 0 0 0 0 6Zm0-6v-3m0 12v-3m-6-3h3m6 0h3M5 14l2 2m4 4l2 2m0-8l-2 2m-4 4l-2 2'
+      />
+    </svg>
+  );
+}
+
+export {
+  ServicesIcon,
+  PasswordIcon,
+  AddIcon,
+  EyeOpenIcon,
+  EyeClosedIcon,
+  CloseIcon,
+  MenuIcon,
+  HomeIcon,
+  DarkIcon,
+  LightIcon,
+  LoadingIcon,
+  ReloadIcon,
+  GearIcon,
+  TrashIcon,
+  ViewIcon,
+  EditIcon,
+  BackIcon,
+  DotsHorizontalIcon,
+  CopyIcon,
+  LogOutIcon,
+  LineChartIcon,
+  UsersIcon,
+  PackageIcon,
+  ShoppingCartIcon,
+};
