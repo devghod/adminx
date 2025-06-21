@@ -54,7 +54,7 @@ const MenuDashboard = () => {
       </div>
 
       <NavMenuRoot>
-        <NavMenuList className='py-1 space-y-0.5'>
+        <NavMenuList className='py-1 space-y-2'>
           {MenuData.map(({ title, url, icon }, index) => (
             <NavMenuItem key={index}>
               <Link href={url} title={title} icon={icon} />

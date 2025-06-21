@@ -52,21 +52,23 @@ const NavMenuContent = NavMenuPrimitive.Content;
 const navMenuLinkVariants = cva(`
   flex 
   w-full 
+  transition-all
   data-active:text-white 
-  data-active:bg-black
+  data-active:bg-violet-700
+  data-active:border-l-8
+  data-active:border-violet-500
   data-active:hover:text-black 
-  data-active:hover:bg-sky-200 
-  data-active:dark:bg-gray-700 
+  data-active:hover:bg-violet-200 
+  data-active:dark:bg-violet-500/50
   data-active:dark:hover:text-slate-900 
-  data-active:dark:hover:bg-sky-500
-  rounded 
+  data-active:dark:hover:bg-violet-500
   text-slate-800 
   dark:text-slate-200 
   py-1.5 
   px-4 
   font-medium 
-  hover:bg-sky-200 
-  dark:hover:bg-sky-500 mx-1`);
+  hover:bg-violet-200 
+  dark:hover:bg-violet-500 mx-1`);
 
 const NavMenuLink = React.forwardRef<
   React.ElementRef<typeof NavMenuPrimitive.Link>,

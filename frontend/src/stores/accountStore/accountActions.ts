@@ -14,7 +14,7 @@ export type TAccountActions = {
     data: string | undefined;
   }>;
   getUsers: () => Promise<void>;
-  // getUsersStatistics: () => Promise<void>;
+  getUsersStatistics: () => Promise<void>;
   getUsersPaginated: (
     page: number,
     limit: number,
@@ -231,6 +231,7 @@ export const createAccountActions: StateCreator<
         set({ users: data, isLoading: false });
       } else {
         set({ message });
+        set({ isLoading: false });
       }
     } catch (err) {
       console.error('Error', err);
@@ -253,7 +254,7 @@ export const createAccountActions: StateCreator<
       };
 
       const result = await fetch(
-        `/api/proxy-auth/user/post-users-list`,
+        `/api/proxy-auth/user/post-users-paginate`,
         {
           method: 'POST',
           headers: {
@@ -282,6 +283,7 @@ export const createAccountActions: StateCreator<
         });
       } else {
         set({ message });
+        set({ isLoading: false });
       }
     } catch (err) {
       console.error('Error', err);
@@ -289,30 +291,42 @@ export const createAccountActions: StateCreator<
     }
   },
 
-  // getUsersStatistics: async () => {
-  //   try {
-  //     const token = getCookie('token');
-  //     const authToken = `Bearer ${token}`;
-  //     const result = await fetch(
-  //       'http://localhost:4001/api/user/get-users-statistics',
-  //       {
-  //         method: 'GET',
-  //         headers: {
-  //           Authorization: authToken,
-  //           'Content-Type': 'application/json',
-  //         },
-  //       },
-  //     );
+  getUsersStatistics: async () => {
+    try {
+      // const token = getCookie('token');
+      // const authToken = `Bearer ${token}`;
+      // const result = await fetch(
+      //   'http://localhost:4001/api/user/get-users-statistics',
+      //   {
+      //     method: 'GET',
+      //     headers: {
+      //       Authorization: authToken,
+      //       'Content-Type': 'application/json',
+      //     },
+      //   },
+      // );
+      set({ isLoading: true });
 
-  //     const { success, data, message } = await result.json();
-  //     if (result.ok && success) {
-  //       set({ statistics: data, isLoading: false });
-  //     } else {
-  //       set({ message });
-  //     }
-  //   } catch (err) {
-  //     console.error('Error', err);
-  //     set({ isLoading: false });
-  //   }
-  // },
+      const result = await fetch(
+        `/api/proxy-auth/user/get-users-statistics`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      const { success, data, message } = await result.json();
+      if (result.ok && success) {
+        set({ statistics: data, isLoading: false });
+      } else {
+        set({ message });
+        set({ isLoading: false });
+      }
+    } catch (err) {
+      console.error('Error', err);
+      set({ isLoading: false });
+    }
+  },
 });
