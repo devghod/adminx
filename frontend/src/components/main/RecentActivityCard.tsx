@@ -40,11 +40,11 @@ const ActivityCard = ({ log }: { log: TLog }) => {
   return (
     <div className='flex flex-col gap-y-1 ' key={log._id}>
       <div className='flex justify-between'>
-        <div className="flex gap-x-4">
-          <div className="">
+        <div className='flex gap-x-4'>
+          <div className=''>
             <ActivityLogo model={log.model} action={log.action} />
           </div>
-          <div className="">
+          <div className=''>
             <div className='text-gray-500 font-semibold text-sm'>
               {log.user_id_execute.first_name}
             </div>
@@ -53,7 +53,7 @@ const ActivityCard = ({ log }: { log: TLog }) => {
             </div>
           </div>
         </div>
-        <div className="">
+        <div className=''>
           <div className='text-gray-500 font-semibold text-sm'>
             {dateFormat(log.date_created, 'MM/DD/YYYY')}
           </div>
@@ -63,12 +63,12 @@ const ActivityCard = ({ log }: { log: TLog }) => {
   );
 };
 
-const ActivityLogo = ({ 
-  model: modelTemp, 
-  action: actionTemp 
-}: { 
-  model: string; 
-  action: string 
+const ActivityLogo = ({
+  model: modelTemp,
+  action: actionTemp,
+}: {
+  model: string;
+  action: string;
 }) => {
   if (!modelTemp || !actionTemp) return null;
 
@@ -76,18 +76,21 @@ const ActivityLogo = ({
   const action = actionTemp.toLowerCase();
 
   const color: any = {
-    'create': 'bg-blue-500/20 text-blue-500 p-1 rounded w-7 h-7 self-center',
-    'update': 'bg-yellow-500/20 text-yellow-500 p-1 rounded w-7 h-7 self-center',
-    'delete': 'bg-red-500/20 text-red-500 p-1 rounded w-7 h-7 self-center',
-  }
-  
-  const icons: any =  {
-    'user': <UserIcon className={color[action]} />,
-    'inventory': <InventoryIcon className={color[action]} />,
+    create:
+      'bg-blue-500/20 text-blue-500 p-1 rounded w-7 h-7 self-center',
+    update:
+      'bg-yellow-500/20 text-yellow-500 p-1 rounded w-7 h-7 self-center',
+    delete:
+      'bg-red-500/20 text-red-500 p-1 rounded w-7 h-7 self-center',
+  };
+
+  const icons: any = {
+    user: <UserIcon className={color[action]} />,
+    inventory: <InventoryIcon className={color[action]} />,
   };
 
   return icons[model];
-}
+};
 
 const Loader = () => (
   <div className='max-w-68 border px-6 py-5 rounded-lg bg-white dark:bg-black'>

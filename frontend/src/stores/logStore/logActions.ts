@@ -1,7 +1,6 @@
 import { StateCreator } from 'zustand';
 import { TLogState } from './logState';
 import { debounce } from '@/utils/debounce';
-import { TLog } from './type';
 
 export type TLogActions = {
   getLogs: () => Promise<void>;
@@ -21,7 +20,7 @@ export const createLogActions: StateCreator<
   [],
   [],
   TLogActions
-> = (set, get) => ({
+> = set => ({
   setFilters: (filters: any) => {
     set({ filters });
   },
@@ -40,7 +39,7 @@ export const createLogActions: StateCreator<
         },
       });
 
-      const { success, data, message } = await result.json();
+      const { success, data } = await result.json();
 
       await debounce(() => console.debug('3s delay'), 3000);
 
