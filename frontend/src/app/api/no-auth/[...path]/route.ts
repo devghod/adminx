@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+// import { cookies } from 'next/headers';
 
 /**
  * Proxy a request to backend with Bearer token added to Authorization header.
@@ -18,15 +18,15 @@ async function proxyWithBearer(
     const params = await paramsPromise;
 
     // Access session token from cookie
-    const cookieStore = await cookies();
-    const token = cookieStore.get('session')?.value;
+    // const cookieStore = await cookies();
+    // const token = cookieStore.get('session')?.value;
 
-    if (!token) {
-      return NextResponse.json(
-        { error: 'Unauthorized: No session token found' },
-        { status: 401 },
-      );
-    }
+    // if (!token) {
+    //   return NextResponse.json(
+    //     { error: 'Unauthorized: No session token found' },
+    //     { status: 401 },
+    //   );
+    // }
 
     // Build backend API url from path segments
     const apiPath = params.path?.join('/') ?? '';
@@ -34,7 +34,7 @@ async function proxyWithBearer(
 
     // Prepare headers: clone original and add Authorization
     const headers = new Headers(req.headers);
-    headers.set('Authorization', `Bearer ${token}`);
+    // headers.set('Authorization', `Bearer ${token}`);
 
     // Handle request body if method supports it
     const method = req.method.toUpperCase();

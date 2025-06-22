@@ -2,6 +2,7 @@ import { StateCreator } from 'zustand';
 import { TAccountState } from './accountState';
 import { debounce } from '@/utils/debounce';
 import { TUser } from './type';
+import { getToken, getRefreshToken } from '@/hooks/token';
 
 export type TAccountActions = {
   createUser: (body: TUser) => Promise<boolean | undefined>;
@@ -20,6 +21,8 @@ export type TAccountActions = {
     limit: number,
     filters?: any,
   ) => Promise<void>;
+  getProfile: () => void;
+  setPage: (page: number) => void;
   setSize: (size: number) => void;
   setFilters: (filters: any) => void;
 };
@@ -32,11 +35,52 @@ export const createAccountActions: StateCreator<
   [],
   TAccountActions
 > = (set, get) => ({
+  setPage: (page: number) => {
+    set({ page });
+  },
   setFilters: (filters: any) => {
     set({ filters });
   },
   setSize: (size: number) => {
     set({ size });
+  },
+  getProfile: async () => {
+    try {
+      set({ isLoading: true });
+
+      const token = await getToken();
+      const refreshToken = await getRefreshToken();
+
+      const body = {
+        token: token,
+        refreshToken: refreshToken,
+      };
+
+      const result = await fetch('/api/no-auth/auth/verify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (result.ok) {
+        const data = await result.json();
+        set({
+          profile: data.profile,
+          isLoading: false,
+          message: '',
+        });
+        return true;
+      } else {
+        const data = await result.json();
+        set({ isLoading: false, message: data.message });
+        return false;
+      }
+    } catch (error) {
+      console.error('Error', error);
+      set({ isLoading: false });
+    }
   },
   createUser: async (body: TUser) => {
     try {
@@ -227,7 +271,6 @@ export const createAccountActions: StateCreator<
       await debounce(() => console.debug('3s delay'), 3000);
 
       if (result.ok && success) {
-        // get().getUsersStatistics();
         set({ users: data, isLoading: false });
       } else {
         set({ message });
@@ -293,18 +336,6 @@ export const createAccountActions: StateCreator<
 
   getUsersStatistics: async () => {
     try {
-      // const token = getCookie('token');
-      // const authToken = `Bearer ${token}`;
-      // const result = await fetch(
-      //   'http://localhost:4001/api/user/get-users-statistics',
-      //   {
-      //     method: 'GET',
-      //     headers: {
-      //       Authorization: authToken,
-      //       'Content-Type': 'application/json',
-      //     },
-      //   },
-      // );
       set({ isLoading: true });
 
       const result = await fetch(
