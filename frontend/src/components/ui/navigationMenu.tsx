@@ -68,6 +68,8 @@ const navMenuLinkVariants = cva(`
   px-4 
   font-medium 
   hover:bg-violet-200 
+  hover:border-l-8
+  hover:border-violet-500
   dark:hover:bg-violet-500 mx-1`);
 
 const NavMenuLink = React.forwardRef<

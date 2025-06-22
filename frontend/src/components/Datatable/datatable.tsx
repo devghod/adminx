@@ -58,7 +58,6 @@ const Datatable = ({
     getPaginationRowModel: getPaginationRowModel(),
     manualPagination: true, // turn off client-side pagination
     rowCount: total,
-    // debugTable: true, // turn on table debug
     state: {
       pagination,
     },

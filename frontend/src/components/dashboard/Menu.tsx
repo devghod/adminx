@@ -3,14 +3,20 @@
 import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { HomeIcon, ServicesIcon, UsersIcon } from '../ui/icons';
+import {
+  HomeIcon,
+  ProfileIcon,
+  ServicesIcon,
+  UsersIcon,
+} from '@/components/ui/icons';
 import {
   NavMenuIndicator,
   NavMenuItem,
   NavMenuLink,
   NavMenuList,
   NavMenuRoot,
-} from '../ui/navigationMenu';
+} from '@/components/ui/navigationMenu';
+import { useAccountStore } from '@/stores/accountStore';
 
 const MenuData = [
   {
@@ -30,12 +36,6 @@ const MenuData = [
   },
 ];
 
-const ProfileData = {
-  email: 'admin@mail.com',
-  name: 'Admin Level',
-  profile: 'https://placehold.co/32x32',
-};
-
 const fallbackImg =
   'data:image/svg+xml;base64,PHN2ZyBzdHJva2U9IiNGRkZGRkYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMCIgdmlld0JveD0iMCAwIDI0IDI0IiBoZWlnaHQ9IjIwMHB4IiB3aWR0aD0iMjAwcHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB4PSIyIiB5PSIyIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjIiIHJ4PSIyIj48L3JlY3Q+PC9zdmc+Cg==';
 
@@ -47,6 +47,12 @@ const Link = ({ href, ...props }: any) => {
 };
 
 const MenuDashboard = () => {
+  const { getProfile } = useAccountStore();
+
+  useEffect(() => {
+    getProfile();
+  }, [getProfile]);
+
   return (
     <>
       <div className='inset-shadow-sm dark:inset-shadow-gray-800/50 border-b border-slate-100 dark:border-slate-800'>
@@ -72,31 +78,25 @@ export default MenuDashboard;
 const ProfileSection = () => {
   return (
     <div className='py-4 px-6 inset-shadow-sm dark:inset-shadow-gray-800/50 border-b border-slate-100 dark:border-slate-800'>
-      <ProfileDetails
-        src={ProfileData.profile}
-        fallbackSrc={fallbackImg}
-        data={ProfileData}
-      />
+      <ProfileDetails />
     </div>
   );
 };
 
-const ProfileDetails = ({
-  src,
-  fallbackSrc,
-  data,
-}: {
-  src: string;
-  fallbackSrc: string;
-  data: any;
-}) => {
+const ProfileDetails = () => {
+  const { profile, isLoading } = useAccountStore();
   const [mounted, setMounted] = useState(false);
-  const [img, setImg] = useState(src);
+  const [data, setData] = useState(profile);
+  const [img, setImg] = useState(data?.image);
 
+  useEffect(() => {
+    setData(profile);
+    setImg(profile?.image);
+  }, [profile]);
   useEffect(() => setMounted(true), []);
 
   function handleImgFallback() {
-    setImg(fallbackSrc);
+    setImg(fallbackImg);
   }
 
   if (!mounted)
@@ -113,25 +113,41 @@ const ProfileDetails = ({
 
   return (
     <div className='flex space-x-4'>
-      <Image
-        src={img}
-        width={32}
-        height={32}
-        sizes='32x32'
-        alt='Profile Image'
-        style={{ width: 'auto', height: 'auto' }}
-        onError={handleImgFallback}
-        blurDataURL={fallbackImg}
-        loading='lazy'
-      />
+      {img ? (
+        <Image
+          src={img}
+          width={32}
+          height={32}
+          sizes='32x32'
+          alt='Profile Image'
+          style={{ width: 'auto', height: 'auto' }}
+          onError={handleImgFallback}
+          blurDataURL={fallbackImg}
+          loading='lazy'
+        />
+      ) : (
+        <ProfileIcon className='w-10 h-10' />
+      )}
       <div className=''>
-        <div className='text-sm font-medium text-gray-800 dark:text-gray-300'>
-          {`${data?.name ? data.name : 'Not assigned'}`}
-        </div>
-        <div className='text-sm text-gray-500'>
-          {`${data?.email ? data.email : 'Not assigned'}`}
-        </div>
+        {isLoading && <ProfileDetailsSkeleton />}
+        {!isLoading && mounted && (
+          <>
+            <div className='text-sm font-medium text-gray-800 dark:text-gray-300'>
+              {`${data?.first_name && data?.last_name ? `${data.first_name} ${data.last_name}` : 'Not assigned'}`}
+            </div>
+            <div className='text-sm text-gray-500'>
+              {`${data?.email ? data.email : 'Not assigned'}`}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
 };
+
+const ProfileDetailsSkeleton = () => (
+  <>
+    <div className='rounded-full w-full h-2 my-2 bg-gray-300 dark:bg-gray-700 animate-pulse'></div>
+    <div className='rounded-full w-full h-2 my-2 bg-gray-300 dark:bg-gray-700 animate-pulse'></div>
+  </>
+);

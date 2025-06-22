@@ -16,7 +16,7 @@ const RecentActivityCard = () => {
     return logs ?? [];
   }, [logs]);
 
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Skeleton />;
 
   return (
     <div className='w-[300px] border px-6 py-5 rounded-lg bg-white dark:bg-black'>
@@ -92,7 +92,7 @@ const ActivityLogo = ({
   return icons[model];
 };
 
-const Loader = () => (
+const Skeleton = () => (
   <div className='max-w-68 border px-6 py-5 rounded-lg bg-white dark:bg-black'>
     <div className='font-bold'>Recent Activity</div>
     <div className='flex flex-col gap-y-2 mt-4'>

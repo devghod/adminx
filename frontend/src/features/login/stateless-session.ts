@@ -8,7 +8,7 @@ import { redirect } from 'next/navigation';
 const secretKey = process.env.SECRET_KEY;
 const key = new TextEncoder().encode(secretKey);
 
-export async function encrypt(payload: SessionPayload) {
+async function encrypt(payload: SessionPayload) {
   return new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
@@ -16,7 +16,7 @@ export async function encrypt(payload: SessionPayload) {
     .sign(key);
 }
 
-export async function decrypt(session: string | undefined = '') {
+async function decrypt(session: string | undefined = '') {
   try {
     if (!session) return null;
 
@@ -31,15 +31,29 @@ export async function decrypt(session: string | undefined = '') {
   }
 }
 
-export async function createSession(userId: string) {
-  const expiresAt = new Date(Date.now() + 60 * 60 * 1000);
-  const session = await encrypt({ userId, expiresAt });
+async function createSession(data: any) {
+  const {
+    token: session,
+    tokenExpIn,
+    refreshToken,
+    refreshTokenExpIn,
+  } = data;
+  const tokenExpAt = new Date(tokenExpIn);
+  const refreshTokenExpAt = new Date(refreshTokenExpIn);
   const cookieStore = await cookies();
 
   cookieStore.set('session', session, {
     httpOnly: true,
     secure: true,
-    expires: expiresAt,
+    expires: tokenExpAt,
+    sameSite: 'lax',
+    path: '/',
+  });
+
+  cookieStore.set('refreshToken', refreshToken, {
+    httpOnly: true,
+    secure: true,
+    expires: refreshTokenExpAt,
     sameSite: 'lax',
     path: '/',
   });
@@ -47,7 +61,7 @@ export async function createSession(userId: string) {
   redirect('/dashboard');
 }
 
-export async function verifySession() {
+async function verifySession() {
   const cookieStore = await cookies();
   const cookie = cookieStore.get('session')?.value;
   const session = await decrypt(cookie);
@@ -59,7 +73,7 @@ export async function verifySession() {
   return { isAuth: true, userId: Number(session.userId) };
 }
 
-export async function updateSession() {
+async function updateSession() {
   const cookieStore = await cookies();
   const session = cookieStore.get('session')?.value;
   const payload = await decrypt(session);
@@ -78,13 +92,25 @@ export async function updateSession() {
   });
 }
 
-export async function deleteSession() {
+async function deleteSession() {
   const cookieStore = await cookies();
   cookieStore.delete('session');
+  cookieStore.delete('refreshToken');
   redirect('/auth/login');
 }
 
-export async function getSession() {
+// Server only
+async function getSession() {
   const cookieStore = await cookies();
   return cookieStore.get('session')?.value;
 }
+
+export {
+  encrypt,
+  decrypt,
+  createSession,
+  verifySession,
+  updateSession,
+  deleteSession,
+  getSession,
+};

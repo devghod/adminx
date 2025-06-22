@@ -7,6 +7,8 @@ export type TUser = {
   first_name?: string;
   middle_name?: string;
   last_name?: string;
+  mobile?: string;
+  image?: string;
 };
 
 export type TUsers = TUser[] | [];

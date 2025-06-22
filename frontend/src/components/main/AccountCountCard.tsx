@@ -14,7 +14,7 @@ const AccountCountCard = () => {
     getUsersStatistics();
   }, [getUsersStatistics]);
 
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Skeleton />;
 
   return (
     <div className='w-40 border px-6 py-5 rounded-lg bg-white dark:bg-black'>
@@ -58,7 +58,7 @@ const AccountCountCard = () => {
 
 export default AccountCountCard;
 
-const Loader = () => (
+const Skeleton = () => (
   <div className='w-40 border px-6 py-5 rounded-lg bg-white dark:bg-black'>
     <div className='font-bold'>Accounts</div>
     <div className='flex flex-col gap-y-2 mt-4'>

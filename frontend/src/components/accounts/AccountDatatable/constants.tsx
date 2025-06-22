@@ -31,6 +31,13 @@ export const columns = [
       <div className='text-left'>{props.column.id}</div>
     ),
   }),
+  columnHelper.accessor('status', {
+    size: 100,
+    header: () => <div className='text-left'>Status</div>,
+    cell: (props: any) => (
+      <div className='text-left'>{props.getValue()}</div>
+    ),
+  }),
   columnHelper.accessor('first_name', {
     header: () => <div className='text-left'>First Name</div>,
     cell: (props: any) => (

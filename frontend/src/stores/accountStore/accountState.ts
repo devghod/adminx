@@ -1,7 +1,7 @@
 import { TUser, TStatistics } from './type';
 
 export type TAccountState = {
-  user: TUser;
+  profile: TUser;
   users: TUser[];
   size: number;
   page: number;
@@ -13,7 +13,7 @@ export type TAccountState = {
 };
 
 export const initialAccountState: TAccountState = {
-  user: {},
+  profile: {},
   users: [],
   size: 10,
   page: 1,

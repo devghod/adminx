@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { TUsers as TAccounts } from '@/stores/accountStore/type';
 import { useAccountStore } from '@/stores/accountStore';
 import { columns, columnHelper } from './constants';
@@ -30,16 +30,21 @@ const AccountDatatable = () => {
     page,
     filters,
     totalUsers,
+    isLoading,
     getUsersPaginated: fetchUsersPaginated,
     setSize,
+    setPage,
     setFilters,
-    isLoading,
   } = useAccountStore();
   const [openDetail, setOpenDetail] = useState(false);
   const [openCreateEdit, setOpenCreateEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [openChangePassword, setOpenChangePassword] = useState(false);
   const [accountDetails, setAccountDetails] = useState({});
+
+  useEffect(() => {
+    setPage(1);
+  }, [setPage]);
 
   const tableData: TAccounts = useMemo(() => {
     if (accounts.length === 0) return [];
