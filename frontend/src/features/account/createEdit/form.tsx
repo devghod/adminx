@@ -33,6 +33,7 @@ const CreateEditAccountForm = ({
       email: data.email || '',
       mobile: data.mobile || '',
       status: data.status || '',
+      gender: data.gender || '',
       new_password: '',
       confirm_password: '',
     },
@@ -150,17 +151,31 @@ const CreateEditAccountForm = ({
             {...register('mobile')}
             errors={errors}
           />
-          <Select
-            label='Status'
-            errors={errors}
-            placeholder='Select status'
-            items={[
-              { value: 'active', label: 'Active' },
-              { value: 'inactive', label: 'Inactive' },
-              { value: 'hold', label: 'Hold' },
-            ]}
-            {...register('status')}
-          />
+          <div className='w-full flex flex-row gap-x-4'>
+            <Select
+              className='flex-1'
+              label='Gender'
+              errors={errors}
+              placeholder='Select gender'
+              items={[
+                { value: 'male', label: 'Male' },
+                { value: 'female', label: 'Female' },
+              ]}
+              {...register('gender')}
+            />
+            <Select
+              className='flex-1'
+              label='Status'
+              errors={errors}
+              placeholder='Select status'
+              items={[
+                { value: 'active', label: 'Active' },
+                { value: 'inactive', label: 'Inactive' },
+                { value: 'hold', label: 'Hold' },
+              ]}
+              {...register('status')}
+            />
+          </div>
           {!isEdit && (
             <div className='flex flex-row gap-x-4 '>
               <PasswordInput

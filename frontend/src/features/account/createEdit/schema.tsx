@@ -6,6 +6,7 @@ export const createAccountschema = z
     first_name: z.string().nonempty('First name is required'),
     middle_name: z.string().optional(),
     last_name: z.string().nonempty('Last name is required'),
+    gender: z.string().nonempty('Gender is required'),
     email: z
       .string()
       .email('Email is required')
@@ -32,6 +33,7 @@ export const updateAccountSchema = z.object({
   first_name: z.string().nonempty('First name is required'),
   middle_name: z.string().optional(),
   last_name: z.string().nonempty('Last name is required'),
+  gender: z.string().nonempty('Gender is required'),
   email: z
     .string()
     .email('Email is required')

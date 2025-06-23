@@ -52,7 +52,7 @@ const Select = React.forwardRef<
     };
 
     return (
-      <div className='flex flex-col gap-y-1'>
+      <div className='flex flex-col gap-y-1 w-full'>
         {label && <Label htmlFor={props.name}>{label}</Label>}
         <select
           name={props.name}
