@@ -1,5 +1,6 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { TUsers as TAccounts } from '@/stores/accountStore/type';
+import { Badge } from '@/components/ui/badge';
 
 export const columnHelper = createColumnHelper<TAccounts>();
 
@@ -35,7 +36,20 @@ export const columns = [
     size: 100,
     header: () => <div className='text-left'>Status</div>,
     cell: (props: any) => (
-      <div className='text-left'>{props.getValue()}</div>
+      <Badge
+        data={props.getValue()}
+        size='xs'
+        colorTheme={
+          props.getValue() === 'active'
+            ? 'success'
+            : props.getValue() === 'inactive'
+              ? 'danger'
+              : props.getValue() === 'hold'
+                ? 'warning'
+                : 'default'
+        }
+        className='px-[7px] py-[2px] uppercase rounded'
+      />
     ),
   }),
   columnHelper.accessor('first_name', {

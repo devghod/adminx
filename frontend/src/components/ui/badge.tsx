@@ -15,7 +15,7 @@ const badgeVariants = cva('font-semibold px-1', {
     },
     colorTheme: {
       primary: 'text-blue-600 border-blue-600 bg-blue-600/20',
-      success: 'text-green-600 border-green-600 bg-green-600/20',
+      success: 'text-teal-600 border-teal-600 bg-teal-600/20',
       danger: 'text-rose-500 border-rose-500 bg-rose-500/20',
       warning: 'text-amber-500 border-amber-500 bg-amber-500/20',
       info: 'text-sky-500 border-sky-500 bg-sky-500/20',
