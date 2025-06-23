@@ -101,49 +101,39 @@ const ProfileDetails = () => {
     setImg(fallbackImg);
   }
 
-  if (!mounted)
-    return (
-      <Image
-        src={fallbackImg}
-        style={{ width: 'auto', height: 'auto' }}
-        width={10}
-        height={10}
-        sizes='10x10'
-        alt='Loading Profile'
-      />
-    );
+  if (!mounted) return <ProfileDetailsSkeleton />;
 
   return (
-    <div className='flex space-x-4'>
-      {img ? (
-        <Image
-          src={img}
-          width={10}
-          height={10}
-          sizes='10x10'
-          alt='Profile Image'
-          style={{ width: 'auto', height: 'auto' }}
-          onError={handleImgFallback}
-          blurDataURL={fallbackImg}
-          loading='lazy'
-        />
-      ) : (
-        <NoProfileImage gender={data?.gender} />
-      )}
-      <div className=''>
-        {isLoading && <ProfileDetailsSkeleton />}
-        {!isLoading && mounted && (
-          <>
+    <>
+      {isLoading && <ProfileDetailsSkeleton />}
+      {!isLoading && mounted && (
+        <div className='flex space-x-4'>
+          {img ? (
+            <Image
+              src={img}
+              width={10}
+              height={10}
+              sizes='10x10'
+              alt='Profile Image'
+              style={{ width: 'auto', height: 'auto' }}
+              onError={handleImgFallback}
+              blurDataURL={fallbackImg}
+              loading='lazy'
+            />
+          ) : (
+            <NoProfileImage gender={data?.gender} />
+          )}
+          <div className=''>
             <div className='text-sm font-medium text-gray-800 dark:text-gray-300'>
               {`${data?.first_name && data?.last_name ? `${data.first_name} ${data.last_name}` : 'Not assigned'}`}
             </div>
             <div className='text-sm text-gray-500'>
               {`${data?.email ? data.email : 'Not assigned'}`}
             </div>
-          </>
-        )}
-      </div>
-    </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
@@ -166,8 +156,11 @@ const NoProfileImage = ({
 );
 
 const ProfileDetailsSkeleton = () => (
-  <>
-    <div className='rounded-full w-full h-2 my-2 bg-gray-300 dark:bg-gray-700 animate-pulse'></div>
-    <div className='rounded-full w-full h-2 my-2 bg-gray-300 dark:bg-gray-700 animate-pulse'></div>
-  </>
+  <div className='flex space-x-4'>
+    <div className='rounded-full w-10 h-10 bg-gray-300 dark:bg-gray-700 animate-pulse'></div>
+    <div className='w-40 flex flex-col'>
+      <div className='rounded-full w-full h-2 my-2 bg-gray-300 dark:bg-gray-700 animate-pulse'></div>
+      <div className='rounded-full w-full h-2 my-2 bg-gray-300 dark:bg-gray-700 animate-pulse'></div>
+    </div>
+  </div>
 );
