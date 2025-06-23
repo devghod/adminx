@@ -17,7 +17,7 @@ const AccountCountCard = () => {
   if (isLoading) return <Skeleton />;
 
   return (
-    <div className='w-40 border px-6 py-5 rounded-lg bg-white dark:bg-black'>
+    <div className='w-40 px-6 py-5 shadow-xl rounded-xl bg-white dark:bg-black'>
       <div className='font-bold'>Accounts</div>
       <div className='flex flex-col gap-y-2 mt-4'>
         <div className='flex gap-x-4'>

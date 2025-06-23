@@ -57,7 +57,7 @@ const MenuDashboard = () => {
 
   return (
     <>
-      <div className='inset-shadow-sm dark:inset-shadow-gray-800/50 border-b border-slate-100 dark:border-slate-800'>
+      <div className='border-b border-slate-100 dark:border-slate-800'>
         <ProfileSection />
       </div>
 
@@ -79,7 +79,7 @@ export default MenuDashboard;
 
 const ProfileSection = () => {
   return (
-    <div className='py-4 px-6 inset-shadow-sm dark:inset-shadow-gray-800/50 border-b border-slate-100 dark:border-slate-800'>
+    <div className='py-4 px-6 border-b border-slate-100 dark:border-slate-800'>
       <ProfileDetails />
     </div>
   );
@@ -154,13 +154,13 @@ const NoProfileImage = ({
 }) => (
   <>
     {!gender && (
-      <UserIcon className='w-10 h-10 bg-gray-200/50 dark:bg-gray-900/50 rounded-full' />
+      <UserIcon className='w-10 h-10 bg-gray-500/20 dark:bg-gray-700/70 rounded-full' />
     )}
     {gender === 'male' && (
-      <UserMaleIcon className='w-10 h-10 bg-gray-200/50 dark:bg-gray-900/50 rounded-full' />
+      <UserMaleIcon className='w-10 h-10 bg-gray-500/20 dark:bg-gray-700/70 rounded-full' />
     )}
     {gender === 'female' && (
-      <UserFemaleIcon className='w-10 h-10 bg-gray-200/50 dark:bg-gray-900/50 rounded-full' />
+      <UserFemaleIcon className='w-10 h-10 bg-gray-500/20 dark:bg-gray-700/70 rounded-full' />
     )}
   </>
 );

@@ -24,7 +24,7 @@ export default function DashboardPageLayout({
           <div className='border-r border-gray-200 dark:border-gray-800 w-40 md:w-64 overflow-y-auto'>
             <MenuDashboard />
           </div>
-          <div className=' flex-auto overflow-y-auto bg-gray-50 dark:bg-gray-900 inset-shadow-sm dark:inset-shadow-gray-800/50'>
+          <div className='flex-auto overflow-y-auto bg-gray-50 dark:bg-gray-900'>
             <BodyDashoard>{children}</BodyDashoard>
           </div>
         </div>

@@ -19,7 +19,7 @@ const RecentActivityCard = () => {
   if (isLoading) return <Skeleton />;
 
   return (
-    <div className='w-[300px] border px-6 py-5 rounded-lg bg-white dark:bg-black'>
+    <div className='w-[300px] shadow-xl px-6 py-5 rounded-xl bg-white dark:bg-black'>
       <div className='font-bold'>Recent Activity</div>
       <div className='flex flex-col gap-y-2 mt-4'>
         {logsList.length > 0 ? (
@@ -54,7 +54,7 @@ const ActivityCard = ({ log }: { log: TLog }) => {
           </div>
         </div>
         <div className=''>
-          <div className='text-gray-500 font-semibold text-sm'>
+          <div className='text-gray-500 text-sm'>
             {dateFormat(log.date_created, 'MM/DD/YYYY')}
           </div>
         </div>

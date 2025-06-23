@@ -90,7 +90,7 @@ const Datatable = ({
   }, [pagination, fnQuery, fnSetFilters, search, globalColumnSearch]);
 
   return (
-    <section className='flex flex-col gap-y-2 max-w-[2000px] mx-auto bg-white dark:bg-black rounded-xl shadow-md p-3 my-3 relative'>
+    <section className='flex flex-col gap-y-2 max-w-[2000px] mx-auto bg-white dark:bg-black rounded-xl shadow-xl p-3 my-3 relative'>
       {isLoading && (
         <div className='absolute inset-0 bg-white/90 dark:bg-black/90 rounded-xl pointer-events-none'>
           <div className='flex flex-col items-center justify-center h-full'>
