@@ -48,7 +48,7 @@ export const columns = [
                 ? 'warning'
                 : 'default'
         }
-        className='px-[7px] py-[2px] uppercase rounded'
+        className='px-[7px] py-[2px] uppercase rounded font-bold'
       />
     ),
   }),
