@@ -9,6 +9,7 @@ export type TUser = {
   last_name?: string;
   mobile?: string;
   image?: string;
+  gender?: string;
 };
 
 export type TUsers = TUser[] | [];
