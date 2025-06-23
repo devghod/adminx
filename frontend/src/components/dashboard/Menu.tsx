@@ -5,9 +5,11 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import {
   HomeIcon,
-  ProfileIcon,
   ServicesIcon,
   UsersIcon,
+  UserIcon,
+  UserMaleIcon,
+  UserFemaleIcon,
 } from '@/components/ui/icons';
 import {
   NavMenuIndicator,
@@ -104,9 +106,9 @@ const ProfileDetails = () => {
       <Image
         src={fallbackImg}
         style={{ width: 'auto', height: 'auto' }}
-        width={32}
-        height={32}
-        sizes='32x32'
+        width={10}
+        height={10}
+        sizes='10x10'
         alt='Loading Profile'
       />
     );
@@ -116,9 +118,9 @@ const ProfileDetails = () => {
       {img ? (
         <Image
           src={img}
-          width={32}
-          height={32}
-          sizes='32x32'
+          width={10}
+          height={10}
+          sizes='10x10'
           alt='Profile Image'
           style={{ width: 'auto', height: 'auto' }}
           onError={handleImgFallback}
@@ -126,7 +128,7 @@ const ProfileDetails = () => {
           loading='lazy'
         />
       ) : (
-        <ProfileIcon className='w-10 h-10' />
+        <NoProfileImage gender={data?.gender} />
       )}
       <div className=''>
         {isLoading && <ProfileDetailsSkeleton />}
@@ -144,6 +146,24 @@ const ProfileDetails = () => {
     </div>
   );
 };
+
+const NoProfileImage = ({
+  gender,
+}: {
+  gender: string | undefined;
+}) => (
+  <>
+    {!gender && (
+      <UserIcon className='w-10 h-10 bg-gray-200/50 dark:bg-gray-900/50 rounded-full' />
+    )}
+    {gender === 'male' && (
+      <UserMaleIcon className='w-10 h-10 bg-gray-200/50 dark:bg-gray-900/50 rounded-full' />
+    )}
+    {gender === 'female' && (
+      <UserFemaleIcon className='w-10 h-10 bg-gray-200/50 dark:bg-gray-900/50 rounded-full' />
+    )}
+  </>
+);
 
 const ProfileDetailsSkeleton = () => (
   <>
