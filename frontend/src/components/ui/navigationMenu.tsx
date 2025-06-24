@@ -2,11 +2,57 @@
 
 import * as React from 'react';
 import * as NavMenuPrimitive from '@radix-ui/react-navigation-menu';
-import Link from 'next/link';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/tailwindMerge';
 
 const NavMenuRoot = NavMenuPrimitive.Root;
+const NavMenuTrigger = NavMenuPrimitive.Trigger;
+const NavMenuContent = NavMenuPrimitive.Content;
+
+const navMenuLinkVariants = cva(`
+  flex 
+  w-full 
+  transition-all
+  delay-150
+  mx-1
+  py-2 
+  px-4 
+  data-active:py-2
+  data-active:px-3
+  data-active:shadow-lg
+  data-active:rounded-lg
+  hover:shadow-lg
+  hover:rounded-lg
+  hover:py-2
+  hover:px-3
+  hover:text-violet-700
+  hover:dark:text-violet-500
+  hover:dark:ring
+  hover:dark:ring-violet-500/50
+`);
+
+const NavMenuLink = React.forwardRef<
+  React.ElementRef<typeof NavMenuPrimitive.Link>,
+  Omit<
+    React.ComponentPropsWithoutRef<typeof NavMenuPrimitive.Link>,
+    'onSelect'
+  > & {
+    className?: string;
+    active?: boolean;
+  }
+>(({ children, className, active, ...props }, forwardedRef) => (
+  <NavMenuPrimitive.Link
+    {...props}
+    asChild
+    active={active}
+    ref={forwardedRef}
+    className={cn(navMenuLinkVariants(), className)}
+  >
+    {children}
+  </NavMenuPrimitive.Link>
+));
+
+NavMenuLink.displayName = 'NavMenuLink';
 
 const NavMenuList = React.forwardRef<
   React.ElementRef<typeof NavMenuPrimitive.List>,
@@ -45,60 +91,6 @@ const NavMenuItem = React.forwardRef<
 });
 
 NavMenuItem.displayName = 'NavMenuItem';
-
-const NavMenuTrigger = NavMenuPrimitive.Trigger;
-const NavMenuContent = NavMenuPrimitive.Content;
-
-const navMenuLinkVariants = cva(`
-  flex 
-  w-full 
-  transition-all
-  data-active:text-white 
-  data-active:bg-violet-700
-  data-active:border-l-8
-  data-active:border-violet-500
-  data-active:hover:text-black 
-  data-active:hover:bg-violet-200 
-  data-active:dark:bg-violet-500/50
-  data-active:dark:hover:text-slate-900 
-  data-active:dark:hover:bg-violet-500
-  text-slate-800 
-  dark:text-slate-200 
-  py-1.5 
-  px-4 
-  font-medium 
-  hover:bg-violet-200 
-  hover:border-l-8
-  hover:border-violet-500
-  dark:hover:bg-violet-500 mx-1`);
-
-const NavMenuLink = React.forwardRef<
-  React.ElementRef<typeof NavMenuPrimitive.Link>,
-  Omit<
-    React.ComponentPropsWithoutRef<typeof NavMenuPrimitive.Link>,
-    'onSelect'
-  > &
-    VariantProps<typeof navMenuLinkVariants> & {
-      className?: string;
-      title: string;
-      href: string;
-      active?: boolean;
-      icon?: React.ReactNode;
-    }
->(({ className, title, icon, active, ...props }, forwardedRef) => (
-  <NavMenuPrimitive.Link asChild active={active}>
-    <Link
-      {...props}
-      ref={forwardedRef}
-      className={cn(navMenuLinkVariants(), className)}
-    >
-      <div className='mr-4 text-xs h-[2px] font-bold'>{icon}</div>
-      <div className=''>{title}</div>
-    </Link>
-  </NavMenuPrimitive.Link>
-));
-
-NavMenuLink.displayName = 'NavMenuLink';
 
 const navMenuIndicatorVariants = cva('bg-sky-500');
 

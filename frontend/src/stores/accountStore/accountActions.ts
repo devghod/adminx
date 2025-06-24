@@ -46,7 +46,7 @@ export const createAccountActions: StateCreator<
   },
   getProfile: async () => {
     try {
-      set({ isLoading: true });
+      set({ profileIsLoading: true });
 
       const token = await getToken();
       const refreshToken = await getRefreshToken();
@@ -68,18 +68,18 @@ export const createAccountActions: StateCreator<
         const data = await result.json();
         set({
           profile: data.profile,
-          isLoading: false,
+          profileIsLoading: false,
           message: '',
         });
         return true;
       } else {
         const data = await result.json();
-        set({ isLoading: false, message: data.message });
+        set({ profileIsLoading: false, message: data.message });
         return false;
       }
     } catch (error) {
       console.error('Error', error);
-      set({ isLoading: false });
+      set({ profileIsLoading: false });
     }
   },
   createUser: async (body: TUser) => {

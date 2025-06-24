@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import {
   HomeIcon,
@@ -14,39 +13,32 @@ import {
 import {
   NavMenuIndicator,
   NavMenuItem,
-  NavMenuLink,
   NavMenuList,
   NavMenuRoot,
 } from '@/components/ui/navigationMenu';
 import { useAccountStore } from '@/stores/accountStore';
+import MenuLink from '@/components/dashboard/MenuLink';
 
 const MenuData = [
   {
     title: 'Main',
     url: '/dashboard',
-    icon: <HomeIcon />,
+    icon: <HomeIcon className='w-5 h-5' />,
   },
   {
     title: 'Accounts',
     url: '/dashboard/accounts',
-    icon: <UsersIcon />,
+    icon: <UsersIcon className='w-5 h-5' />,
   },
   {
     title: 'Services',
     url: '/dashboard/services',
-    icon: <ServicesIcon />,
+    icon: <ServicesIcon className='w-5 h-5' />,
   },
 ];
 
 const fallbackImg =
   'data:image/svg+xml;base64,PHN2ZyBzdHJva2U9IiNGRkZGRkYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMCIgdmlld0JveD0iMCAwIDI0IDI0IiBoZWlnaHQ9IjIwMHB4IiB3aWR0aD0iMjAwcHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB4PSIyIiB5PSIyIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjIiIHJ4PSIyIj48L3JlY3Q+PC9zdmc+Cg==';
-
-const Link = ({ href, ...props }: any) => {
-  const pathname = usePathname();
-  const isActive = href === pathname;
-
-  return <NavMenuLink href={href} {...props} active={isActive} />;
-};
 
 const MenuDashboard = () => {
   const { getProfile } = useAccountStore();
@@ -62,10 +54,10 @@ const MenuDashboard = () => {
       </div>
 
       <NavMenuRoot>
-        <NavMenuList className='py-1 space-y-2'>
+        <NavMenuList className='py-1 space-y-1'>
           {MenuData.map(({ title, url, icon }, index) => (
             <NavMenuItem key={index}>
-              <Link href={url} title={title} icon={icon} />
+              <MenuLink href={url} title={title} icon={icon} />
             </NavMenuItem>
           ))}
           <NavMenuIndicator />
@@ -86,7 +78,7 @@ const ProfileSection = () => {
 };
 
 const ProfileDetails = () => {
-  const { profile, isLoading } = useAccountStore();
+  const { profile, profileIsLoading: isLoading } = useAccountStore();
   const [mounted, setMounted] = useState(false);
   const [data, setData] = useState(profile);
   const [img, setImg] = useState(data?.image);
