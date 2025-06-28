@@ -1,20 +1,68 @@
 'use client';
 
-import { useMemo, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { TLog, useLogStore } from '../../stores/logStore';
 import { InventoryIcon, UserIcon } from '../ui/icons';
 import { dateFormat } from '@/utils/dateHelper';
+import { useVirtualizer } from '@tanstack/react-virtual';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 const RecentActivityCard = () => {
-  const { getLogsPaginated, isLoading, logs } = useLogStore();
+  const { getLogsPaginated, isLoading, total, size } = useLogStore();
+
+  const {
+    // status,
+    data,
+    // error,
+    // isFetching,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['projects'],
+    queryFn: ({ pageParam = 1 }) => getLogsPaginated(pageParam, size),
+    getNextPageParam: (lastPage, allPages) => {
+      const totalPages = Math.ceil(total / size);
+      const nextPage = allPages.length + 1;
+
+      return nextPage <= totalPages ? nextPage : undefined;
+    },
+    initialPageParam: 1,
+  });
+
+  const allRows =
+    data?.pages[0]?.logs && data.pages.length > 0
+      ? data.pages[0].logs.map((d: any) => d)
+      : [];
+
+  const parentRef = useRef(null);
+
+  const rowVirtualizer = useVirtualizer({
+    count: hasNextPage ? allRows.length + 1 : allRows.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 35,
+    overscan: 5,
+  });
 
   useEffect(() => {
-    getLogsPaginated(1, 5);
-  }, [getLogsPaginated]);
+    const [lastItem] = [
+      ...rowVirtualizer.getVirtualItems(),
+    ].reverse();
 
-  const logsList = useMemo(() => {
-    return logs ?? [];
-  }, [logs]);
+    if (!lastItem) {
+      return;
+    }
+
+    if (
+      lastItem.index >= allRows.length - 1 &&
+      hasNextPage &&
+      !isFetchingNextPage
+    ) {
+      fetchNextPage();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasNextPage, fetchNextPage, allRows.length, isFetchingNextPage, rowVirtualizer.getVirtualItems(), rowVirtualizer]);
 
   if (isLoading) return <Skeleton />;
 
@@ -22,13 +70,16 @@ const RecentActivityCard = () => {
     <div className='w-[300px] shadow-xl px-6 py-5 rounded-xl bg-white dark:bg-black'>
       <div className='font-bold'>Recent Activity</div>
       <div className='flex flex-col gap-y-2 mt-4'>
-        {logsList.length > 0 ? (
-          logs.map((log: TLog) => (
-            <ActivityCard key={log._id} log={log} />
-          ))
-        ) : (
-          <div className=''>No Data</div>
-        )}
+        <div ref={parentRef} className='h-[250px] overflow-auto'>
+          <div className='h-[100px] w-full relative flex flex-col gap-y-2'>
+            {rowVirtualizer.getVirtualItems().map(virtualItem => (
+              <ActivityCard
+                log={allRows[virtualItem.index]}
+                key={virtualItem.key}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -37,6 +88,7 @@ const RecentActivityCard = () => {
 export default RecentActivityCard;
 
 const ActivityCard = ({ log }: { log: TLog }) => {
+  if (!log) return null;
   return (
     <div className='flex flex-col gap-y-1 ' key={log._id}>
       <div className='flex justify-between'>
@@ -93,7 +145,7 @@ const ActivityLogo = ({
 };
 
 const Skeleton = () => (
-  <div className='max-w-68 border px-6 py-5 rounded-lg bg-white dark:bg-black'>
+  <div className='w-[300px] shadow-xl px-6 py-5 border rounded-xl bg-white dark:bg-black'>
     <div className='font-bold'>Recent Activity</div>
     <div className='flex flex-col gap-y-2 mt-4'>
       <div className='rounded-full w-full h-2 my-2 bg-gray-300 dark:bg-gray-700 animate-pulse'></div>

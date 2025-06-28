@@ -8,7 +8,7 @@ export type TLogActions = {
     page: number,
     limit: number,
     filters?: any,
-  ) => Promise<void>;
+  ) => Promise<any>;
   setFilters: (filters: any) => void;
   setSize: (size: number) => void;
 };
@@ -84,17 +84,30 @@ export const createLogActions: StateCreator<
         data,
         size: currentSize,
         page: currentPage,
+        total,
       } = await result.json();
 
       if (result.ok && success) {
-        set({
+        const logStates = {
+          total,
           logs: data,
           size: currentSize,
-          page: currentPage,
+          page: currentPage + 1,
           isLoading: false,
-        });
+        };
+
+        set(logStates);
+
+        return logStates;
       } else {
         set({ isLoading: false });
+        return {
+          total: 0,
+          logs: [],
+          size: 0,
+          page: 0,
+          isLoading: false,
+        };
       }
     } catch (err) {
       console.error('Error', err);

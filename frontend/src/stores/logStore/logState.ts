@@ -6,6 +6,7 @@ export type TLogState = {
   size: number;
   page: number;
   filters: any;
+  total: number;
   isLoading: boolean;
 };
 
@@ -15,5 +16,6 @@ export const initialLogState: TLogState = {
   isLoading: false,
   size: 10,
   page: 1,
+  total: 0,
   filters: {},
 };
