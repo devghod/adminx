@@ -760,8 +760,118 @@ function UserFemaleIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+function ArrowDownIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+    >
+      <path
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='2'
+        d='m7 10l5 5l5-5'
+      />
+    </svg>
+  );
+}
+
+function ArrowUpIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+    >
+      <path
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='2'
+        d='m17 14l-5-5l-5 5'
+      />
+    </svg>
+  );
+}
+
+function ArrowLeftIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+    >
+      <path
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='2'
+        d='m14 7l-5 5l5 5'
+      />
+    </svg>
+  );
+}
+
+function ArrowRightIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+    >
+      <path
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='2'
+        d='m10 17l5-5l-5-5'
+      />
+    </svg>
+  );
+}
+
+function ArrowUpDownIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+    >
+      <path
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='2'
+        d='m11 16l-3 3m0 0l-3-3m3 3V5m5 3l3-3m0 0l3 3m-3-3v14'
+      />
+    </svg>
+  );
+}
+
 export {
   AdminIcon,
+  ArrowUpDownIcon,
+  ArrowUpIcon,
+  ArrowDownIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
   ManagerIcon,
   EmployeeIcon,
   ProfileIcon,

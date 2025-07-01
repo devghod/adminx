@@ -21,8 +21,14 @@ const navMenuLinkVariants = cva(`
   data-active:px-3
   data-active:shadow-lg
   data-active:rounded-lg
+  data-active:border-slate-500/10
+  data-active:dark:border-violet-500/50
+  border
+  border-transparent
+  rounded-lg
   hover:shadow-lg
-  hover:rounded-lg
+  hover:border-slate-500/10
+  hover:dark:border-violet-500/10
   hover:py-2
   hover:px-3
   hover:text-violet-700

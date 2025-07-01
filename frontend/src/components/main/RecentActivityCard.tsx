@@ -16,7 +16,7 @@ const RecentActivityCard = () => {
       queryKey: ['logs'],
       queryFn: ({ pageParam = 0 }) =>
         getLogsPaginated(pageParam, size),
-      getNextPageParam: (lastPage, allPages) => {
+      getNextPageParam: (_lastPage, allPages) => {
         const totalPages = Math.ceil(total / size);
         const nextPage = allPages.length + 1;
         return nextPage <= totalPages ? nextPage : undefined;
