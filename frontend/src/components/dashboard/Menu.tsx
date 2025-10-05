@@ -50,7 +50,7 @@ const MenuDashboard = () => {
   return (
     <div
       className={`transition-all duration-500
-        ${isShrink ? 'w-40 md:w-64' : 'w-16'}`}
+        ${isShrink ? 'w-16' : 'w-40 md:w-64'}`}
     >
       <div className='w-full text-right h-5'>
         <Button
@@ -58,9 +58,9 @@ const MenuDashboard = () => {
           onClick={() => handleShrink()}
         >
           {isShrink ? (
-            <CloseSidebarSolidIcon />
-          ) : (
             <OpenSidebarSolidIcon />
+          ) : (
+            <CloseSidebarSolidIcon />
           )}
         </Button>
       </div>

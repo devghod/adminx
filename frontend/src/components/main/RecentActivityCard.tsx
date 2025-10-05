@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { TLog, useLogStore } from '../../stores/logStore';
-import { InventoryIcon, UserIcon } from '../ui/icons';
+import { InventoryIcon, TradeIcon, UserIcon } from '../ui/icons';
 import { ToolTip } from '../ui/tooltips';
 import { dateFormat } from '@/utils/dateHelper';
 import { useVirtualizer } from '@tanstack/react-virtual';
@@ -120,14 +120,14 @@ const ActivityCard = ({ log }: { log: TLog }) => {
           </div>
           <div className=''>
             <div className='text-gray-500 font-semibold text-sm'>
-              {log.user_id_execute.first_name}
+              {log?.user_id_execute?.first_name}
             </div>
-            <div className='text-gray-500 text-xs'>{log.action}</div>
+            <div className='text-gray-500 text-xs'>{log?.action}</div>
           </div>
         </div>
         <div className=''>
           <div className='text-gray-500 text-xs'>
-            {dateFormat(log.date_created, 'MM/DD/YYYY')}
+            {dateFormat(log?.date_created, 'MM/DD/YYYY')}
           </div>
         </div>
       </div>
@@ -159,6 +159,8 @@ const ActivityLogo = ({
   const icons: any = {
     user: <UserIcon className={color[action]} />,
     inventory: <InventoryIcon className={color[action]} />,
+    tradejournal: <TradeIcon className={color[action]} />,
+    trade: <TradeIcon className={color[action]} />,
   };
 
   return (

@@ -18,10 +18,10 @@ import {
   DialogMenuDescription,
   DialogMenuTitle,
 } from '@/components/ui/dialog';
-import CreateAccountForm from '@/features/account/createEdit/form';
+import { Datatable } from '@/components/Datatable';
+import CreateAccountForm from '@/features/account/createUpdate/form';
 import DeleteAccount from '@/features/account/delete/form';
 import ChangePasswordForm from '@/features/account/changePassword/form';
-import { Datatable } from '@/components/Datatable';
 
 const AccountDatatable = () => {
   const {
