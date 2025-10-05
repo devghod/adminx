@@ -21,7 +21,7 @@ export default function DashboardPageLayout({
           <HeaderDashboard />
         </div>
         <div className='flex flex-1 overflow-hidden'>
-          <div className='border-r border-gray-200 dark:border-gray-800 w-40 md:w-64 overflow-y-auto'>
+          <div className='border-r border-gray-200 dark:border-gray-800'>
             <MenuDashboard />
           </div>
           <div className='flex-auto overflow-y-auto bg-gray-50 dark:bg-gray-900'>
