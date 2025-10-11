@@ -21,7 +21,7 @@ const DeleteTradeJournal = ({
 
   const onSubmit = async (journal: any) => {
     await deleteTradeJournal(journal.id)
-      .then(res => {
+      .then((res: any) => {
         if (res) {
           toast({
             type: 'success',
@@ -37,7 +37,7 @@ const DeleteTradeJournal = ({
           });
         }
       })
-      .catch(err => {
+      .catch((err: any) => {
         console.error(err);
       });
   };

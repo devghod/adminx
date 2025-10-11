@@ -21,7 +21,7 @@ const DeleteAccount = ({
 
   const onSubmit = async (account: any) => {
     await deleteUser(account.id)
-      .then(res => {
+      .then((res: any) => {
         if (res) {
           toast({
             type: 'success',
@@ -37,7 +37,7 @@ const DeleteAccount = ({
           });
         }
       })
-      .catch(err => {
+      .catch((err: any) => {
         console.error(err);
       });
   };

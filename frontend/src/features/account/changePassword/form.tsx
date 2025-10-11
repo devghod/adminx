@@ -34,7 +34,7 @@ const ChangePasswordForm = ({
     delete account.confirm_password;
 
     await updateUserPassword(account)
-      .then(res => {
+      .then((res: any) => {
         if (res) {
           toast({
             type: 'success',
@@ -51,7 +51,7 @@ const ChangePasswordForm = ({
           });
         }
       })
-      .catch(err => {
+      .catch((err: any) => {
         console.error(err);
       });
   };

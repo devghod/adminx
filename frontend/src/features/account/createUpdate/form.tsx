@@ -55,7 +55,7 @@ const CreateEditAccountForm = ({
       delete account.password;
 
       await updateUser(account)
-        .then(res => {
+        .then((res: any) => {
           if (res) {
             toast({
               type: 'success',
@@ -72,13 +72,12 @@ const CreateEditAccountForm = ({
             });
           }
         })
-        .catch(err => {
+        .catch((err: any) => {
           console.error(err);
         });
     } else {
       await createUser(account)
-        .then(res => {
-          console.debug(res);
+        .then((res: any) => {
           if (res) {
             toast({
               type: 'success',
@@ -94,7 +93,7 @@ const CreateEditAccountForm = ({
             });
           }
         })
-        .catch(err => {
+        .catch((err: any) => {
           console.debug(`>> ${err}`);
           console.error(err);
         });

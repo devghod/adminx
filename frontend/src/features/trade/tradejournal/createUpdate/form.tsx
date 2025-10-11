@@ -55,7 +55,7 @@ const CreateEditTradeJournalForm = ({
       journal.date_entry = new Date(journal.date_entry);
 
       await updateTradeJournal(journal)
-        .then(res => {
+        .then((res: any) => {
           if (res) {
             toast({
               type: 'success',
@@ -72,12 +72,12 @@ const CreateEditTradeJournalForm = ({
             });
           }
         })
-        .catch(err => {
+        .catch((err: any) => {
           console.error(err);
         });
     } else {
       await createTradeJournal(journal)
-        .then(res => {
+        .then((res: any) => {
           if (res) {
             toast({
               type: 'success',
@@ -93,7 +93,7 @@ const CreateEditTradeJournalForm = ({
             });
           }
         })
-        .catch(err => {
+        .catch((err: any) => {
           console.debug(`>> ${err}`);
           console.error(err);
         });
