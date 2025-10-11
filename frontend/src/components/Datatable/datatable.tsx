@@ -113,7 +113,7 @@ const Datatable = ({
             />
           </div>
         )}
-        
+
         <PaginationComponent
           table={tableConfig}
           fnSetSize={() => fnSetSize}
@@ -167,7 +167,6 @@ const Datatable = ({
           </div>
         </div>
       </div>
-
     </section>
   );
 };

@@ -5,8 +5,12 @@ import { TTradeJournal } from './type';
 import { getToken, getRefreshToken } from '@/hooks/token';
 
 export type TTradeActions = {
-  createTradeJournal: (body: TTradeJournal) => Promise<boolean | undefined>;
-  updateTradeJournal: (body: TTradeJournal) => Promise<boolean | undefined>;
+  createTradeJournal: (
+    body: TTradeJournal,
+  ) => Promise<boolean | undefined>;
+  updateTradeJournal: (
+    body: TTradeJournal,
+  ) => Promise<boolean | undefined>;
   deleteTradeJournal: (id: string) => Promise<boolean | undefined>;
   getTradeJournal: (id: string) => Promise<{
     success: boolean;
@@ -46,13 +50,16 @@ export const createTradeActions: StateCreator<
     try {
       set({ isLoading: true });
 
-      const result = await fetch('/api/proxy-auth/trade/create-tradejournal', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const result = await fetch(
+        '/api/proxy-auth/trade/create-tradejournal',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
         },
-        body: JSON.stringify(body),
-      });
+      );
 
       if (result.ok) {
         get().getTradeJournalsPaginated(
@@ -254,5 +261,4 @@ export const createTradeActions: StateCreator<
       set({ isLoading: false });
     }
   },
-
 });

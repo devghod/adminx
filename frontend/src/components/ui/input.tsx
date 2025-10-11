@@ -1,58 +1,82 @@
 import * as React from 'react';
 import { Label } from './label';
 import { cn } from '@/utils/tailwindMerge';
+import { useFormContext } from 'react-hook-form';
+
+interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  name: string;
+  validation?: object;
+  className?: string;
+  label?: string;
+  errorMsg?: string;
+  type?: string;
+}
 
 /**
- * @type {VariantProps<typeof inputVariants>}
  * @param {string} className
  * @param {string} label
- * @param {boolean} hasError
- * @param {any} errors
+ * @param {object} validation
+ * @param {string} errorMsg
  * @param {string} type
- * @param {string} ref
  * @param {any} props
  */
-const Input = React.forwardRef<
-  HTMLInputElement,
-  React.InputHTMLAttributes<HTMLInputElement> & {
-    className?: string;
-    label?: string;
-    errors?: any; // Ojbect
-    type?: string;
-  }
->(({ className, type, label, errors, ...props }, ref) => {
+const Input = ({
+  name,
+  className,
+  validation,
+  errorMsg,
+  type,
+  label,
+  ...props
+}: InputProps) => {
+
+  const context = useFormContext();
+
+  if (!context) return null;
+
+  const {
+    register,
+    formState: { errors },
+  } = context;
+
   const handleError = () => {
     if (
       errors &&
       typeof errors === 'object' &&
       Object.keys(errors).length > 0 &&
-      props.name
+      name
     ) {
-      return errors[props.name]?.message || '';
+      return typeof errors[name]?.message === 'string' ? true : false;
     }
-    return '';
+    return false;
   };
 
   return (
-    <div className='flex flex-col gap-y-1'>
-      {label && <Label htmlFor={props.name}>{label}</Label>}
+    <div className='flex flex-col gap-y-3'>
+      {label && <Label htmlFor={name}>{label}</Label>}
       <input
+        {...register(name, validation)}
+        {...(type === 'number' && { step: 'any' })}
+        id={name}
+        name={name}
         type={type}
         className={cn(
           'flex h-10 w-full rounded-md border text-slate-700 border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
           className,
         )}
-        ref={ref}
-        {...props}
         autoComplete='off'
+        {...props}
       />
       {handleError() && (
-        <p className='text-red-500 text-sm'>{handleError()}</p>
+        <p className='text-red-500 text-sm'>
+          {typeof errors[name]?.message === 'string'
+            ? errors[name]?.message
+            : errorMsg}
+        </p>
       )}
     </div>
   );
-});
-
-Input.displayName = 'Input';
+};
 
 export { Input };

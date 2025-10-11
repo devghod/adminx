@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useMemo, useEffect } from 'react';
 import { TTradeJournals } from '@/stores/tradeStore/type';
 import { useTradeStore } from '@/stores/tradeStore';
@@ -8,6 +10,7 @@ import {
   EditIcon,
   ReloadIcon,
   TrashIcon,
+  ViewIcon,
 } from '@/components/ui/icons';
 import { ToolTip } from '@/components/ui/tooltips';
 import { Datatable } from '@/components/Datatable';
@@ -37,6 +40,7 @@ const TradeJournalDatatable = () => {
   const [journaltData, setJournalData] = useState({});
   const [openCreateUpdate, setOpenCreateUpdate] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openDetail, setOpenDetail] = useState(false);
 
   useEffect(() => {
     setPage(1);
@@ -53,6 +57,16 @@ const TradeJournalDatatable = () => {
         id: 'actions',
         cell: (props: any) => (
           <div className='flex rounded-md gap-1'>
+            <ToolTip title='Details' className='text-xs'>
+              <Button
+                theme='fill-info'
+                shape='rounded'
+                size='xs'
+                onClick={() => handleDetails(props.row.original)}
+              >
+                <ViewIcon />
+              </Button>
+            </ToolTip>
             <ToolTip title='Edit' className='text-xs'>
               <Button
                 theme='fill-primary'
@@ -89,6 +103,11 @@ const TradeJournalDatatable = () => {
 
   const handleDelete = (data = {}): any => {
     setOpenDelete(true);
+    setJournalData(data);
+  };
+
+  const handleDetails = (data = {}): any => {
+    setOpenDetail(true);
     setJournalData(data);
   };
 
@@ -143,6 +162,11 @@ const TradeJournalDatatable = () => {
         data={journaltData}
       />
 
+      <DetailModal
+        open={openDetail}
+        onOpenChange={setOpenDetail}
+        details={journaltData}
+      />
     </>
   );
 };
@@ -186,6 +210,24 @@ const DeleteDialog = ({
     <DialogMenuTitle>Delete Account</DialogMenuTitle>
     <DialogMenuDescription asChild>
       <DeleteTradeJournal data={data} onClose={onOpenChange} />
+    </DialogMenuDescription>
+  </DialogMenu>
+);
+
+const DetailModal = ({
+  open = false,
+  onOpenChange,
+  details,
+}: {
+  open?: boolean;
+  onOpenChange?: any;
+  details?: any;
+}) => (
+  <DialogMenu open={open} onOpenChange={onOpenChange} modal>
+    <DialogMenuTitle>Details Account</DialogMenuTitle>
+    <DialogMenuClose closeIcon />
+    <DialogMenuDescription asChild>
+      <pre>{JSON.stringify(details, null, 2)}</pre>
     </DialogMenuDescription>
   </DialogMenu>
 );

@@ -56,7 +56,7 @@ export const createAccountActions: StateCreator<
         refreshToken: refreshToken,
       };
 
-      const result = await fetch('/api/no-auth/auth/verify', {
+      const result = await fetch('/api/proxy-auth/auth/verify', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

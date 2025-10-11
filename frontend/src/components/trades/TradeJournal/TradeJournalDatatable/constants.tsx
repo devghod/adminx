@@ -53,10 +53,33 @@ export const columns = [
       />
     ),
   }),
+  columnHelper.accessor('amount', {
+    id: 'last_name',
+    header: () => <div className='text-left'>Amount</div>,
+    cell: (props: any) => (
+      <div className='text-left'>{props.getValue()}</div>
+    ),
+    footer: props => (
+      <div className='text-left'>{props.column.id}</div>
+    ),
+  }),
+  columnHelper.accessor('date_entry', {
+    header: () => <div className='text-left'>Date Entry</div>,
+    cell: (props: any) => (
+      <div className='text-left'>
+        {dateFormat(props.getValue(), 'MM-DD-YYYY')}
+      </div>
+    ),
+    footer: props => (
+      <div className='text-left'>{props.column.id}</div>
+    ),
+  }),
   columnHelper.accessor('date_created', {
     header: () => <div className='text-left'>Date Created</div>,
     cell: (props: any) => (
-      <div className='text-left'>{dateFormat(props.getValue(), 'MM-DD-YYYY')}</div>
+      <div className='text-left'>
+        {dateFormat(props.getValue(), 'MM-DD-YYYY')}
+      </div>
     ),
     footer: props => (
       <div className='text-left'>{props.column.id}</div>
@@ -67,17 +90,9 @@ export const columns = [
     enableGlobalFilter: true,
     header: () => <div className='text-left'>Date Modified</div>,
     cell: (props: any) => (
-      <div className='text-left'>{dateFormat(props.getValue(), 'MM-DD-YYYY')}</div>
-    ),
-    footer: props => (
-      <div className='text-left'>{props.column.id}</div>
-    ),
-  }),
-  columnHelper.accessor('amount', {
-    id: 'last_name',
-    header: () => <div className='text-left'>Amount</div>,
-    cell: (props: any) => (
-      <div className='text-left'>{props.getValue()}</div>
+      <div className='text-left'>
+        {dateFormat(props.getValue(), 'MM-DD-YYYY')}
+      </div>
     ),
     footer: props => (
       <div className='text-left'>{props.column.id}</div>

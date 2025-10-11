@@ -1,4 +1,6 @@
-import TradeJournalTable from "./TradeJournalDatatable";
+'use client';
+
+import TradeJournalTable from './TradeJournalDatatable';
 
 const TradeJournal = () => {
   return (

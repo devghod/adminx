@@ -2,15 +2,18 @@ export type TTradeJournal = {
   _id?: string;
   date_created?: string;
   date_modified?: string;
-  status?: "win" | "lose" | "draw";
+  status?: 'win' | 'lose' | 'draw';
   trade_type?: string;
   amount?: number;
+  date_entry?: 'crypto' | 'currency';
 };
 
 export type TTradeJournals = TTradeJournal[] | [];
 
 export type TCreateTradeJournal = {
-  status?: "win" | "lose" | "draw";
-  trade_type?: string;
-  amount?: number;
+  _id?: string;
+  status: 'win' | 'lose' | 'draw';
+  trade_type: 'crypto' | 'currency';
+  amount: number;
+  date_entry: string;
 };

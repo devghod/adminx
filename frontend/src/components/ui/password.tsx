@@ -1,25 +1,52 @@
 import * as React from 'react';
+import * as PasswordInputPrimitive from '@radix-ui/react-password-toggle-field';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/tailwindMerge';
-import * as PasswordInputPrimitive from '@radix-ui/react-password-toggle-field';
 import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
 import { Label } from '@/components/ui/label';
+import { useFormContext } from 'react-hook-form';
+
+interface PasswordProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  name: string;
+  type: 'login' | 'signup' | 'off';
+  validation?: object;
+  className?: string;
+  label?: string;
+  errorMsg?: string;
+}
 
 const passwordInputVariants = cva(
   'flex h-10 w-full rounded-md border text-slate-700 border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
 );
 
-const PasswordInput = React.forwardRef<
-  HTMLInputElement,
-  React.ComponentPropsWithoutRef<typeof PasswordInputPrimitive.Root> &
-    VariantProps<typeof passwordInputVariants> & {
-      className?: string;
-      name?: string;
-      label?: string;
-      errors?: any;
-    }
->(({ className, label, errors, ...props }, ref) => {
-  const { name, ...inputProps } = props;
+/**
+ * @param {string} className
+ * @param {string} name
+ * @param {string} label
+ * @param {object} validation
+ * @param {string} errorMsg
+ * @param {enum} type 'login' | 'signup' | 'off'
+ * @param {any} props
+ */
+const PasswordInput = ({
+  className,
+  name,
+  type = 'off',
+  label,
+  validation,
+  errorMsg,
+  ...props
+}: PasswordProps) => {
+  
+  const context = useFormContext();
+  
+  if (!context) return null;
+
+  const {
+    register,
+    formState: { errors },
+  } = context;
 
   const handleError = () => {
     if (
@@ -28,9 +55,15 @@ const PasswordInput = React.forwardRef<
       Object.keys(errors).length > 0 &&
       name
     ) {
-      return errors[name]?.message || '';
+      return typeof errors[name]?.message === 'string' ? true : false;
     }
-    return '';
+    return false;
+  };
+
+  const autoCompleteType: any = {
+    login: 'current-password',
+    signup: 'new-password',
+    off: undefined,
   };
 
   return (
@@ -39,11 +72,12 @@ const PasswordInput = React.forwardRef<
         {label && <Label htmlFor={`password_${name}`}>{label}</Label>}
         <div className='relative flex items-center' id={name}>
           <PasswordInputPrimitive.Input
-            ref={ref}
+            {...register(name, validation)}
             className={cn(passwordInputVariants(), className)}
-            {...inputProps}
             name={name}
             id={`password_${name}`}
+            autoComplete={autoCompleteType[type]}
+            {...props}
           />
           <PasswordInputPrimitive.Toggle
             id={`toggle_${name}`}
@@ -56,13 +90,15 @@ const PasswordInput = React.forwardRef<
           </PasswordInputPrimitive.Toggle>
         </div>
         {handleError() && (
-          <p className='text-red-500 text-sm'>{handleError()}</p>
+          <p className='text-red-500 text-sm'>
+            {typeof errors[name]?.message === 'string'
+              ? errors[name]?.message
+              : errorMsg}
+          </p>
         )}
       </div>
     </PasswordInputPrimitive.Root>
   );
-});
-
-PasswordInput.displayName = 'PasswordInput';
+};
 
 export { PasswordInput };

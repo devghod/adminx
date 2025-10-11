@@ -1,3 +1,5 @@
+'use client';
+
 import Datatable from './datatable';
 
 const TradeJournalDatatable = () => (

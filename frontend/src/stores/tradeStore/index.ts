@@ -1,9 +1,6 @@
 import { create } from 'zustand';
 import { TTradeState, initialTradeState } from './tradeState';
-import {
-  TTradeActions,
-  createTradeActions,
-} from './tradeActions';
+import { TTradeActions, createTradeActions } from './tradeActions';
 import { TTradeJournal, TCreateTradeJournal } from './type';
 
 export type TTradeStore = TTradeState & TTradeActions;

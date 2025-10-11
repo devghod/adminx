@@ -8,7 +8,10 @@ const tradeJournalSchema = new mongoose.Schema({
     type: String,
   },
   amount: {
-    type: Number
+    type: Number,
+  },
+  date_entry: {
+    type: String,
   },
   
   // necessary fields

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import {
   HomeIcon,
   ServicesIcon,
@@ -16,6 +16,8 @@ import {
   NavMenuRoot,
 } from '@/components/ui/navigationMenu';
 import { Button } from '@/components/ui/button';
+import { ToolTip } from '@/components/ui/tooltips';
+import { toggleSidebar, toggleSidebarStatus } from '@/hooks/sidebar';
 import MenuLink from '@/components/dashboard/MenuLink';
 
 const MenuData = [
@@ -43,14 +45,28 @@ const MenuData = [
 
 const MenuDashboard = () => {
   const [isShrink, setIsShrink] = useState<boolean>(false);
+  const [isPending, startTransition] = useTransition();
 
-  const handleShrink = () =>
-    isShrink ? setIsShrink(false) : setIsShrink(true);
+  const handleShrink = () => {
+    startTransition(async () => {
+      const newState = await toggleSidebar();
+      setIsShrink(newState === 'collapsed');
+    });
+  };
+
+  useEffect(() => {
+    startTransition(async () => {
+      const newState = await toggleSidebarStatus();
+      setIsShrink(newState === 'collapsed');
+    });
+  }, []);
 
   return (
     <div
       className={`transition-all duration-500
-        ${isShrink ? 'w-16' : 'w-40 md:w-64'}`}
+        ${isShrink ? 'w-16' : 'w-40 md:w-64'}
+        ${isPending ? 'opacity-50 pointer-events-none' : ''}
+      `}
     >
       <div className='w-full text-right h-5'>
         <Button
@@ -58,9 +74,13 @@ const MenuDashboard = () => {
           onClick={() => handleShrink()}
         >
           {isShrink ? (
-            <OpenSidebarSolidIcon />
+            <ToolTip title='Expand' className='text-xs'>
+              <OpenSidebarSolidIcon />
+            </ToolTip>
           ) : (
-            <CloseSidebarSolidIcon />
+            <ToolTip title='Collapse' className='text-xs'>
+              <CloseSidebarSolidIcon />
+            </ToolTip>
           )}
         </Button>
       </div>
