@@ -56,7 +56,7 @@ const DeleteTradeJournal = ({
       </p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input type='hidden' {...register('id')} />
-        <div className='flex gap-x-1 justify-end'>
+        <div className='flex gap-x-3 justify-end'>
           <Button
             type='button'
             theme='outline-neutral'

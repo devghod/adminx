@@ -1,10 +1,10 @@
 import moment from 'moment-timezone';
 
 /**
- * @param date 
- * @param format 
- * @param tz 
- * @returns 
+ * @param date
+ * @param format
+ * @param tz
+ * @returns
  */
 export const dateFormat = (
   date: string,

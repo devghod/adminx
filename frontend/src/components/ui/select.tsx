@@ -59,17 +59,10 @@ const Select = ({
     formState: { errors },
   } = context;
 
-  const handleError = () => {
-    if (
-      errors &&
-      typeof errors === 'object' &&
-      Object.keys(errors).length > 0 &&
-      name
-    ) {
-      return typeof errors[name]?.message === 'string' ? true : false;
-    }
-    return false;
-  };
+  const hasError =
+    errors && typeof errors[name]?.message === 'string'
+      ? true
+      : false;
 
   return (
     <div className='flex flex-col gap-y-3 w-full'>
@@ -97,7 +90,7 @@ const Select = ({
           </option>
         ))}
       </select>
-      {handleError() && (
+      {hasError && (
         <p className='text-red-500 text-sm'>
           {typeof errors[name]?.message === 'string'
             ? errors[name]?.message

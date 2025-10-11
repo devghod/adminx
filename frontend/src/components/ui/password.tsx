@@ -47,17 +47,10 @@ const PasswordInput = ({
     formState: { errors },
   } = context;
 
-  const handleError = () => {
-    if (
-      errors &&
-      typeof errors === 'object' &&
-      Object.keys(errors).length > 0 &&
-      name
-    ) {
-      return typeof errors[name]?.message === 'string' ? true : false;
-    }
-    return false;
-  };
+  const hasError =
+    errors && typeof errors[name]?.message === 'string'
+      ? true
+      : false;
 
   const autoCompleteType: any = {
     login: 'current-password',
@@ -88,7 +81,8 @@ const PasswordInput = ({
             />
           </PasswordInputPrimitive.Toggle>
         </div>
-        {handleError() && (
+
+        {hasError && (
           <p className='text-red-500 text-sm'>
             {typeof errors[name]?.message === 'string'
               ? errors[name]?.message

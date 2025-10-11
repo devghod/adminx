@@ -126,10 +126,7 @@ const CreateEditTradeJournalForm = ({
             />
           </div>
           <div className='grid grid-cols-2 gap-x-4'>
-            <RDatePicker 
-              name='date_entry'
-              label='Date Entry'
-            />
+            <RDatePicker name='date_entry' label='Date Entry' />
             <Input
               type='number'
               placeholder='00'

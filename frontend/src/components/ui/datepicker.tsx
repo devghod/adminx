@@ -1,13 +1,8 @@
 import { Label } from './label';
 import { cva } from 'class-variance-authority';
 import { cn } from '@/utils/tailwindMerge';
-import {
-  useFormContext
-} from 'react-hook-form';
-import {
-  DatePicker,
-  DatePickerProps,
-} from 'react-datepicker';
+import { Controller, useFormContext } from 'react-hook-form';
+import { DatePicker, DatePickerProps } from 'react-datepicker';
 import { dateFormat } from '@/utils/dateHelper';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -34,61 +29,62 @@ type ReactDatePickerProps = DatePickerProps & {
  * @param {string} ref
  * @param {any} props
  */
-export default function RDatePicker(
-  {
-    name,
-    className,
-    validation,
-    errorMsg,
-    label,
-    ...props
-  }: ReactDatePickerProps,
-) {
-
+export default function RDatePicker({
+  name,
+  className,
+  validation,
+  errorMsg,
+  label,
+  ...props
+}: ReactDatePickerProps) {
   const context = useFormContext();
 
   if (!context) return null;
 
   const {
-    watch,
-    setValue,
-    register,
+    control,
     formState: { errors },
   } = context;
 
-  const dateWatch = watch(name);
-
-  const handleError = () => {
-    if (
-      errors &&
-      typeof errors === 'object' &&
-      Object.keys(errors).length > 0 &&
-      name
-    ) {
-      return typeof errors[name]?.message === 'string' ? true : false;
-    }
-    return false;
-  };
-
-  const handleChange = (date: null | string) => {
-    if (!date) return null;
-
-    setValue(name, dateFormat(date, 'YYYY-MM-DD'), { shouldValidate: true });
-  };
+  const hasError =
+    errors && typeof errors[name]?.message === 'string'
+      ? true
+      : false;
 
   return (
     <div className='flex flex-col gap-y-3'>
       {label && <Label htmlFor={name}>{label}</Label>}
-      <DatePicker
-        {...register(name, validation)}
-        placeholderText='Select a date'
-        selected={dateWatch}
-        onChange={handleChange}
-        className={cn(dateVariants(), className)}
-        {...props}
+
+      <Controller
+        name={name}
+        control={control}
+        rules={validation}
+        render={({
+          field: { onChange, value },
+        }: {
+          field: { onChange: (value: any) => void; value: any };
+        }) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { onChange: _, ...datePickerProps } = props;
+          return (
+            <DatePicker
+              {...(datePickerProps as any)}
+              selected={value ? new Date(value) : null}
+              onChange={(date: Date | null) => {
+                onChange(
+                  date
+                    ? dateFormat(date.toISOString(), 'YYYY-MM-DD')
+                    : '',
+                );
+              }}
+              placeholderText='Select a date'
+              className={cn(dateVariants(), className)}
+            />
+          );
+        }}
       />
 
-      {handleError() && (
+      {hasError && (
         <p className='text-red-500 text-sm'>
           {typeof errors[name]?.message === 'string'
             ? errors[name]?.message
@@ -97,6 +93,6 @@ export default function RDatePicker(
       )}
     </div>
   );
-};
+}
 
 export { RDatePicker };

@@ -1,21 +1,21 @@
 import { toast as SonnerToast } from 'sonner';
 
 /**
- * @param type 
- * @param title 
- * @param message 
- * @param description 
- * @param className 
- * @param duration 
- * @param icon 
- * @param action 
- * @param cancel 
- * @param loading 
- * @param success 
- * @param error 
- * @param promiseProps 
- * @param button 
- * @returns 
+ * @param type
+ * @param title
+ * @param message
+ * @param description
+ * @param className
+ * @param duration
+ * @param icon
+ * @param action
+ * @param cancel
+ * @param loading
+ * @param success
+ * @param error
+ * @param promiseProps
+ * @param button
+ * @returns
  */
 export const toast = ({
   type = 'default',
