@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { useTradeStore } from '@/stores/tradeStore';
 import { Select } from '@/components/ui/select';
 import { toast } from '@/utils/toastHelper';
-// import ReactDatePicker from '@/components/ui/datepicker';
+import { RDatePicker } from '@/components/ui/datepicker';
 
 const CreateEditTradeJournalForm = ({
   data,
@@ -35,7 +35,7 @@ const CreateEditTradeJournalForm = ({
       trade_type: data.trade_type || '',
       status: data.status || '',
       amount: data.amount || 0,
-      date_entry: data.date_entry || new Date(),
+      date_entry: data.date_entry || '',
     },
     resolver: zodResolver(
       isEdit ? updateTradeJournalSchema : createTradeJournalschema,
@@ -126,11 +126,9 @@ const CreateEditTradeJournalForm = ({
             />
           </div>
           <div className='grid grid-cols-2 gap-x-4'>
-            <Input
-              type='date'
-              placeholder='MM/DD/YYYY'
-              label='Date Entry'
+            <RDatePicker 
               name='date_entry'
+              label='Date Entry'
             />
             <Input
               type='number'
@@ -139,11 +137,6 @@ const CreateEditTradeJournalForm = ({
               name='amount'
               validation={{ valueAsNumber: true }}
             />
-            {/* <ReactDatePicker 
-              // placeholder='00'
-              // label='Amount'
-              // id='date_entry'
-            /> */}
           </div>
         </div>
         <Button
