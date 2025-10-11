@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PasswordInputPrimitive from '@radix-ui/react-password-toggle-field';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 import { cn } from '@/utils/tailwindMerge';
 import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
 import { Label } from '@/components/ui/label';
@@ -38,9 +38,8 @@ const PasswordInput = ({
   errorMsg,
   ...props
 }: PasswordProps) => {
-  
   const context = useFormContext();
-  
+
   if (!context) return null;
 
   const {

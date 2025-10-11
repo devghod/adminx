@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { createAccountschema, updateAccountSchema } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
@@ -20,11 +20,7 @@ const CreateEditAccountForm = ({
     useAccountStore();
   const [isEdit, setIsEdit] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const methods = useForm({
     defaultValues: {
       username: data.username || '',
       first_name: data.first_name || '',
@@ -41,6 +37,8 @@ const CreateEditAccountForm = ({
       isEdit ? updateAccountSchema : createAccountschema,
     ),
   });
+
+  const { handleSubmit } = methods;
 
   useEffect(() => {
     if (data._id) setIsEdit(true);
@@ -104,7 +102,7 @@ const CreateEditAccountForm = ({
   };
 
   return (
-    <>
+    <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='flex flex-col gap-y-4 mb-4'>
           <div className='flex gap-x-4'>
@@ -112,83 +110,75 @@ const CreateEditAccountForm = ({
               type='text'
               placeholder='First name'
               label='First name'
-              {...register('first_name')}
-              errors={errors}
+              name='first_name'
             />
             <Input
               type='text'
               placeholder='Middle name'
               label='Middle name'
-              {...register('middle_name')}
-              errors={errors}
+              name='middle_name'
             />
             <Input
               type='text'
               placeholder='Last name'
               label='Last name'
-              {...register('last_name')}
-              errors={errors}
+              name='last_name'
             />
           </div>
           <Input
             type='text'
             placeholder='Username'
             label='Username'
-            {...register('username')}
-            errors={errors}
+            name='username'
           />
           <Input
             type='text'
             placeholder='Email'
             label='Email'
-            {...register('email')}
-            errors={errors}
+            name='email'
           />
           <Input
             type='tel'
             placeholder='Mobile number'
             label='Mobile number'
-            {...register('mobile')}
-            errors={errors}
+            name='mobile'
           />
           <div className='w-full flex flex-row gap-x-4'>
             <Select
               className='flex-1'
               label='Gender'
-              errors={errors}
               placeholder='Select gender'
               items={[
                 { value: 'male', label: 'Male' },
                 { value: 'female', label: 'Female' },
               ]}
-              {...register('gender')}
+              name='gender'
             />
             <Select
               className='flex-1'
               label='Status'
-              errors={errors}
               placeholder='Select status'
               items={[
                 { value: 'active', label: 'Active' },
                 { value: 'inactive', label: 'Inactive' },
                 { value: 'hold', label: 'Hold' },
               ]}
-              {...register('status')}
+              name='status'
             />
           </div>
           {!isEdit && (
             <div className='flex flex-row gap-x-4 '>
               <PasswordInput
                 label='New Password'
-                errors={errors}
                 className='w-full'
-                {...register('new_password')}
+                name='new_password'
+                type='signup'
               />
               <PasswordInput
                 label='Confirm password'
-                errors={errors}
                 className='w-full'
-                {...register('confirm_password')}
+                name='confirm_password'
+                type='signup'
               />
             </div>
           )}
@@ -202,7 +192,7 @@ const CreateEditAccountForm = ({
           {isEdit ? 'Update' : 'Create'}
         </Button>
       </form>
-    </>
+    </FormProvider>
   );
 };
 

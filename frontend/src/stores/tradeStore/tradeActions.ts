@@ -2,7 +2,7 @@ import { StateCreator } from 'zustand';
 import { TTradeState } from './tradeState';
 import { debounce } from '@/utils/debounce';
 import { TTradeJournal } from './type';
-import { getToken, getRefreshToken } from '@/hooks/token';
+// import { getToken, getRefreshToken } from '@/hooks/token';
 
 export type TTradeActions = {
   createTradeJournal: (

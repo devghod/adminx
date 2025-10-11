@@ -137,7 +137,7 @@ const CreateEditTradeJournalForm = ({
               placeholder='00'
               label='Amount'
               name='amount'
-              validation={{ 'valueAsNumber': true }}
+              validation={{ valueAsNumber: true }}
             />
             {/* <ReactDatePicker 
               // placeholder='00'

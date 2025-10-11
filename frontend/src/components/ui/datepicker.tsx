@@ -1,9 +1,13 @@
 import * as React from 'react';
-import { Label } from './label';
+// import { Label } from './label';
 import { cn } from '@/utils/tailwindMerge';
-import { Controller, useForm } from 'react-hook-form';
-import DatePicker, {
-  ReactDatePickerCustomHeaderProps,
+// import {
+//  Controller,
+//   useForm
+// } from 'react-hook-form';
+import {
+  // DatePicker,
+  // ReactDatePickerCustomHeaderProps,
   DatePickerProps,
 } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -57,30 +61,32 @@ type Props = DatePickerProps & {
   id: string;
 };
 
-export default function ReactDatePicker({
-  className,
-  id,
-  ...props
-}: Props) {
-  const { control } = useForm();
+export default function ReactDatePicker(
+  {
+    // className,
+    // id,
+    // ...props
+  }: Props,
+) {
+  // const { control } = useForm();
 
   return (
     <>
-      <Controller
+      {/* <Controller
         name={id}
         control={control}
         // rules={{ required: 'Date is required' }}
-        render={({ field, fieldState }) => (
-          <ReactDatePicker
-            placeholderText='Select a date'
-            selected={field.value}
-            onChange={date => field.onChange(date)}
-            className={`flex h-10 w-full rounded-md border text-slate-700 border-gray-200 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
-              fieldState.error ? 'border-red-500' : ''
-            }`}
-          />
-        )}
-      />
+        // render={({ field, fieldState }) => (
+        //   <ReactDatePicker
+        //     placeholderText='Select a date'
+        //     selected={field.value}
+        //     onChange={date => field.onChange(date)}
+        //     className={`flex h-10 w-full rounded-md border text-slate-700 border-gray-200 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
+        //       fieldState.error ? 'border-red-500' : ''
+        //     }`}
+        //   />
+        // )}
+      /> */}
 
       {/* // {handleError() && (
       //   <p className='text-red-500 text-sm'>{handleError()}</p>

@@ -25,6 +25,18 @@ interface SelectProps
   placeholder?: string;
 }
 
+/**
+ * @param {string} name
+ * @param {string} className
+ * @param {string} label
+ * @param {string} errorMsg
+ * @param {string} type
+ * @param {string} placeholder
+ * @param {string} items
+ * @param {string} defaultValue
+ * @param {string} validation
+ * @param {any} props
+ */
 const Select = ({
   className,
   name,
@@ -38,7 +50,6 @@ const Select = ({
   errorMsg,
   ...props
 }: SelectProps) => {
-  
   const context = useFormContext();
 
   if (!context) return null;
@@ -67,7 +78,7 @@ const Select = ({
         {...register(name, {
           ...validation,
           onChange: onChange,
-          onBlur: onBlur
+          onBlur: onBlur,
         })}
         id={name}
         name={name}
@@ -96,5 +107,60 @@ const Select = ({
     </div>
   );
 };
+interface SelectBasicProps
+  extends React.SelectHTMLAttributes<HTMLSelectElement> {
+  name: string;
+  className?: string;
+  label?: string;
+  errorMsg?: string;
+  defaultValue?: string;
+  items: itemProps[];
+  placeholder?: string;
+}
 
-export { Select };
+/**
+ * @param {string} name
+ * @param {string} className
+ * @param {string} label
+ * @param {string} errorMsg
+ * @param {string} type
+ * @param {string} placeholder
+ * @param {string} items
+ * @param {string} defaultValue
+ * @param {any} props
+ */
+const SelectBasic = ({
+  className,
+  name,
+  items,
+  defaultValue = '',
+  label,
+  placeholder,
+  errorMsg,
+  ...props
+}: SelectBasicProps) => (
+  <div className='flex flex-col gap-y-3 w-full'>
+    {label && <Label htmlFor={name}>{label}</Label>}
+    <select
+      id={name}
+      name={name}
+      defaultValue={defaultValue}
+      className={cn(selectVariants(), className)}
+      {...props}
+    >
+      {placeholder && (
+        <option value='' disabled>
+          {placeholder}
+        </option>
+      )}
+      {items.map((item: itemProps) => (
+        <option key={item.value} value={item.value}>
+          {item.label}
+        </option>
+      ))}
+    </select>
+    {errorMsg && <p className='text-red-500 text-sm'>{errorMsg}</p>}
+  </div>
+);
+
+export { Select, SelectBasic };

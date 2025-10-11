@@ -14,8 +14,8 @@ import {
 } from '@/components/ui/table';
 import { LoadingIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
-import { Select } from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
+import { SelectBasic as Select } from '@/components/ui/select';
+import { InputBasic as Input } from '@/components/ui/input';
 import { useEffect, useMemo, useState } from 'react';
 
 const Datatable = ({
@@ -110,6 +110,7 @@ const Datatable = ({
               placeholder='Search here'
               onChange={e => setSearch(e.target.value)}
               value={search}
+              name='search'
             />
           </div>
         )}
@@ -234,6 +235,7 @@ const PaginationComponent = ({
         { value: 500, label: '500' },
         { value: 1000, label: '1000' },
       ]}
+      name='pageSize'
       defaultValue={table.getState().pagination.pageSize}
       placeholder='Limit'
       onChange={(e: any) => {

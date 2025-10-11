@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { changePasswordSchema } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
@@ -16,17 +16,15 @@ const ChangePasswordForm = ({
   const { updateUserPassword, isLoading, message } =
     useAccountStore();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const methods = useForm({
     defaultValues: {
       new_password: '',
       confirm_password: '',
     },
     resolver: zodResolver(changePasswordSchema),
   });
+
+  const { handleSubmit } = methods;
 
   const onSubmit = async (account: any) => {
     account._id = data._id;
@@ -59,21 +57,21 @@ const ChangePasswordForm = ({
   };
 
   return (
-    <>
+    <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='flex flex-col gap-y-4 mb-4'>
           <div className='flex flex-row gap-x-4 '>
             <PasswordInput
               label='New Password'
-              errors={errors}
               className='w-full'
-              {...register('new_password')}
+              name='new_password'
+              type='signup'
             />
             <PasswordInput
               label='Confirm password'
-              errors={errors}
               className='w-full'
-              {...register('confirm_password')}
+              name='confirm_password'
+              type='signup'
             />
           </div>
         </div>
@@ -86,7 +84,7 @@ const ChangePasswordForm = ({
           Update Password
         </Button>
       </form>
-    </>
+    </FormProvider>
   );
 };
 
