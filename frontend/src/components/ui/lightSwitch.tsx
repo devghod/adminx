@@ -1,47 +1,19 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { DarkIcon, LightIcon } from '@/components/ui/icons';
-import { isDark, setIsDark } from '@/utils/darkMode';
-import { useTheme } from 'next-themes';
-import Image from 'next/image';
+import { useThemeStore } from '@/stores/themeStore';
 
 const LightSwitch = () => {
-  const [mounted, setMounted] = useState(false);
-  const [dark, setDark] = useState<boolean | null>(null);
-  const { theme, setTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-    setDark(isDark());
-    setTheme(isDark() ? 'dark' : 'light');
-  }, [setTheme]);
-
-  function handleSwitch() {
-    setDark(theme === 'dark' ? false : true);
-    setIsDark(theme === 'dark' ? false : true);
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  }
-
-  if (!mounted)
-    return (
-      <Image
-        src='data:image/svg+xml;base64,PHN2ZyBzdHJva2U9IiNGRkZGRkYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMCIgdmlld0JveD0iMCAwIDI0IDI0IiBoZWlnaHQ9IjIwMHB4IiB3aWR0aD0iMjAwcHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB4PSIyIiB5PSIyIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjIiIHJ4PSIyIj48L3JlY3Q+PC9zdmc+Cg=='
-        width={32}
-        height={32}
-        sizes='32x32'
-        alt='Loading Light/Dark Toggle'
-      />
-    );
+  const { theme, toggleTheme } = useThemeStore();
 
   return (
     <div
-      onClick={handleSwitch}
+      onClick={toggleTheme}
       className='relative flex bg-violet-500 rounded-full p-1 cursor-pointer transition-all duration-500 items-center'
     >
       <div
         className={`absolute w-6 h-6 bg-white rounded-full transform transition-transform duration-500 
-          ${!dark ? 'translate-x-0' : 'translate-x-6'}
+          ${theme === 'light' ? 'translate-x-0' : 'translate-x-6'}
         `}
       />
 
@@ -50,7 +22,7 @@ const LightSwitch = () => {
           <LightIcon />
         </div>
 
-        <div className={dark ? 'text-violet-700' : ''}>
+        <div className={theme === 'light' ? 'text-violet-700' : ''}>
           <DarkIcon />
         </div>
       </div>
