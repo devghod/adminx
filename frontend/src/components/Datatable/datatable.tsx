@@ -48,10 +48,21 @@ const Datatable = ({
   });
 
   const column = useMemo(() => columnData, [columnData]);
+  const columnVisibility = useMemo(() => {
+    return columnData.reduce(
+      (acc: Record<string, boolean>, col: any) => {
+        const display = col?.meta?.display;
+        acc[col.id] = display === undefined ? true : display;
+        return acc;
+      },
+      {},
+    );
+  }, [columnData]);
   const data = useMemo(() => rowData, [rowData]);
 
   const tableConfig = useReactTable({
     data,
+    columnResizeDirection: 'rtl',
     columns: column,
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
@@ -60,6 +71,7 @@ const Datatable = ({
     rowCount: total,
     state: {
       pagination,
+      columnVisibility,
     },
     initialState: {
       pagination: {
@@ -70,7 +82,7 @@ const Datatable = ({
   });
 
   const globalColumnSearch = useMemo(() => {
-    return tableConfig.getAllColumns().map(col => col.id);
+    return tableConfig.getAllColumns().map((col: any) => col.id);
   }, [tableConfig]);
 
   useEffect(() => {
@@ -90,7 +102,7 @@ const Datatable = ({
   }, [pagination, fnQuery, fnSetFilters, search, globalColumnSearch]);
 
   return (
-    <section className='flex flex-col gap-y-2 max-w-[2000px] mx-auto bg-white dark:bg-black rounded-xl border p-3 my-3 relative'>
+    <section className='flex flex-col gap-y-5 max-w-[2000px] mx-auto bg-white dark:bg-black rounded-xl border p-3 my-3 relative'>
       {isLoading && (
         <div className='absolute inset-0 bg-white/90 dark:bg-black/90 rounded-xl pointer-events-none'>
           <div className='flex flex-col items-center justify-center h-full'>
@@ -126,31 +138,35 @@ const Datatable = ({
           <div className='max-h-[600px] overflow-y-auto'>
             <Table className='min-w-full border-collapse'>
               <TableHeader className=''>
-                {tableConfig.getHeaderGroups().map(headerGroup => (
-                  <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map(header => (
-                      <TableHead
-                        key={header.id}
-                        className='py-3 px-3 bg-gray-100 dark:bg-gray-800 text-md sm:text-sm font-bold sm:font-semibold '
-                      >
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
-                      </TableHead>
-                    ))}
-                  </TableRow>
-                ))}
+                {tableConfig
+                  .getHeaderGroups()
+                  .map((headerGroup: any) => (
+                    <TableRow key={headerGroup.id}>
+                      {headerGroup.headers.map((header: any) => (
+                        <TableHead
+                          key={header.id}
+                          colSpan={header.colSpan}
+                          style={{ width: `${header.getSize()}px` }}
+                          className='py-3 px-3 bg-gray-100 dark:bg-gray-800 text-sm font-bold sm:font-semibold text-slate-500 dark:text-slate-400'
+                        >
+                          {header.isPlaceholder
+                            ? null
+                            : flexRender(
+                                header.column.columnDef.header,
+                                header.getContext(),
+                              )}
+                        </TableHead>
+                      ))}
+                    </TableRow>
+                  ))}
               </TableHeader>
               <TableBody className='divide-y'>
-                {tableConfig.getRowModel().rows.map(row => (
+                {tableConfig.getRowModel().rows.map((row: any) => (
                   <TableRow
                     key={row.id}
                     className='hover:bg-gray-100 dark:hover:bg-gray-800'
                   >
-                    {row.getVisibleCells().map(cell => (
+                    {row.getVisibleCells().map((cell: any) => (
                       <TableCell
                         key={cell.id}
                         className='py-2 px-3 text-md sm:text-sm '

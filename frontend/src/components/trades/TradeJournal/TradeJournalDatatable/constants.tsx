@@ -12,11 +12,16 @@ export const columns = [
     enableSorting: false,
     header: () => <div className='text-left'>ID</div>,
     cell: (props: any) => (
-      <div className='text-left line-clamp-1'>{props.getValue()}</div>
+      <div className='text-left line-clamp-1 text-xs text-slate-500'>
+        {props.getValue()}
+      </div>
     ),
     footer: props => (
       <div className='text-left'>{props.column.id}</div>
     ),
+    meta: {
+      display: false,
+    },
   }),
   columnHelper.accessor('trade_type', {
     id: 'tradeType',
@@ -24,7 +29,6 @@ export const columns = [
     enableGlobalFilter: true,
     enableColumnFilter: true,
     enableSorting: true,
-    meta: { isHidden: true },
     header: () => <div className='text-left'>Trade Type</div>,
     cell: (props: any) => (
       <div className='text-left capitalize'>{props.getValue()}</div>
@@ -34,6 +38,7 @@ export const columns = [
     ),
   }),
   columnHelper.accessor('status', {
+    id: 'status',
     size: 100,
     header: () => <div className='text-left'>Status</div>,
     cell: (props: any) => (
@@ -54,7 +59,7 @@ export const columns = [
     ),
   }),
   columnHelper.accessor('amount', {
-    id: 'last_name',
+    id: 'amount',
     header: () => <div className='text-left'>Amount</div>,
     cell: (props: any) => (
       <div className='text-left'>{props.getValue()}</div>
@@ -64,6 +69,7 @@ export const columns = [
     ),
   }),
   columnHelper.accessor('date_entry', {
+    id: 'date_entry',
     header: () => <div className='text-left'>Date Entry</div>,
     cell: (props: any) => (
       <div className='text-left'>
@@ -75,6 +81,7 @@ export const columns = [
     ),
   }),
   columnHelper.accessor('date_created', {
+    id: 'date_created',
     header: () => <div className='text-left'>Date Created</div>,
     cell: (props: any) => (
       <div className='text-left'>
@@ -86,8 +93,7 @@ export const columns = [
     ),
   }),
   columnHelper.accessor('date_modified', {
-    id: 'middle_name',
-    enableGlobalFilter: true,
+    id: 'date_modified',
     header: () => <div className='text-left'>Date Modified</div>,
     cell: (props: any) => (
       <div className='text-left'>
