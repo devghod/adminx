@@ -53,6 +53,7 @@ const TradeJournalDatatable = () => {
 
   const tableColumns = useMemo(
     () => [
+      ...columns,
       columnHelper.display({
         id: 'actions',
         cell: (props: any) => (
@@ -91,7 +92,6 @@ const TradeJournalDatatable = () => {
         ),
         size: 50,
       }),
-      ...columns,
     ],
     [],
   );
@@ -113,7 +113,7 @@ const TradeJournalDatatable = () => {
 
   return (
     <>
-      <div className='gap-x-1 flex'>
+      <div className='gap-x-3 flex'>
         <Button
           theme='fill-success'
           shape='rounded'

@@ -18,6 +18,17 @@ import { SelectBasic as Select } from '@/components/ui/select';
 import { InputBasic as Input } from '@/components/ui/input';
 import { useEffect, useMemo, useState } from 'react';
 
+/**
+ * @param rowData
+ * @param columnData
+ * @param size
+ * @param page
+ * @param total
+ * @param isLoading
+ * @param searchBar
+ * @param hasBorder
+ * @returns
+ */
 const Datatable = ({
   rowData,
   columnData,
@@ -25,10 +36,11 @@ const Datatable = ({
   page,
   total,
   isLoading = false,
+  searchBar = false,
+  hasBorder = false,
   fnQuery,
   fnSetSize,
   fnSetFilters,
-  searchBar = false,
 }: {
   rowData: any;
   columnData: any;
@@ -37,6 +49,7 @@ const Datatable = ({
   total: number;
   isLoading: boolean;
   searchBar?: boolean;
+  hasBorder?: boolean;
   fnQuery: (page: number, size: number, filters?: any) => void;
   fnSetSize: (size: number) => void;
   fnSetFilters: (filters: object) => void | undefined;
@@ -141,7 +154,10 @@ const Datatable = ({
                 {tableConfig
                   .getHeaderGroups()
                   .map((headerGroup: any) => (
-                    <TableRow key={headerGroup.id}>
+                    <TableRow
+                      key={headerGroup.id}
+                      className={`${hasBorder && 'divide-x divide-slate-500/20'}`}
+                    >
                       {headerGroup.headers.map((header: any) => (
                         <TableHead
                           key={header.id}
@@ -164,7 +180,10 @@ const Datatable = ({
                 {tableConfig.getRowModel().rows.map((row: any) => (
                   <TableRow
                     key={row.id}
-                    className='hover:bg-gray-100 dark:hover:bg-gray-800'
+                    className={`
+                      hover:bg-gray-100 dark:hover:bg-gray-800
+                      ${hasBorder && 'divide-x divide-slate-500/20'}
+                    `}
                   >
                     {row.getVisibleCells().map((cell: any) => (
                       <TableCell
@@ -197,7 +216,7 @@ const PaginationComponent = ({
   table: any;
   fnSetSize: any;
 }) => (
-  <div className='flex gap-x-1'>
+  <div className='flex gap-x-1 h-8 self-center'>
     <Button
       onClick={() => table.firstPage()}
       disabled={!table.getCanPreviousPage()}

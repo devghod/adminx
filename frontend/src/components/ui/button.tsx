@@ -10,11 +10,11 @@ const buttonVariants = cva(
     variants: {
       theme: {
         'fill-primary':
-          'bg-blue-500 dark:bg-blue-500/50 text-gray-50 hover:bg-blue-500/90',
+          'bg-blue-600 dark:bg-blue-500/50 text-gray-50 hover:bg-blue-500/90',
         'fill-success':
           'bg-teal-600 dark:bg-teal-600/50 text-gray-50 hover:bg-teal-600/90',
         'fill-danger':
-          'bg-red-500 dark:bg-red-500/50 text-gray-50 hover:bg-red-500/90',
+          'bg-red-600 dark:bg-red-500/50 text-gray-50 hover:bg-red-500/90',
         'fill-warning':
           'bg-amber-600 dark:bg-amber-600/50 text-gray-50 hover:bg-amber-600/90',
         'fill-info':
@@ -23,11 +23,11 @@ const buttonVariants = cva(
           'bg-gray-600 dark:bg-gray-300/50 text-gray-50 hover:bg-gray-600/90',
 
         'outline-primary':
-          'border border-blue-500 bg-white text-blue-500 hover:bg-blue-50 hover:text-blue-700',
+          'border border-blue-600 bg-white text-blue-600 hover:bg-blue-50 hover:text-blue-700',
         'outline-success':
           'border border-teal-600 bg-white text-teal-600 hover:bg-teal-50 hover:text-teal-700',
         'outline-danger':
-          'border border-red-500 bg-white text-red-500 hover:bg-red-50 hover:text-red-700',
+          'border border-red-600 bg-white text-red-600 hover:bg-red-50 hover:text-red-700',
         'outline-warning':
           'border border-amber-600 bg-white text-amber-600 hover:bg-amber-50 hover:text-amber-700',
         'outline-info':
@@ -36,11 +36,11 @@ const buttonVariants = cva(
           'border border-gray-300 bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-700',
 
         'ghost-primary':
-          'bg-transparent text-blue-500 hover:bg-blue-50 hover:text-blue-700',
+          'bg-transparent text-blue-600 hover:bg-blue-50 hover:text-blue-700',
         'ghost-success':
           'bg-transparent text-teal-600 hover:bg-teal-50 hover:text-teal-700',
         'ghost-danger':
-          'bg-transparent text-red-500 hover:bg-red-50 hover:text-red-700',
+          'bg-transparent text-red-600 hover:bg-red-50 hover:text-red-700',
         'ghost-warning':
           'bg-transparent text-amber-600 hover:bg-amber-50 hover:text-amber-700',
         'ghost-info':
@@ -49,11 +49,11 @@ const buttonVariants = cva(
           'bg-transparent text-gray-300 hover:bg-gray-50 hover:text-gray-700',
 
         'link-primary':
-          'text-blue-500 underline-offset-4 hover:underline',
+          'text-blue-600 underline-offset-4 hover:underline',
         'link-success':
           'text-teal-600 underline-offset-4 hover:underline',
         'link-danger':
-          'text-red-500 underline-offset-4 hover:underline',
+          'text-red-600 underline-offset-4 hover:underline',
         'link-warning':
           'text-amber-600 underline-offset-4 hover:underline',
         'link-info':

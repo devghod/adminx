@@ -25,11 +25,11 @@ export const columns = [
   }),
   columnHelper.accessor('trade_type', {
     id: 'tradeType',
-    size: 100,
+    size: 80,
     enableGlobalFilter: true,
     enableColumnFilter: true,
     enableSorting: true,
-    header: () => <div className='text-left'>Trade Type</div>,
+    header: () => <div className='text-left'>Type</div>,
     cell: (props: any) => (
       <div className='text-left capitalize'>{props.getValue()}</div>
     ),
@@ -39,7 +39,7 @@ export const columns = [
   }),
   columnHelper.accessor('status', {
     id: 'status',
-    size: 100,
+    size: 50,
     header: () => <div className='text-left'>Status</div>,
     cell: (props: any) => (
       <Badge
