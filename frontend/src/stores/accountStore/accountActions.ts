@@ -21,7 +21,7 @@ export type TAccountActions = {
     limit: number,
     filters?: any,
   ) => Promise<void>;
-  getProfile: () => void;
+  getProfile: () => Promise<boolean | undefined>;
   setPage: (page: number) => void;
   setSize: (size: number) => void;
   setFilters: (filters: any) => void;
