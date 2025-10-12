@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 const tradeJournalSchema = new mongoose.Schema({
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User',
+  },
   trade_type: {
     type: String,
   },

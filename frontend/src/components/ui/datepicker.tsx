@@ -23,13 +23,11 @@ type ReactDatePickerProps = DatePickerProps & {
  * @type {VariantProps<typeof inputVariants>}
  * @param {string} className
  * @param {string} label
- * @param {boolean} hasError
- * @param {any} errors
- * @param {string} type
- * @param {string} ref
+ * @param {boolean} errorMsg
+ * @param {any} validation
  * @param {any} props
  */
-export default function RDatePicker({
+function RDatePicker({
   name,
   className,
   validation,
@@ -95,4 +93,36 @@ export default function RDatePicker({
   );
 }
 
-export { RDatePicker };
+type ReactDatePickerBasicProps = DatePickerProps & {
+  name: string;
+  className?: string;
+  label?: string;
+  placeholder?: string;
+};
+
+/**
+ * @type {VariantProps<typeof inputVariants>}
+ * @param {string} className
+ * @param {string} label
+ * @param {string} placeholder
+ * @param {boolean} name
+ * @param {any} props
+ */
+const RDatePickerBasic = ({
+  name,
+  className,
+  placeholder,
+  label,
+  ...props
+}: ReactDatePickerBasicProps) => (
+  <div className='flex flex-col gap-y-3'>
+    {label && <Label htmlFor={name}>{label}</Label>}
+    <DatePicker
+      {...(placeholder ? { placeholderText: placeholder } : {})}
+      className={cn(dateVariants(), className)}
+      {...props}
+    />
+  </div>
+);
+
+export { RDatePicker, RDatePickerBasic };

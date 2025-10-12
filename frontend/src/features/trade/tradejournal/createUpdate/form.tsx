@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useTradeStore } from '@/stores/tradeStore';
+import { useAccountStore } from '@/stores/accountStore';
 import { Select } from '@/components/ui/select';
 import { toast } from '@/utils/toastHelper';
 import { RDatePicker } from '@/components/ui/datepicker';
@@ -28,6 +29,8 @@ const CreateEditTradeJournalForm = ({
     message,
   } = useTradeStore();
 
+  const { profile } = useAccountStore();
+
   const [isEdit, setIsEdit] = useState(false);
 
   const methods = useForm({
@@ -36,6 +39,7 @@ const CreateEditTradeJournalForm = ({
       status: data.status || '',
       amount: data.amount || 0,
       date_entry: data.date_entry || '',
+      user_id: profile._id || '',
     },
     resolver: zodResolver(
       isEdit ? updateTradeJournalSchema : createTradeJournalschema,
@@ -52,7 +56,7 @@ const CreateEditTradeJournalForm = ({
   const onSubmit = async (journal: any) => {
     if (isEdit) {
       journal._id = data._id;
-      journal.date_entry = new Date(journal.date_entry);
+      // journal.date_entry = new Date(journal.date_entry);
 
       await updateTradeJournal(journal)
         .then((res: any) => {

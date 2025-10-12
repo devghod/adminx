@@ -1,7 +1,7 @@
 import { TCredentials, TRegistrationForm } from './type';
 
 export type TAuthState = {
-  profile: object;
+  profile: object | null;
   isAuthentic: boolean | null;
   token: string;
   refreshToken: string;

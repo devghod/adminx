@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Logging } from '../helpers/Log.helper';
+import mongoose from "mongoose";
 import TradeJournalModel from '../models/tradeJournal.model';
 
 
@@ -53,7 +54,7 @@ const getTradeJournalById = async (req: Request, res: Response) => {
 
 const getTradeJournalStats = async (req: Request, res: Response) => {
   try {
-    const debts = await TradeJournalModel.aggregate([
+    const journal = await TradeJournalModel.aggregate([
       {
         $match: { deleted: false }
       },
@@ -65,7 +66,7 @@ const getTradeJournalStats = async (req: Request, res: Response) => {
       }
     ]);
     
-    const result = debts.reduce((acc: any, curr: any) => {
+    const result = journal.reduce((acc: any, curr: any) => {
       acc[curr._id === 'Paid' ? 'paid' : curr._id === 'Unpaid' ? 'unpaid' : 'total'] = curr.count;
       return acc;
     }, { total: 0, paid: 0, unpaid: 0 });
@@ -290,10 +291,116 @@ const updateTradeJournalStatus = async (req: Request, res: Response) => {
   };
 };
 
+// Statistics
+const getTradeStatsByDate = async (req: Request, res: Response) => {
+  try {
+    const body = req.body;
+
+    const { start_date, end_date, user_id } = body;
+
+    const journals = await TradeJournalModel.aggregate([
+      {
+        $match: { 
+          deleted_at: null, 
+          user_id: new mongoose.Types.ObjectId(user_id),
+          date_entry: {
+            $gte: start_date,
+            $lte: end_date,
+          },
+        }
+      },
+      {
+        $group: {
+          _id: "$date_entry",
+          win: {
+            $sum: { $cond: [{ $eq: ["$status", "win"] }, 1, 0] },
+          },
+          lose: {
+            $sum: { $cond: [{ $eq: ["$status", "lose"] }, 1, 0] },
+          },
+          draw: {
+            $sum: { $cond: [{ $eq: ["$status", "draw"] }, 1, 0] },
+          },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          date: "$_id",
+          win: 1,
+          lose: 1,
+          draw: 1,
+        },
+      },
+      { $sort: { date: 1 } },
+    ]);
+
+    res
+      .status(200)
+      .json({ 
+        data: journals, 
+        success: true, 
+        message: 'Trade Journal Line Stats' 
+      });
+  } catch (error) {
+    res
+      .status(500)
+      .json({
+        success: false, 
+        message: `Error ${error}` 
+      });
+  };
+};
+
+const getTradeStatsPercentage = async (req: Request, res: Response) => {
+  try {
+    const debts = await TradeJournalModel.aggregate([
+      {
+        $match: { deleted: false }
+      },
+      {
+        $group: {
+          _id: "$status",
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+    
+    const result = debts.reduce((acc: any, curr: any) => {
+      acc[curr._id === 'Paid' ? 'paid' : curr._id === 'Unpaid' ? 'unpaid' : 'total'] = curr.count;
+      return acc;
+    }, { total: 0, paid: 0, unpaid: 0 });
+    
+
+    const data = {
+      total: result.total + result.paid + result.unpaid,
+      paid: result.paid,
+      unpaid: result.unpaid
+    };
+
+    res
+      .status(200)
+      .json({ 
+        data: data, 
+        success: true, 
+        message: 'DEBTS Statistics' 
+      });
+  } catch (error) {
+    res
+      .status(500)
+      .json({
+        success: false, 
+        message: `Error ${error}` 
+      });
+  };
+};
+
 export { 
   getTradeJournals, 
   getTradeJournalById,
   getTradeJournalStats,
+  getTradeStatsByDate,
+  getTradeStatsPercentage,
   postTradeJournalsPaginate,
   createTradeJournal,
   deleteTradeJournal,

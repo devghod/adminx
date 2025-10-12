@@ -2,7 +2,6 @@ import { StateCreator } from 'zustand';
 import { TTradeState } from './tradeState';
 import { debounce } from '@/utils/debounce';
 import { TTradeJournal } from './type';
-// import { getToken, getRefreshToken } from '@/hooks/token';
 
 export type TTradeActions = {
   createTradeJournal: (
@@ -22,6 +21,11 @@ export type TTradeActions = {
     page: number,
     limit: number,
     filters?: any,
+  ) => Promise<void>;
+  getTradeStatsByDate: (
+    startDate: string,
+    endDate: string,
+    userId: string,
   ) => Promise<void>;
   setPage: (page: number) => void;
   setSize: (size: number) => void;
@@ -45,7 +49,6 @@ export const createTradeActions: StateCreator<
   setSize: (size: number) => {
     set({ size });
   },
-
   createTradeJournal: async (body: TTradeJournal) => {
     try {
       set({ isLoading: true });
@@ -82,7 +85,6 @@ export const createTradeActions: StateCreator<
       set({ isLoading: false });
     }
   },
-
   updateTradeJournal: async (body: TTradeJournal) => {
     try {
       set({ isLoading: true });
@@ -121,7 +123,6 @@ export const createTradeActions: StateCreator<
       set({ isLoading: false });
     }
   },
-
   deleteTradeJournal: async (id: string) => {
     try {
       set({ isLoading: true });
@@ -157,7 +158,6 @@ export const createTradeActions: StateCreator<
       set({ isLoading: false });
     }
   },
-
   getTradeJournal: async (id: string) => {
     try {
       set({ isLoading: true });
@@ -182,7 +182,6 @@ export const createTradeActions: StateCreator<
       set({ isLoading: false });
     }
   },
-
   getTradeJournals: async () => {
     try {
       set({ isLoading: true });
@@ -209,7 +208,6 @@ export const createTradeActions: StateCreator<
       set({ isLoading: false });
     }
   },
-
   getTradeJournalsPaginated: async (
     page: number,
     size: number,
@@ -252,6 +250,52 @@ export const createTradeActions: StateCreator<
           totalTradeJournals: total,
           isLoading: false,
         });
+      } else {
+        set({ message });
+        set({ isLoading: false });
+      }
+    } catch (err) {
+      console.error('Error', err);
+      set({ isLoading: false });
+    }
+  },
+  getTradeStatsByDate: async (
+    startDate: string,
+    endDate: string,
+    userId: string,
+  ) => {
+    try {
+      set({ isLoading: true });
+
+      const body = {
+        start_date: startDate,
+        end_date: endDate,
+        user_id: userId,
+      };
+
+      const result = await fetch(
+        '/api/proxy-auth/trade/get-tradejournals-stats-line-bydate',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        },
+      );
+
+      const { success, data, message } = await result.json();
+
+      await debounce(() => console.debug('3s delay'), 3000);
+
+      if (result.ok && success) {
+        set(state => ({
+          stats: {
+            ...state.stats,
+            lineData: data,
+          },
+          isLoading: false,
+        }));
       } else {
         set({ message });
         set({ isLoading: false });

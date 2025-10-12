@@ -9,6 +9,10 @@ export type TTradeState = {
   message: string;
   isLoading: boolean;
   filters?: any;
+  stats: {
+    pieData: any[];
+    lineData: any[];
+  };
 };
 
 export const initialTradeState: TTradeState = {
@@ -20,4 +24,8 @@ export const initialTradeState: TTradeState = {
   message: '',
   isLoading: false,
   filters: {},
+  stats: {
+    pieData: [],
+    lineData: [],
+  },
 };
