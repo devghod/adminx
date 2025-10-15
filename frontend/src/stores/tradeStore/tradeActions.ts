@@ -274,7 +274,7 @@ export const createTradeActions: StateCreator<
       };
 
       const result = await fetch(
-        '/api/proxy-auth/trade/get-tradejournals-stats-line-bydate',
+        '/api/proxy-auth/trade/get-tradejournals-stats-bydate',
         {
           method: 'POST',
           headers: {
@@ -292,7 +292,8 @@ export const createTradeActions: StateCreator<
         set(state => ({
           stats: {
             ...state.stats,
-            lineData: data,
+            lineData: data.lineData,
+            pieData: data.pieData,
           },
           isLoading: false,
         }));
