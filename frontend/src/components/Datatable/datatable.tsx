@@ -24,6 +24,8 @@ import { useEffect, useMemo, useState } from 'react';
  * @param size
  * @param page
  * @param total
+ * @param headerBgColor tailwind base color ex. bg-red-500 dark:bg-blue-500
+ * @param headerTextColor tailwind base color ex. text-red-500 dark:text-blue-500
  * @param isLoading
  * @param searchBar
  * @param hasBorder
@@ -35,6 +37,8 @@ const Datatable = ({
   size,
   page,
   total,
+  headerBgColor = 'bg-gray-100 dark:bg-gray-800',
+  headerTextColor = 'text-slate-500 dark:text-slate-400',
   isLoading = false,
   searchBar = false,
   hasBorder = false,
@@ -47,6 +51,8 @@ const Datatable = ({
   size: number;
   page: number;
   total: number;
+  headerBgColor?: string;
+  headerTextColor?: string;
   isLoading: boolean;
   searchBar?: boolean;
   hasBorder?: boolean;
@@ -163,7 +169,7 @@ const Datatable = ({
                           key={header.id}
                           colSpan={header.colSpan}
                           style={{ width: `${header.getSize()}px` }}
-                          className='py-3 px-3 bg-gray-100 dark:bg-gray-800 text-sm font-bold sm:font-semibold text-slate-500 dark:text-slate-400'
+                          className={`${headerBgColor} ${headerTextColor} py-3 px-3 text-sm font-bold sm:font-semibold`}
                         >
                           {header.isPlaceholder
                             ? null

@@ -905,6 +905,108 @@ function CloseSidebarSolidIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+function CryptoIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg" 
+      width="24" 
+      height="24" 
+      viewBox="0 0 24 24"
+    >
+      <path 
+        fill="currentColor" 
+        d="M15.078 17.488h-1.114l-1.321-1.221v-.625l1.372-1.308v-2.083l1.795-1.17l2.048 1.544zm-4.597-3.283l.208-1.954l-.675-1.752h3.972l-.66 1.752l.186 1.954zm.905 2.062l-1.322 1.235H8.937l-2.795-4.877l2.062-1.53l1.81 1.156v2.083l1.372 1.308zM8.922 6.893h6.141l.733 3.125H8.204zM11.996 3L4.203 7.504v9L11.996 21l7.8-4.496v-9z"
+      />
+    </svg>
+  );
+}
+
+function TrophyIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg 
+      {...props} 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="24" 
+      height="24" 
+      viewBox="0 0  24"
+    >
+      <path 
+        fill="currentColor" 
+        d="M8.385 20v-1H11.5v-3.754q-1.321-.236-2.312-1.105T7.823 11.99q-1.586-.187-2.705-1.301T4 8V7q0-.402.299-.701T5 6h2.654V4h8.692v2H19q.402 0 .701.299T20 7v1q0 1.573-1.118 2.688t-2.705 1.3q-.373 1.285-1.364 2.153T12.5 15.246V19h3.115v1zm-.731-9.084V7H5v1q0 1.142.762 1.963t1.892.953m8.692 0q1.131-.133 1.893-.954T19 8V7h-2.654z"
+      />
+    </svg>
+  );
+}
+
+function CoinIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg 
+      {...props} 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="24" 
+      height="24" 
+      viewBox="0 0 256 256"
+    >
+      <g fill="currentColor">
+        <path 
+          d="M232 104c0 24-40 48-104 48S24 128 24 104s40-48 104-48s104 24 104 48" 
+          opacity="0.2"
+        />
+        <path 
+          d="M207.58 63.84C186.85 53.48 159.33 48 128 48s-58.85 5.48-79.58 15.84S16 88.78 16 104v48c0 15.22 11.82 29.85 32.42 40.16S96.67 208 128 208s58.85-5.48 79.58-15.84S240 167.22 240 152v-48c0-15.22-11.82-29.85-32.42-40.16M128 64c62.64 0 96 23.23 96 40s-33.36 40-96 40s-96-23.23-96-40s33.36-40 96-40m-8 95.86v32c-19-.62-35-3.42-48-7.49v-31.32a203.4 203.4 0 0 0 48 6.81m16 0a203.4 203.4 0 0 0 48-6.81v31.31c-13 4.07-29 6.87-48 7.49ZM32 152v-18.47a83 83 0 0 0 16.42 10.63c2.43 1.21 5 2.35 7.58 3.43V178c-15.83-7.84-24-17.71-24-26m168 26v-30.41c2.61-1.08 5.15-2.22 7.58-3.43A83 83 0 0 0 224 133.53V152c0 8.29-8.17 18.16-24 26"
+        />
+      </g>
+    </svg>
+  );
+}
+
+function DateIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg 
+      {...props}
+      xmlns="http://www.w3.org/2000/svg" 
+      width="36" 
+      height="36" 
+      viewBox="0 0 36 36"
+    >
+      <path 
+        fill="currentColor" 
+        d="M32.25 6h-4v3a2.2 2.2 0 1 1-4.4 0V6H12.2v3a2.2 2.2 0 0 1-4.4 0V6h-4A1.78 1.78 0 0 0 2 7.81v22.38A1.78 1.78 0 0 0 3.75 32h28.5A1.78 1.78 0 0 0 34 30.19V7.81A1.78 1.78 0 0 0 32.25 6M10 26H8v-2h2Zm0-5H8v-2h2Zm0-5H8v-2h2Zm6 10h-2v-2h2Zm0-5h-2v-2h2Zm0-5h-2v-2h2Zm6 10h-2v-2h2Zm0-5h-2v-2h2Zm0-5h-2v-2h2Zm6 10h-2v-2h2Zm0-5h-2v-2h2Zm0-5h-2v-2h2Z" 
+        className="clr-i-solid clr-i-solid-path-1"
+      />
+      <path 
+        fill="currentColor" 
+        d="M10 10a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v6a1 1 0 0 0 1 1" 
+        className="clr-i-solid clr-i-solid-path-2"
+      />
+      <path 
+        fill="currentColor" 
+        d="M26 10a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v6a1 1 0 0 0 1 1" 
+        className="clr-i-solid clr-i-solid-path-3"
+      />
+      <path fill="none" d="M0 0h36v36H0z"/>
+    </svg>
+  );
+}
+
+function JournalIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg 
+      {...props}
+      xmlns="http://www.w3.org/2000/svg" 
+      width="24" 
+      height="24" 
+      viewBox="0 0 24 24"
+    >
+      <path 
+        fill="currentColor" 
+        d="M3 7V5h2V4a2 2 0 0 1 2-2h6v7l2.5-1.5L18 9V2h1c1.05 0 2 .95 2 2v16c0 1.05-.95 2-2 2H7c-1.05 0-2-.95-2-2v-1H3v-2h2v-4H3v-2h2V7zm4 4H5v2h2zm0-4V5H5v2zm0 12v-2H5v2z"
+      />
+    </svg>
+  );
+}
+
 export {
   AdminIcon,
   ArrowUpDownIcon,
@@ -912,6 +1014,11 @@ export {
   ArrowDownIcon,
   ArrowLeftIcon,
   ArrowRightIcon,
+  CryptoIcon,
+  CoinIcon,
+  DateIcon,
+  TrophyIcon,
+  JournalIcon,
   ManagerIcon,
   EmployeeIcon,
   ProfileIcon,
