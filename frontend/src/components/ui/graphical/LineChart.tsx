@@ -10,18 +10,44 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import { LoadingIcon } from '@/components/ui/icons';
+import { cn } from '@/utils/tailwindMerge';
 
 const LineChartComponent = ({
   data = [],
   loading = false,
+  width,
+  height,
+  maxWidth,
+  maxHeight = '250px',
 }: {
   data: any;
   loading: boolean;
+  width?: string;
+  height?: string;
+  maxWidth?: string;
+  maxHeight?: string;
 }) => {
   return (
-    <div className='w-full max-h-[250px] border bg-white dark:bg-black rounded-lg p-2'>
+    <div
+      className={cn(
+        `border bg-white dark:bg-black rounded-lg p-2 relative
+        ${width ? `w-[${maxWidth}]` : 'w-full'}
+        ${maxWidth ? `max-w-[${maxWidth}]` : ''}
+        ${height ? `h-[${height}]` : 'h-full'}
+        ${maxHeight ? `max-h-[${maxHeight}]` : ''}
+      `,
+      )}
+    >
       {loading ? (
-        'Loading...'
+        <div className='absolute inset-0 bg-white/90 dark:bg-black/90 rounded-xl pointer-events-none'>
+          <div className='flex flex-col items-center justify-center h-full'>
+            <LoadingIcon />
+            <span className='mt-2 text-gray-600 font-medium text-lg select-none'>
+              Loading...
+            </span>
+          </div>
+        </div>
       ) : (
         <>
           <div className='w-full h-[220px] md:text-sm text-xs'>

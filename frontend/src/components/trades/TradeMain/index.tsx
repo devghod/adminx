@@ -71,10 +71,18 @@ const TradeMain = () => {
           </div>
           <div className='grid md:grid-cols-3 gap-5'>
             <div className='col-span-2'>
-              <LineChart data={stats.lineData} loading={isLoading} />
+              <LineChart
+                data={stats.lineData}
+                loading={isLoading}
+                height='250px'
+              />
             </div>
             <div className='col-span-1'>
-              <PieChart data={stats.pieData} loading={isLoading} />
+              <PieChart
+                data={stats.pieData}
+                loading={isLoading}
+                height='250px'
+              />
             </div>
           </div>
         </div>
