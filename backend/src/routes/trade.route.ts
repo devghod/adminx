@@ -7,6 +7,7 @@ import {
   getTradeStatsByDate,
   getTradeStatsByDateLine,
   getTradeStatsByDatePie,
+  getTradeAmountProfitAndLossByDate,
   postTradeJournalsPaginate,
   createTradeJournal,
   deleteTradeJournal,
@@ -21,6 +22,7 @@ router.get('/get-tradejournals-statistics', authenticate, getTradeJournalStats);
 router.post('/get-tradejournals-stats-bydate', authenticate, getTradeStatsByDate);
 router.post('/get-tradejournals-stats-line-bydate', authenticate, getTradeStatsByDateLine);
 router.post('/get-tradejournals-stats-pie-bydate', authenticate, getTradeStatsByDatePie);
+router.post('/get-tradejournals-profitloss-bydate', authenticate, getTradeAmountProfitAndLossByDate);
 router.post('/post-tradejournals-paginate', authenticate, postTradeJournalsPaginate);
 router.post('/create-tradejournal', authenticate, createTradeJournal);
 router.put('/update-tradejournal/:id', authenticate, updateTradeJournal);

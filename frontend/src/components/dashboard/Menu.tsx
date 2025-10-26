@@ -3,7 +3,7 @@
 import { useEffect, useState, useTransition } from 'react';
 import {
   HomeIcon,
-  ServicesIcon,
+  // ServicesIcon,
   UsersIcon,
   TradeIcon,
   OpenSidebarSolidIcon,
@@ -31,11 +31,11 @@ const MenuData = [
     url: '/dashboard/accounts',
     icon: <UsersIcon className='w-5 h-5' />,
   },
-  {
-    title: 'Services',
-    url: '/dashboard/services',
-    icon: <ServicesIcon className='w-5 h-5' />,
-  },
+  // {
+  //   title: 'Services',
+  //   url: '/dashboard/services',
+  //   icon: <ServicesIcon className='w-5 h-5' />,
+  // },
   {
     title: 'Trades',
     url: '/dashboard/trades',

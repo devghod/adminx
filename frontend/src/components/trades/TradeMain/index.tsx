@@ -68,9 +68,15 @@ const TradeMain = () => {
                 )
               }
             />
+            <div className=""></div>
+            <div className="flex space-x-1 justify-center py-auto text-xs">
+              <div className="text-lime-500 font-bold self-center">{stats?.profitLossData?.profit}</div>
+              <div className="text-gray-500/50 dark:text-gray-400 self-center">VS</div>
+              <div className="text-rose-500 font-bold self-center">{stats?.profitLossData?.loss}</div>
+            </div>            
           </div>
-          <div className='grid md:grid-cols-3 gap-5'>
-            <div className='col-span-2'>
+          <div className='grid md:grid-cols-3 grid-cols-1 gap-5'>
+            <div className='md:col-span-2'>
               <LineChart
                 data={stats.lineData}
                 loading={isLoading}

@@ -368,9 +368,39 @@ const getTradeStatsByDate = async (req: Request, res: Response) => {
 
     const result = dataPie.length > 0 ? dataPie[0].data : [];
 
+    const profitLoss = await TradeJournalModel.aggregate([
+      {
+        $match: { 
+          deleted_at: null, 
+          user_id: new mongoose.Types.ObjectId(user_id),
+          date_entry: {
+            $gte: start_date,
+            $lte: end_date,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          profit: { $sum: { $cond: [{ $eq: ["$status", "win"] }, 1, 0] } },
+          loss: { $sum: { $cond: [{ $eq: ["$status", "lose"] }, 1, 0] } },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          profit: 1,
+          loss: 1,
+        },
+      },
+    ]);
+
+    const profitLossData = profitLoss[0] || { profit: 0, loss: 0 };
+
     const journals = {
       lineData: dataLine,
       pieData: result,
+      profitLossData: profitLossData,
     };
 
     res
@@ -378,7 +408,7 @@ const getTradeStatsByDate = async (req: Request, res: Response) => {
       .json({ 
         data: journals, 
         success: true, 
-        message: 'Trade Journal Line Stats' 
+        message: 'Trade Stats by date' 
       });
   } catch (error) {
     res
@@ -506,6 +536,58 @@ const getTradeStatsByDatePie = async (req: Request, res: Response) => {
   };
 };
 
+const getTradeAmountProfitAndLossByDate = async (req: Request, res: Response) => {
+  try {
+    const body = req.body;
+
+    const { start_date, end_date, user_id } = body;
+
+    const journals = await TradeJournalModel.aggregate([
+      {
+        $match: { 
+          deleted_at: null, 
+          user_id: new mongoose.Types.ObjectId(user_id),
+          date_entry: {
+            $gte: start_date,
+            $lte: end_date,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          profit: { $sum: { $cond: [{ $eq: ["$status", "win"] }, 1, 0] } },
+          loss: { $sum: { $cond: [{ $eq: ["$status", "lose"] }, 1, 0] } },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          profit: 1,
+          loss: 1,
+        },
+      },
+    ]);
+
+    const result = journals[0] || { profit: 0, loss: 0 };
+
+    res
+      .status(200)
+      .json({ 
+        data: result, 
+        success: true, 
+        message: 'Trade Profit & Loss Amount by date' 
+      });
+  } catch (error) {
+    res
+      .status(500)
+      .json({
+        success: false, 
+        message: `Error ${error}` 
+      });
+  };
+};
+
 export { 
   getTradeJournals, 
   getTradeJournalById,
@@ -513,6 +595,7 @@ export {
   getTradeStatsByDate,
   getTradeStatsByDateLine,
   getTradeStatsByDatePie,
+  getTradeAmountProfitAndLossByDate,
   postTradeJournalsPaginate,
   createTradeJournal,
   deleteTradeJournal,

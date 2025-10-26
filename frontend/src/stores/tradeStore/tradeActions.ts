@@ -294,6 +294,7 @@ export const createTradeActions: StateCreator<
             ...state.stats,
             lineData: data.lineData,
             pieData: data.pieData,
+            profitLossData: data.profitLossData,
           },
           isLoading: false,
         }));
