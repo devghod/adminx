@@ -382,8 +382,8 @@ const getTradeStatsByDate = async (req: Request, res: Response) => {
       {
         $group: {
           _id: null,
-          profit: { $sum: { $cond: [{ $eq: ["$status", "win"] }, 1, 0] } },
-          loss: { $sum: { $cond: [{ $eq: ["$status", "lose"] }, 1, 0] } },
+          profit: { $sum: { $cond: [{ $eq: ["$status", "win"] }, "$amount", 0] } },
+          loss: { $sum: { $cond: [{ $eq: ["$status", "lose"] }, "$amount", 0] } },
         },
       },
       {
