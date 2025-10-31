@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const createTradeJournalschema = z.object({
   user_id: z.string().nonempty('Type is required'),
   amount: z.number().min(0, { message: 'Value must be 0 or higher' }),
+  percentage: z.number().min(0, { message: 'Value must be 0 or higher' }),
   trade_type: z.string().nonempty('Type is required'),
   status: z.string().nonempty('Status is required'),
   date_entry: z.string().nonempty('Date is required'),
@@ -14,6 +15,7 @@ export const createTradeJournalschema = z.object({
 export const updateTradeJournalSchema = z.object({
   user_id: z.string().nonempty('Type is required'),
   amount: z.number().min(0, { message: 'Value must be 0 or higher' }),
+  percentage: z.number().min(0, { message: 'Value must be 0 or higher' }),
   trade_type: z.string().nonempty('Type is required'),
   status: z.string().nonempty('Status is required'),
   date_entry: z.string().nonempty('Date is required'),

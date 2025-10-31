@@ -39,6 +39,7 @@ const CreateEditTradeJournalForm = ({
       status: data.status || '',
       amount: data.amount || 0,
       date_entry: data.date_entry || '',
+      percentage: data.percentage || 0,
       user_id: profile._id || '',
     },
     resolver: zodResolver(
@@ -130,7 +131,6 @@ const CreateEditTradeJournalForm = ({
             />
           </div>
           <div className='grid grid-cols-2 gap-x-4'>
-            <RDatePicker name='date_entry' label='Date Entry' />
             <Input
               type='number'
               placeholder='00'
@@ -138,6 +138,16 @@ const CreateEditTradeJournalForm = ({
               name='amount'
               validation={{ valueAsNumber: true }}
             />
+            <Input
+              type='number'
+              placeholder='00'
+              label='Percentage'
+              name='percentage'
+              validation={{ valueAsNumber: true }}
+            />
+          </div>
+          <div className='grid grid-cols-2 gap-x-4'>
+            <RDatePicker name='date_entry' label='Date Entry' />
           </div>
         </div>
         <Button

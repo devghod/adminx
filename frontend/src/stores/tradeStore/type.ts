@@ -3,6 +3,7 @@ export type TTradeJournal = {
   date_created?: string;
   date_modified?: string;
   status?: 'win' | 'lose' | 'draw';
+  percentage?: number;
   trade_type?: string;
   amount?: number;
   date_entry?: 'crypto' | 'currency';
@@ -16,4 +17,5 @@ export type TCreateTradeJournal = {
   trade_type: 'crypto' | 'currency';
   amount: number;
   date_entry: string;
+  percentage: number;
 };

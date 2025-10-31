@@ -14,6 +14,9 @@ const tradeJournalSchema = new mongoose.Schema({
   amount: {
     type: Number,
   },
+  percentage: {
+    type: Number,
+  },
   date_entry: {
     type: String,
   },

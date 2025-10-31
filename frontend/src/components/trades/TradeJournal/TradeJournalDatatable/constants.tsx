@@ -7,7 +7,9 @@ import {
   CoinIcon,
   DateIcon,
   TrophyIcon,
+  PercentIcon
 } from '@/components/ui/icons';
+import CircularProgress from '@/components/ui/circularProgress';
 
 export const columnHelper = createColumnHelper<TTradeJournals>();
 
@@ -72,6 +74,26 @@ export const columns = [
         }
         className='px-[7px] py-[2px] uppercase rounded font-bold'
       />
+    ),
+  }),
+  columnHelper.accessor('percentage', {
+    id: 'percentage',
+    size: 10,
+    header: () => (
+      <div className='text-left flex gap-1'>
+        <PercentIcon className='h-5' />
+      </div>
+    ),
+    cell: (props: any) => {
+      const percentage = props.getValue() || 0;
+      return (
+        <div className='text-left'>
+          <CircularProgress value={percentage} size={32} strokeWidth={4} />
+        </div>
+      )
+    },
+    footer: props => (
+      <div className='text-left'>{props.column.id}</div>
     ),
   }),
   columnHelper.accessor('amount', {
