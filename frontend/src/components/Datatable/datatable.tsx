@@ -156,7 +156,7 @@ const Datatable = ({
         <div className='inline-block min-w-full border rounded-lg overflow-hidden'>
           <div className='max-h-[600px] overflow-y-auto'>
             <Table className='min-w-full border-collapse'>
-              <TableHeader className=''>
+              <TableHeader className='sticky top-0 z-1'>
                 {tableConfig
                   .getHeaderGroups()
                   .map((headerGroup: any) => (
@@ -180,7 +180,8 @@ const Datatable = ({
                         </TableHead>
                       ))}
                     </TableRow>
-                  ))}
+                  ))
+                }
               </TableHeader>
               <TableBody className='divide-y'>
                 {tableConfig.getRowModel().rows.map((row: any) => (
@@ -194,7 +195,7 @@ const Datatable = ({
                     {row.getVisibleCells().map((cell: any) => (
                       <TableCell
                         key={cell.id}
-                        className='py-2 px-3 text-md sm:text-sm '
+                        className='py-2 px-3 md:py-6'
                       >
                         {flexRender(
                           cell.column.columnDef.cell,

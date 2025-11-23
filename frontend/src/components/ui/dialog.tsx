@@ -7,7 +7,7 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { CloseIcon } from './icons';
 
 const dialogMenuContentVariants = cva(
-  'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-950 rounded-lg shadow-lg p-6 min-w-80',
+  'fixed z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-950 rounded-lg shadow-lg p-6 min-w-80',
 );
 
 /**
@@ -46,7 +46,7 @@ const DialogMenu = React.forwardRef<
         modal={modal}
       >
         <DialogPrimitive.Portal>
-          <DialogPrimitive.Overlay className='fixed inset-0 bg-black opacity-30' />
+          <DialogPrimitive.Overlay className='fixed z-10 inset-0 bg-black opacity-30' />
           <DialogPrimitive.Content
             className={cn(dialogMenuContentVariants(), className)}
             ref={forwardedRef}

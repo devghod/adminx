@@ -44,7 +44,7 @@ export const columns = [
       </div>
     ),
     cell: (props: any) => (
-      <div className='text-left capitalize'>{props.getValue()}</div>
+      <div className='text-left uppercase font-semibold md:font-bold'>{props.getValue()}</div>
     ),
     footer: props => (
       <div className='text-left'>{props.column.id}</div>
@@ -87,7 +87,7 @@ export const columns = [
     cell: (props: any) => {
       const percentage = props.getValue() || 0;
       return (
-        <div className='text-left'>
+        <div className=''>
           <CircularProgress value={percentage} size={32} strokeWidth={4} />
         </div>
       )
@@ -106,7 +106,7 @@ export const columns = [
       </div>
     ),
     cell: (props: any) => (
-      <div className='text-left'>{props.getValue()}</div>
+      <div className='text-left font-semibold md:font-bold'>${props.getValue()}</div>
     ),
     footer: props => (
       <div className='text-left'>{props.column.id}</div>
@@ -122,7 +122,7 @@ export const columns = [
       </div>
     ),
     cell: (props: any) => (
-      <div className='text-left'>
+      <div className='text-left font-semibold md:font-bold'>
         {dateFormat(props.getValue(), 'MM-DD-YYYY')}
       </div>
     ),
@@ -140,7 +140,7 @@ export const columns = [
       </div>
     ),
     cell: (props: any) => (
-      <div className='text-left'>
+      <div className='text-left font-semibold md:font-bold'>
         {dateFormat(props.getValue(), 'MM-DD-YYYY')}
       </div>
     ),
