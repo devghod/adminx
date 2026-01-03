@@ -6,19 +6,23 @@ import { dateFormat } from '@/utils/dateHelper';
 import { useAccountStore } from '@/stores/accountStore';
 import { RDatePickerBasic as RDatePicker } from '@/components/ui/datepicker';
 import { roundOff } from '@/utils/numberUtils';
-
 import { InputBasic } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { CloseIcon } from '@/components/ui/icons';
 import { SelectBasic as Select } from '@/components/ui/select';
-
+import {
+  DialogMenu,
+  DialogMenuClose,
+  DialogMenuDescription,
+  DialogMenuTitle,
+} from '@/components/ui/dialog';
 import LineChart from '@/components/ui/graphical/LineChart';
 import PieChart from '@/components/ui/graphical/PieChart';
 import moment from 'moment-timezone';
 
 const TradeMain = () => {
-  const [startDate, setStartDate] = useState<string | null>(null);
-  const [endDate, setEndDate] = useState<string | null>(null);
+  // const [startDate, setStartDate] = useState<string | null>(null);
+  // const [endDate, setEndDate] = useState<string | null>(null);
   const [entry, setEntry] = useState<string>('This month');
   const [openDateRangePicker, setOpenDateRangePicker] = useState<boolean>(false);
   const { stats, isLoading, getTradeStatsByDate } = useTradeStore();
@@ -34,11 +38,11 @@ const TradeMain = () => {
       .endOf('month')
       .format('YYYY-MM-DD');
 
-    setStartDate(startOfMonth);
-    setEndDate(endOfMonth);
-  }, []);
+    getTradeStats(startOfMonth, endOfMonth);
+  }, [profile?._id]);
 
-  useEffect(() => {
+  const getTradeStats = (startDate: string | null, endDate: string | null) => {
+    console.debug(startDate, endDate, profile?._id)
     if (startDate && endDate && profile?._id) {
       const fetchStats = async () => {
         if (profile._id) {
@@ -47,13 +51,13 @@ const TradeMain = () => {
       };
       fetchStats();
     }
-  }, [startDate, endDate, profile._id, getTradeStatsByDate]);
+  };
 
   const differenceAmount = useMemo(() => {
-    return stats?.profitLossData?.profit && stats?.profitLossData?.loss 
-      ?  stats?.profitLossData?.profit - stats?.profitLossData?.loss
+    return stats?.profitLossData?.profit && stats?.profitLossData?.loss
+      ? stats?.profitLossData?.profit - stats?.profitLossData?.loss
       : 0
-  },[stats?.profitLossData?.profit, stats?.profitLossData?.loss]);
+  }, [stats?.profitLossData?.profit, stats?.profitLossData?.loss]);
 
   return (
     <>
@@ -62,7 +66,7 @@ const TradeMain = () => {
           <div className='space-y-4'>
             <div className='grid md:grid-cols-4 grid-cols-2 gap-5'>
               <div className="flex space-x-1 py-auto md:text-2xl">
-                <div 
+                <div
                   className={`font-bold self-center
                     ${roundOff(differenceAmount) > 0 ? 'text-lime-500' : ''}
                     ${roundOff(differenceAmount) < 0 ? 'text-rose-500' : ''}
@@ -71,36 +75,14 @@ const TradeMain = () => {
                 >
                   {roundOff(differenceAmount)}
                 </div>
-              </div> 
+              </div>
               <div className=""></div>
-              <InputBasic 
+              <InputBasic
                 name='Entry'
                 onClick={() => setOpenDateRangePicker(true)}
                 value={entry}
                 readOnly
               />
-              {/* <RDatePicker
-                name='Start Date'
-                placeholder='Start Date'
-                selected={startDate ? new Date(startDate) : null}
-                onChange={date =>
-                  date &&
-                  setStartDate(
-                    dateFormat(date.toISOString(), 'YYYY-MM-DD'),
-                  )
-                }
-              />
-              <RDatePicker
-                name='End Date'
-                placeholder='End Date'
-                selected={endDate ? new Date(endDate) : null}
-                onChange={date =>
-                  date &&
-                  setEndDate(
-                    dateFormat(date.toISOString(), 'YYYY-MM-DD'),
-                  )
-                }
-              />       */}
             </div>
             <div className='grid md:grid-cols-3 grid-cols-1 gap-5'>
               <div className='md:col-span-2'>
@@ -124,12 +106,11 @@ const TradeMain = () => {
 
       {openDateRangePicker && (
         <DateRangePicker
+          open={openDateRangePicker}
           onOpenChange={setOpenDateRangePicker}
-          startDate={startDate}
-          endDate={endDate}
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
+          setEntry={setEntry}
           entry={entry}
+          getTrade={getTradeStats}
         />
       )}
     </>
@@ -139,72 +120,148 @@ const TradeMain = () => {
 export default TradeMain;
 
 const DateRangePicker = ({
+  open,
   onOpenChange,
-  startDate,
-  endDate,
-  setStartDate,
-  setEndDate,
+  setEntry,
   entry = 'This month',
+  getTrade,
 }: {
+  open: boolean;
   onOpenChange: (open: boolean) => void;
-  startDate: string | null;
-  endDate: string | null;
-  setStartDate: (date: string) => void;
-  setEndDate: (date: string) => void;
+  setEntry: (data: string) => void;
+  getTrade: (startDate: string | null, endDate: string | null) => void;
   entry: string; // 'This month' | 'This week' | 'This year' | 'Today' | 'Custom';
 }) => {
+  const [startDate, setStartDate] = useState<string | null>(null);
+  const [endDate, setEndDate] = useState<string | null>(null);
+
+  // useEffect(() => , []);
+
+  const fnAssignDateRange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+
+    let startDate = null;
+    let endDate = null;
+
+    const entry = e.target.value;
+    const fnMoment = moment().tz('Asia/Manila');
+    setEntry(entry)
+
+    switch (entry) {
+      case 'Today':
+        startDate = fnMoment
+          .startOf('day')
+          .format('YYYY-MM-DD');
+        endDate = fnMoment
+          .endOf('day')
+          .format('YYYY-MM-DD');
+        break;
+
+      case 'This month':
+        startDate = fnMoment
+          .startOf('month')
+          .format('YYYY-MM-DD');
+        endDate = fnMoment
+          .endOf('month')
+          .format('YYYY-MM-DD');
+
+        break;
+
+      case 'This week':
+        startDate = fnMoment
+          .startOf('week')
+          .format('YYYY-MM-DD');
+        endDate = fnMoment
+          .endOf('week')
+          .format('YYYY-MM-DD');
+
+        break;
+
+      case 'This year':
+        startDate = fnMoment
+          .startOf('year')
+          .format('YYYY-MM-DD');
+        endDate = fnMoment
+          .endOf('year')
+          .format('YYYY-MM-DD');
+
+        break;
+
+      default:
+        startDate = null;
+        endDate = null;
+
+        break;
+    }
+
+    if (startDate && endDate) {
+      setStartDate(startDate);
+      setEndDate(endDate);
+    }
+  };
+
+  const submit = () => {
+    getTrade(startDate, endDate);
+    onOpenChange(false);
+  };
+
   return (
-    <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center'>
-      <div className='bg-white dark:bg-gray-900 bg-opacity-50 rounded-lg p-4 space-y-4'>
-        <div className='flex justify-between items-center'>
-          <h2 className='text-2xl font-bold'>Date Range</h2>
-          <Button onClick={() => onOpenChange(false)}>
-            <CloseIcon className='w-4 h-4' onClick={() => onOpenChange(false)} />
+    <DialogMenu open={open} onOpenChange={onOpenChange} modal>
+      <DialogMenuTitle>
+        Date Range
+      </DialogMenuTitle>
+      <DialogMenuClose closeIcon />
+      <DialogMenuDescription asChild>
+        <div className="">
+          <Select
+            name='entry'
+            label='Entry'
+            value={entry}
+            placeholder='Select Entry'
+            items={[
+              { value: 'This month', label: 'This month' },
+              { value: 'This week', label: 'This week' },
+              { value: 'This year', label: 'This year' },
+              { value: 'Today', label: 'Today' },
+              { value: 'Custom', label: 'Custom' },
+            ]}
+            onChange={(e) => fnAssignDateRange(e)}
+          />
+          <div className='flex flex-col gap-y-4'>
+            <RDatePicker
+              name='startDate'
+              placeholder='Start Date'
+              selected={startDate ? new Date(startDate) : null}
+              disabled={entry !== 'Custom'}
+              onChange={date =>
+                date &&
+                setStartDate(
+                  dateFormat(date.toISOString(), 'YYYY-MM-DD'),
+                )
+              }
+            />
+            <RDatePicker
+              name='endDate'
+              placeholder='End Date'
+              selected={endDate ? new Date(endDate) : null}
+              disabled={entry !== 'Custom'}
+              onChange={date =>
+                date &&
+                setEndDate(
+                  dateFormat(date.toISOString(), 'YYYY-MM-DD'),
+                )
+              }
+            />
+          </div>
+          <Button
+            theme='fill-primary'
+            shape='rounded'
+            onClick={submit}
+          >
+            Submit
           </Button>
         </div>
-        <Select
-          name='entry'
-          label='Entry'
-          placeholder='Select Entry'
-          items={[
-            { value: 'This month', label: 'This month' },
-            { value: 'This week', label: 'This week' },
-            { value: 'This year', label: 'This year' },
-            { value: 'Today', label: 'Today' },
-          ]}
-        />
-        <div className='flex flex-col gap-y-4'>
-          <RDatePicker
-            name='startDate'
-            placeholder='Start Date'
-            selected={startDate ? new Date(startDate) : null}
-            onChange={date =>
-              date &&
-              setStartDate(
-                dateFormat(date.toISOString(), 'YYYY-MM-DD'),
-              )
-            }
-          />
-          <RDatePicker
-            name='endDate'
-            placeholder='End Date'
-            selected={endDate ? new Date(endDate) : null}
-            onChange={date =>
-              date &&
-              setEndDate(
-                dateFormat(date.toISOString(), 'YYYY-MM-DD'),
-              )
-            }
-          />
-        </div>
-        <Button
-          theme='fill-primary'
-          shape='rounded'
-          onClick={() => onOpenChange(false)}
-        >
-          Submit
-        </Button>
-      </div>
-    </div>
+      </DialogMenuDescription>
+    </DialogMenu>
   );
 };

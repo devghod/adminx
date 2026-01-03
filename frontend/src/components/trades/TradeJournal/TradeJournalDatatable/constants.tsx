@@ -44,7 +44,7 @@ export const columns = [
       </div>
     ),
     cell: (props: any) => (
-      <div className='text-left uppercase font-semibold md:font-bold'>{props.getValue()}</div>
+      <div className='text-left uppercase font-medium'>{props.getValue()}</div>
     ),
     footer: props => (
       <div className='text-left'>{props.column.id}</div>
@@ -106,7 +106,7 @@ export const columns = [
       </div>
     ),
     cell: (props: any) => (
-      <div className='text-left font-semibold md:font-bold'>${props.getValue()}</div>
+      <div className='text-left font-light md:font-normal'>${props.getValue()}</div>
     ),
     footer: props => (
       <div className='text-left'>{props.column.id}</div>
@@ -122,7 +122,7 @@ export const columns = [
       </div>
     ),
     cell: (props: any) => (
-      <div className='text-left font-semibold md:font-bold'>
+      <div className='text-left font-light md:font-normal'>
         {dateFormat(props.getValue(), 'MM-DD-YYYY')}
       </div>
     ),

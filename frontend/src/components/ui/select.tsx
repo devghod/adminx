@@ -106,7 +106,7 @@ interface SelectBasicProps
   className?: string;
   label?: string;
   errorMsg?: string;
-  defaultValue?: string;
+  value?: string;
   items: itemProps[];
   placeholder?: string;
 }
@@ -126,7 +126,7 @@ const SelectBasic = ({
   className,
   name,
   items,
-  defaultValue = '',
+  value,
   label,
   placeholder,
   errorMsg,
@@ -137,7 +137,7 @@ const SelectBasic = ({
     <select
       id={name}
       name={name}
-      defaultValue={defaultValue}
+      value={value}
       className={cn(selectVariants(), className)}
       {...props}
     >

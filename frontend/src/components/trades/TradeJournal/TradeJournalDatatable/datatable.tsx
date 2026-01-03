@@ -57,7 +57,7 @@ const TradeJournalDatatable = () => {
       columnHelper.display({
         id: 'actions',
         cell: (props: any) => (
-          <div className='flex rounded-md gap-1'>
+          <div className='flex justify-end rounded-md gap-1'>
             <ToolTip title='Details' className='text-xs'>
               <Button
                 theme='fill-info'
