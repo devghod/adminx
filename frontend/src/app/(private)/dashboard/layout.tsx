@@ -17,14 +17,14 @@ export default function DashboardPageLayout({
   return (
     <>
       <div className='flex flex-col h-screen'>
-        <div className='border-b border-gray-200 dark:border-gray-800'>
+        <div className='border-b border-gray-200 dark:border-gray-900'>
           <HeaderDashboard />
         </div>
         <div className='flex flex-1 overflow-hidden'>
-          <div className='border-r border-gray-200 dark:border-gray-800'>
+          <div className='border-r border-gray-200 dark:border-gray-900'>
             <MenuDashboard />
           </div>
-          <div className='flex-auto overflow-y-auto bg-gray-50 dark:bg-gray-900'>
+          <div className='flex-auto overflow-y-auto bg-gray-500/10 dark:bg-gray-900'>
             <BodyDashoard>{children}</BodyDashoard>
           </div>
         </div>

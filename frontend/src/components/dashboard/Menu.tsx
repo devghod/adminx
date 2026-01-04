@@ -27,17 +27,17 @@ const MenuData = [
     icon: <HomeIcon className='w-5 h-5' />,
   },
   {
-    title: 'Accounts',
+    title: 'Account',
     url: '/dashboard/accounts',
     icon: <UsersIcon className='w-5 h-5' />,
   },
   // {
-  //   title: 'Services',
+  //   title: 'Service',
   //   url: '/dashboard/services',
   //   icon: <ServicesIcon className='w-5 h-5' />,
   // },
   {
-    title: 'Trades',
+    title: 'Trade',
     url: '/dashboard/trades',
     icon: <TradeIcon className='w-5 h-5' />,
   },
@@ -64,7 +64,7 @@ const MenuDashboard = () => {
   return (
     <div
       className={`transition-all duration-500
-        ${isShrink ? 'w-16' : 'w-40 md:w-64'}
+        ${isShrink ? 'w-17' : 'w-40 md:w-64'}
         ${isPending ? 'opacity-50 pointer-events-none' : ''}
       `}
     >

@@ -17,24 +17,18 @@ const navMenuLinkVariants = cva(`
   mx-1
   py-2 
   px-4 
-  data-active:py-2
-  data-active:px-3
-  data-active:shadow-lg
   data-active:rounded-lg
   data-active:border-slate-500/10
-  data-active:dark:border-violet-500/50
+  data-active:bg-cyan-600
+  data-active:dark:bg-gray-800
   border
   border-transparent
   rounded-lg
-  hover:shadow-lg
-  hover:border-slate-500/10
   hover:dark:border-violet-500/10
-  hover:py-2
-  hover:px-3
-  hover:text-violet-700
-  hover:dark:text-violet-500
-  hover:dark:ring
-  hover:dark:ring-violet-500/50
+  hover:bg-cyan-500/20
+  hover:text-cyan-700
+  hover:dark:text-cyan-500
+  hover:dark:bg-gray-900
 `);
 
 const NavMenuLink = React.forwardRef<
@@ -78,12 +72,12 @@ const navMenuItemVariants = cva('flex rounded mx-1');
 const NavMenuItem = React.forwardRef<
   React.ElementRef<typeof NavMenuPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof NavMenuPrimitive.Item> &
-    VariantProps<typeof navMenuItemVariants> & {
-      className?: string;
-      onClick?: React.MouseEventHandler<HTMLDivElement>;
-      onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
-      onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
-    }
+  VariantProps<typeof navMenuItemVariants> & {
+    className?: string;
+    onClick?: React.MouseEventHandler<HTMLDivElement>;
+    onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
+    onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
+  }
 >(({ children, className, ...props }, forwardedRef) => {
   return (
     <NavMenuPrimitive.Item
@@ -103,9 +97,9 @@ const navMenuIndicatorVariants = cva('bg-sky-500');
 const NavMenuIndicator = React.forwardRef<
   React.ElementRef<typeof NavMenuPrimitive.Indicator>,
   React.ComponentPropsWithoutRef<typeof NavMenuPrimitive.Indicator> &
-    VariantProps<typeof navMenuIndicatorVariants> & {
-      className?: string;
-    }
+  VariantProps<typeof navMenuIndicatorVariants> & {
+    className?: string;
+  }
 >(({ className, ...props }, ref) => {
   return (
     <NavMenuPrimitive.Indicator
