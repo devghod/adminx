@@ -72,12 +72,12 @@ const navMenuItemVariants = cva('flex rounded mx-1');
 const NavMenuItem = React.forwardRef<
   React.ElementRef<typeof NavMenuPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof NavMenuPrimitive.Item> &
-  VariantProps<typeof navMenuItemVariants> & {
-    className?: string;
-    onClick?: React.MouseEventHandler<HTMLDivElement>;
-    onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
-    onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
-  }
+    VariantProps<typeof navMenuItemVariants> & {
+      className?: string;
+      onClick?: React.MouseEventHandler<HTMLDivElement>;
+      onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
+      onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
+    }
 >(({ children, className, ...props }, forwardedRef) => {
   return (
     <NavMenuPrimitive.Item
@@ -97,9 +97,9 @@ const navMenuIndicatorVariants = cva('bg-sky-500');
 const NavMenuIndicator = React.forwardRef<
   React.ElementRef<typeof NavMenuPrimitive.Indicator>,
   React.ComponentPropsWithoutRef<typeof NavMenuPrimitive.Indicator> &
-  VariantProps<typeof navMenuIndicatorVariants> & {
-    className?: string;
-  }
+    VariantProps<typeof navMenuIndicatorVariants> & {
+      className?: string;
+    }
 >(({ className, ...props }, ref) => {
   return (
     <NavMenuPrimitive.Indicator

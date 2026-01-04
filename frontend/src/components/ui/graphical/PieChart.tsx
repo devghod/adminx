@@ -84,14 +84,14 @@ const PieChartComponent = ({
                   label={renderCustomizedLabel}
                   outerRadius={80}
                   dataKey='value'
-                  stroke={theme === 'dark' ? '#1F1212' : '#EEF3EF'}          // 🟩 border color (black)
-                  strokeWidth={2} 
+                  stroke={theme === 'dark' ? '#1F1212' : '#EEF3EF'} // 🟩 border color (black)
+                  strokeWidth={2}
                 >
                   {data.map((entry: any, index: any) => (
                     <Cell
                       key={`cell-${entry.name}`}
                       fill={COLORS[index % COLORS.length]}
-                      fillOpacity={opacity} 
+                      fillOpacity={opacity}
                     />
                   ))}
                 </Pie>

@@ -23,9 +23,7 @@ const AccountCountCard = () => {
         <div className='flex gap-x-4'>
           <UsersNetworkIcon className='bg-green-500/20 text-green-500 p-1 rounded w-7 h-7 self-center' />
           <div className=''>
-            <div className=''>
-              {data.activeCount ?? 0}
-            </div>
+            <div className=''>{data.activeCount ?? 0}</div>
             <div className='text-green-500 font-semibold text-sm'>
               Active
             </div>
@@ -34,9 +32,7 @@ const AccountCountCard = () => {
         <div className='flex gap-x-4'>
           <UsersNetworkIcon className='bg-red-500/20 text-red-500 p-1 rounded w-7 h-7 self-center' />
           <div className=''>
-            <div className=''>
-              {data.inactiveCount ?? 0}
-            </div>
+            <div className=''>{data.inactiveCount ?? 0}</div>
             <div className='text-red-500 font-semibold text-sm'>
               Inactive
             </div>

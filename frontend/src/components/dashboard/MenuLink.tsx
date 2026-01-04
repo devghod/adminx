@@ -25,7 +25,10 @@ const MenuLink = ({
           ${isShrink ? 'w-24 md:w-24' : 'w-full'}
         `}
       >
-        <NextLink className={`w-full ${isShrink && 'justify-center'}`} href={href}>
+        <NextLink
+          className={`w-full ${isShrink && 'justify-center'}`}
+          href={href}
+        >
           <div
             className={`content-center
               ${isActive ? `font-semibold text-cyan-50 dark:text-cyan-500` : 'text-gray-600 dark:text-gray-50'}

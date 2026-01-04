@@ -24,7 +24,8 @@ const TradeMain = () => {
   // const [startDate, setStartDate] = useState<string | null>(null);
   // const [endDate, setEndDate] = useState<string | null>(null);
   const [entry, setEntry] = useState<string>('This month');
-  const [openDateRangePicker, setOpenDateRangePicker] = useState<boolean>(false);
+  const [openDateRangePicker, setOpenDateRangePicker] =
+    useState<boolean>(false);
   const { stats, isLoading, getTradeStatsByDate } = useTradeStore();
   const { profile } = useAccountStore();
 
@@ -41,8 +42,11 @@ const TradeMain = () => {
     getTradeStats(startOfMonth, endOfMonth);
   }, [profile?._id]);
 
-  const getTradeStats = (startDate: string | null, endDate: string | null) => {
-    console.debug(startDate, endDate, profile?._id)
+  const getTradeStats = (
+    startDate: string | null,
+    endDate: string | null,
+  ) => {
+    console.debug(startDate, endDate, profile?._id);
     if (startDate && endDate && profile?._id) {
       const fetchStats = async () => {
         if (profile._id) {
@@ -54,9 +58,10 @@ const TradeMain = () => {
   };
 
   const differenceAmount = useMemo(() => {
-    return stats?.profitLossData?.profit && stats?.profitLossData?.loss
+    return stats?.profitLossData?.profit &&
+      stats?.profitLossData?.loss
       ? stats?.profitLossData?.profit - stats?.profitLossData?.loss
-      : 0
+      : 0;
   }, [stats?.profitLossData?.profit, stats?.profitLossData?.loss]);
 
   return (
@@ -65,7 +70,7 @@ const TradeMain = () => {
         <div className='w-full border bg-white dark:bg-black rounded-lg p-4 space-y-5 col-span-3'>
           <div className='space-y-4'>
             <div className='grid md:grid-cols-4 grid-cols-2 gap-5'>
-              <div className="flex space-x-1 py-auto md:text-2xl">
+              <div className='flex space-x-1 py-auto md:text-2xl'>
                 <div
                   className={`font-bold self-center
                     ${roundOff(differenceAmount) > 0 ? 'text-lime-500' : ''}
@@ -76,7 +81,7 @@ const TradeMain = () => {
                   {roundOff(differenceAmount)}
                 </div>
               </div>
-              <div className=""></div>
+              <div className=''></div>
               <InputBasic
                 name='Entry'
                 onClick={() => setOpenDateRangePicker(true)}
@@ -129,7 +134,10 @@ const DateRangePicker = ({
   open: boolean;
   onOpenChange: (open: boolean) => void;
   setEntry: (data: string) => void;
-  getTrade: (startDate: string | null, endDate: string | null) => void;
+  getTrade: (
+    startDate: string | null,
+    endDate: string | null,
+  ) => void;
   entry: string; // 'This month' | 'This week' | 'This year' | 'Today' | 'Custom';
 }) => {
   const [startDate, setStartDate] = useState<string | null>(null);
@@ -137,7 +145,9 @@ const DateRangePicker = ({
 
   // useEffect(() => , []);
 
-  const fnAssignDateRange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const fnAssignDateRange = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     e.preventDefault();
 
     let startDate = null;
@@ -145,45 +155,29 @@ const DateRangePicker = ({
 
     const entry = e.target.value;
     const fnMoment = moment().tz('Asia/Manila');
-    setEntry(entry)
+    setEntry(entry);
 
     switch (entry) {
       case 'Today':
-        startDate = fnMoment
-          .startOf('day')
-          .format('YYYY-MM-DD');
-        endDate = fnMoment
-          .endOf('day')
-          .format('YYYY-MM-DD');
+        startDate = fnMoment.startOf('day').format('YYYY-MM-DD');
+        endDate = fnMoment.endOf('day').format('YYYY-MM-DD');
         break;
 
       case 'This month':
-        startDate = fnMoment
-          .startOf('month')
-          .format('YYYY-MM-DD');
-        endDate = fnMoment
-          .endOf('month')
-          .format('YYYY-MM-DD');
+        startDate = fnMoment.startOf('month').format('YYYY-MM-DD');
+        endDate = fnMoment.endOf('month').format('YYYY-MM-DD');
 
         break;
 
       case 'This week':
-        startDate = fnMoment
-          .startOf('week')
-          .format('YYYY-MM-DD');
-        endDate = fnMoment
-          .endOf('week')
-          .format('YYYY-MM-DD');
+        startDate = fnMoment.startOf('week').format('YYYY-MM-DD');
+        endDate = fnMoment.endOf('week').format('YYYY-MM-DD');
 
         break;
 
       case 'This year':
-        startDate = fnMoment
-          .startOf('year')
-          .format('YYYY-MM-DD');
-        endDate = fnMoment
-          .endOf('year')
-          .format('YYYY-MM-DD');
+        startDate = fnMoment.startOf('year').format('YYYY-MM-DD');
+        endDate = fnMoment.endOf('year').format('YYYY-MM-DD');
 
         break;
 
@@ -207,12 +201,10 @@ const DateRangePicker = ({
 
   return (
     <DialogMenu open={open} onOpenChange={onOpenChange} modal>
-      <DialogMenuTitle>
-        Date Range
-      </DialogMenuTitle>
+      <DialogMenuTitle>Date Range</DialogMenuTitle>
       <DialogMenuClose closeIcon />
       <DialogMenuDescription asChild>
-        <div className="">
+        <div className=''>
           <Select
             name='entry'
             label='Entry'
@@ -225,7 +217,7 @@ const DateRangePicker = ({
               { value: 'Today', label: 'Today' },
               { value: 'Custom', label: 'Custom' },
             ]}
-            onChange={(e) => fnAssignDateRange(e)}
+            onChange={e => fnAssignDateRange(e)}
           />
           <div className='flex flex-col gap-y-4'>
             <RDatePicker

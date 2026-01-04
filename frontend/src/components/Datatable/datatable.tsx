@@ -180,8 +180,7 @@ const Datatable = ({
                         </TableHead>
                       ))}
                     </TableRow>
-                  ))
-                }
+                  ))}
               </TableHeader>
               <TableBody className='divide-y'>
                 {tableConfig.getRowModel().rows.map((row: any) => (

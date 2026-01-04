@@ -122,7 +122,9 @@ const ActivityCard = ({ log }: { log: TLog }) => {
             <div className='font-medium text-sm'>
               {log?.user_id_execute?.first_name}
             </div>
-            <div className='text-gray-500 text-xs uppercase'>{log?.action}</div>
+            <div className='text-gray-500 text-xs uppercase'>
+              {log?.action}
+            </div>
           </div>
         </div>
         <div className=''>

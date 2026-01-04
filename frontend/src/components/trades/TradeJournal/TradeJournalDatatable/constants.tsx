@@ -7,7 +7,7 @@ import {
   CoinIcon,
   DateIcon,
   TrophyIcon,
-  PercentIcon
+  PercentIcon,
 } from '@/components/ui/icons';
 import CircularProgress from '@/components/ui/circularProgress';
 
@@ -44,7 +44,9 @@ export const columns = [
       </div>
     ),
     cell: (props: any) => (
-      <div className='text-left uppercase font-medium'>{props.getValue()}</div>
+      <div className='text-left uppercase font-medium'>
+        {props.getValue()}
+      </div>
     ),
     footer: props => (
       <div className='text-left'>{props.column.id}</div>
@@ -88,9 +90,13 @@ export const columns = [
       const percentage = props.getValue() || 0;
       return (
         <div className=''>
-          <CircularProgress value={percentage} size={32} strokeWidth={4} />
+          <CircularProgress
+            value={percentage}
+            size={32}
+            strokeWidth={4}
+          />
         </div>
-      )
+      );
     },
     footer: props => (
       <div className='text-left'>{props.column.id}</div>
@@ -106,7 +112,9 @@ export const columns = [
       </div>
     ),
     cell: (props: any) => (
-      <div className='text-left font-light md:font-normal'>${props.getValue()}</div>
+      <div className='text-left font-light md:font-normal'>
+        ${props.getValue()}
+      </div>
     ),
     footer: props => (
       <div className='text-left'>{props.column.id}</div>

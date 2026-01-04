@@ -2,10 +2,10 @@
 
 import { cookies } from 'next/headers';
 
-export async function useTheme({ 
+export async function useTheme({
   property,
   value,
-} : {
+}: {
   property: string;
   value: any;
 }) {
@@ -23,9 +23,9 @@ export async function useTheme({
   });
 
   return newState;
-};
+}
 
 export async function getTheme() {
   const cookieStore = await cookies();
   return cookieStore.get('theme')?.value;
-};
+}

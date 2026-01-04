@@ -80,7 +80,11 @@ const Select = ({
         {...props}
       >
         {placeholder && (
-          <option value='' disabled className='text-gray-500 dark:text-gray-400'>
+          <option
+            value=''
+            disabled
+            className='text-gray-500 dark:text-gray-400'
+          >
             {placeholder}
           </option>
         )}

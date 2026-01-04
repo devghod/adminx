@@ -12,7 +12,7 @@ export type TTradeState = {
   stats: {
     pieData: any[];
     lineData: any[];
-    profitLossData: { profit: number, loss: number };
+    profitLossData: { profit: number; loss: number };
   };
 };
 
