@@ -18,12 +18,12 @@ const AccountCountCard = () => {
 
   return (
     <div className='w-40 px-6 py-5 shadow-xl rounded-xl bg-white dark:bg-black'>
-      <div className='font-bold'>Accounts</div>
+      <div className=''>Accounts</div>
       <div className='flex flex-col gap-y-2 mt-4'>
         <div className='flex gap-x-4'>
           <UsersNetworkIcon className='bg-green-500/20 text-green-500 p-1 rounded w-7 h-7 self-center' />
           <div className=''>
-            <div className='font-semibold'>
+            <div className=''>
               {data.activeCount ?? 0}
             </div>
             <div className='text-green-500 font-semibold text-sm'>
@@ -34,7 +34,7 @@ const AccountCountCard = () => {
         <div className='flex gap-x-4'>
           <UsersNetworkIcon className='bg-red-500/20 text-red-500 p-1 rounded w-7 h-7 self-center' />
           <div className=''>
-            <div className='font-semibold'>
+            <div className=''>
               {data.inactiveCount ?? 0}
             </div>
             <div className='text-red-500 font-semibold text-sm'>
@@ -45,7 +45,7 @@ const AccountCountCard = () => {
         <div className='flex gap-x-4'>
           <UsersNetworkIcon className='bg-gray-500/20 text-gray-500 p-1 rounded w-7 h-7 self-center' />
           <div className=''>
-            <div className='font-semibold'>{data.holdCount ?? 0}</div>
+            <div className=''>{data.holdCount ?? 0}</div>
             <div className='text-gray-500 font-semibold text-sm'>
               Hold
             </div>

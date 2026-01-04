@@ -12,8 +12,8 @@ const config = {
   theme: {
     extend: {},
     fontFamily: {
-      satoshi: ['Satoshi', 'sans-serif'],
-      inter: ['Inter', 'sans-serif'],
+      // satoshi: ['Satoshi', 'sans-serif'],
+      // inter: ['Inter', 'sans-serif'],
     },
   },
   plugins: [],

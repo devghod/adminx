@@ -66,7 +66,7 @@ const RecentActivityCard = () => {
 
   return (
     <div className='w-[300px] shadow-xl px-6 py-5 rounded-xl bg-white dark:bg-black'>
-      <div className='font-bold'>Recent Activity</div>
+      <div className=''>Recent Activity</div>
       <div className='flex flex-col mt-4'>
         <div ref={parentRef} className='h-[250px] overflow-y-auto'>
           <div
@@ -119,10 +119,10 @@ const ActivityCard = ({ log }: { log: TLog }) => {
             <ActivityLogo model={log.model} action={log.action} />
           </div>
           <div className=''>
-            <div className='text-gray-500 font-semibold text-sm'>
+            <div className='font-medium text-sm'>
               {log?.user_id_execute?.first_name}
             </div>
-            <div className='text-gray-500 text-xs'>{log?.action}</div>
+            <div className='text-gray-500 text-xs uppercase'>{log?.action}</div>
           </div>
         </div>
         <div className=''>

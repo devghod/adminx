@@ -42,7 +42,7 @@ const MenuLink = ({
           >
             {!isShrink && (
               <div
-                className={`font-medium transition-all duration-500
+                className={`transition-all duration-500
                   ${isActive ? 'text-cyan-50 dark:text-white' : 'text-gray-500 dark:text-slate-400'}
                 `}
               >

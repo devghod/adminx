@@ -1,10 +1,11 @@
+import { inter, openSans, roboto } from '@/app/fonts';
 import AccountCountCard from './AccountCountCard';
 import RecentActivityCard from './RecentActivityCard';
 
 const Main = () => {
   return (
-    <div className='grid grid-flow-col grid-cols-8 grid-rows-2 gap-4'>
-      <div className='row-span-2'>
+    <div className='grid grid-cols-8 grid-rows-2 gap-4'>
+      <div className='col-span-1 row-span-2'>
         <AccountCountCard />
       </div>
       <div className='col-span-2 col-start-9'>
