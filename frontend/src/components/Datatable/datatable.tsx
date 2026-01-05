@@ -29,6 +29,9 @@ import { useEffect, useMemo, useState } from 'react';
  * @param isLoading
  * @param searchBar
  * @param hasBorder
+ * @param shadow
+ * @param caption
+ * @param captionDirection top | bottom
  * @returns
  */
 const Datatable = ({
@@ -42,6 +45,9 @@ const Datatable = ({
   isLoading = false,
   searchBar = false,
   hasBorder = false,
+  shadow = false,
+  caption,
+  captionDirection = 'top',
   fnQuery,
   fnSetSize,
   fnSetFilters,
@@ -56,6 +62,9 @@ const Datatable = ({
   isLoading: boolean;
   searchBar?: boolean;
   hasBorder?: boolean;
+  shadow?: boolean;
+  caption?: string;
+  captionDirection?: 'top' | 'bottom';
   fnQuery: (page: number, size: number, filters?: any) => void;
   fnSetSize: (size: number) => void;
   fnSetFilters: (filters: object) => void | undefined;
@@ -121,7 +130,9 @@ const Datatable = ({
   }, [pagination, fnQuery, fnSetFilters, search, globalColumnSearch]);
 
   return (
-    <section className='flex flex-col gap-y-5 max-w-[2000px] mx-auto bg-white dark:bg-black rounded-xl border p-3 my-3 relative'>
+    <section
+      className={`flex flex-col gap-y-5 max-w-[2000px] mx-auto bg-white dark:bg-black rounded-xl border p-3 my-3 relative ${shadow && 'shadow-lg'}`}
+    >
       {isLoading && (
         <div className='absolute inset-0 bg-white/90 dark:bg-black/90 rounded-xl pointer-events-none'>
           <div className='flex flex-col items-center justify-center h-full'>
@@ -153,16 +164,21 @@ const Datatable = ({
       </div>
 
       <div className='overflow-x-auto'>
-        <div className='inline-block min-w-full border rounded-lg overflow-hidden'>
+        <div className='inline-block min-w-full overflow-hidden'>
           <div className='max-h-[600px] overflow-y-auto'>
-            <Table className='min-w-full border-collapse'>
+            <Table
+              className='min-w-full border-collapse'
+              caption={caption}
+              captionDirection={captionDirection}
+            >
               <TableHeader className='sticky top-0 z-1'>
                 {tableConfig
                   .getHeaderGroups()
                   .map((headerGroup: any) => (
                     <TableRow
                       key={headerGroup.id}
-                      className={`${hasBorder && 'divide-x divide-slate-500/20'}`}
+                      // className={`${hasBorder && 'divide-x divide-slate-500/20 border'}`}
+                      className={`${hasBorder && 'border dark:border-gray-500/40'}`}
                     >
                       {headerGroup.headers.map((header: any) => (
                         <TableHead
@@ -188,13 +204,14 @@ const Datatable = ({
                     key={row.id}
                     className={`
                       hover:bg-gray-100 dark:hover:bg-gray-800
-                      ${hasBorder && 'divide-x divide-slate-500/20'}
+                      ${hasBorder && 'divide-x divide-gray-500/40'}
                     `}
                   >
                     {row.getVisibleCells().map((cell: any) => (
                       <TableCell
                         key={cell.id}
-                        className='py-2 px-3 md:py-6'
+                        className='py-2 px-3'
+                        border={hasBorder}
                       >
                         {flexRender(
                           cell.column.columnDef.cell,

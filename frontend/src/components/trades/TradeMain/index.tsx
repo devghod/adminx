@@ -8,7 +8,6 @@ import { RDatePickerBasic as RDatePicker } from '@/components/ui/datepicker';
 import { roundOff } from '@/utils/numberUtils';
 import { InputBasic } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { CloseIcon } from '@/components/ui/icons';
 import { SelectBasic as Select } from '@/components/ui/select';
 import {
   DialogMenu,
@@ -40,6 +39,7 @@ const TradeMain = () => {
       .format('YYYY-MM-DD');
 
     getTradeStats(startOfMonth, endOfMonth);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile?._id]);
 
   const getTradeStats = (
@@ -67,7 +67,7 @@ const TradeMain = () => {
   return (
     <>
       <div className='grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-5'>
-        <div className='w-full border bg-white dark:bg-black rounded-lg p-4 space-y-5 col-span-3'>
+        <div className='w-full border bg-white dark:bg-black rounded-lg p-4 space-y-5 col-span-3 shadow-lg'>
           <div className='space-y-4'>
             <div className='grid md:grid-cols-4 grid-cols-2 gap-5'>
               <div className='flex space-x-1 py-auto md:text-2xl'>

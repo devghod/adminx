@@ -46,8 +46,8 @@ const MenuItem = ({
 
   return (
     <div
-      className={`w-full dark:font-light bg-white dark:bg-black border hover:border-gray-500/10 hover:shadow hover:dark:ring-2 hover:dark:ring-cyan-900 hover:text-black hover:dark:text-white cursor-pointer transition-all duration-500 rounded-lg p-4
-        ${currentTab?.toLowerCase() === menu.toLowerCase() ? 'shadow dark:ring dark:ring-cyan-900 border-gray-500/10 text-black dark:text-white' : 'text-gray-500 dark:text-slate-400'}`}
+      className={`w-full dark:font-light bg-white dark:bg-black border hover:border-gray-500/10 hover:shadow hover:dark:dark:bg-gray-800 hover:text-black hover:dark:text-white cursor-pointer transition-all duration-500 rounded-lg p-4
+        ${currentTab?.toLowerCase() === menu.toLowerCase() ? 'shadow-lg dark:bg-gray-800 border-gray-500/10 text-black dark:text-white' : 'text-gray-500 dark:text-slate-400'}`}
       onClick={() => goToTab(router, menu.toLowerCase())}
     >
       {menu}

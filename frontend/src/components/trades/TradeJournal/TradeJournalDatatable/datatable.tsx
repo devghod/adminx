@@ -144,10 +144,12 @@ const TradeJournalDatatable = () => {
         size={size}
         page={page}
         total={totalTradeJournals}
-        searchBar
         fnQuery={fetchTradeJournals}
         fnSetSize={setSize}
         fnSetFilters={setFilters}
+        searchBar
+        shadow
+        hasBorder
       />
 
       <CreateUpdateModal

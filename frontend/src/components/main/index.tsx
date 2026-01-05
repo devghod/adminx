@@ -1,4 +1,3 @@
-import { inter, openSans, roboto } from '@/app/fonts';
 import AccountCountCard from './AccountCountCard';
 import RecentActivityCard from './RecentActivityCard';
 
