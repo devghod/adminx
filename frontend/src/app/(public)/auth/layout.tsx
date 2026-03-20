@@ -9,22 +9,15 @@ export const metadata: Metadata = {
 
 export interface IAuthLAyout {
   children: React.ReactNode;
-}
+};
 
 const AuthLAyout = ({ children }: IAuthLAyout) => (
   <>
-    <div className='grid grid-cols-9 gap-4'>
-      <div className='col-span-3 col-start-4 sm:flex min-h-screen items-center justify-center content-center'>
-        {children}
-      </div>
-      <div className='col-span-1 col-start-9'>
-        <div className='flex space-x-4 justify-end mx-5 bg-transparent pt-4'>
-          <div className=''></div>
-          <div className=''>
-            <LightSwitch />
-          </div>
-        </div>
-      </div>
+    <div className='absolute top-0 right-0 p-2'>
+      <LightSwitch />
+    </div>
+    <div className="sm:flex min-h-screen items-center justify-center content-center">
+      {children}
     </div>
   </>
 );

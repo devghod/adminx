@@ -9,7 +9,7 @@ const LightSwitch = () => {
   return (
     <div
       onClick={toggleTheme}
-      className='relative flex bg-violet-500 rounded-full p-1 cursor-pointer transition-all duration-500 items-center'
+      className='w-14 relative flex bg-violet-500 rounded-full p-1 cursor-pointer transition-all duration-500 items-center'
     >
       <div
         className={`absolute w-6 h-6 bg-white rounded-full transform transition-transform duration-500 

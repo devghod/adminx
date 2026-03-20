@@ -30,8 +30,8 @@ const LoginForm = () => {
 
   return (
     <FormProvider {...methods}>
-      <form action={action}>
-        <div className='sm:w-80 sm:rounded-lg px-4 py-4 justify-items-center space-y-6'>
+      <form action={action} className='w-full md:w-80'>
+        <div className='px-4 py-4 justify-items-center space-y-6'>
           <div className='text-center'>
             <div className='font-bold text-2xl uppercase tracking-wide'>
               Admin
