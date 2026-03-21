@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useRouter } from 'next/navigation';
 
 const LoginFormSchema = z.object({
   username: z.string().nonempty(),
@@ -20,6 +21,7 @@ const LoginFormInitial = {
 };
 
 const LoginForm = () => {
+  const router = useRouter();
   const [state, action, loading] = useActionState(login, undefined);
 
   const methods = useForm({
@@ -32,13 +34,24 @@ const LoginForm = () => {
     <FormProvider {...methods}>
       <form action={action} className='w-full md:w-80'>
         <div className='px-4 py-4 justify-items-center space-y-6'>
-          <div className='text-center'>
-            <div className='font-bold text-2xl uppercase tracking-wide'>
-              Admin
-              <span className=''>X</span>
+          <div className="w-full flex justify-between">
+            <div className=''>
+              <div className='font-bold text-2xl uppercase tracking-wide'>
+                Admin
+                <span className=''>X</span>
+              </div>
+              <p className='text-sm text-muted-foreground font-normal'>Login Form</p>
             </div>
-            <div className='text-sm'>Login Form</div>
+            <div className="">
+              <button
+                onClick={() => router.push('register')}
+                className='text-xs cursor-pointer text-muted-foreground hover:text-black dark:hover:text-white'
+              >
+                Sign Up
+              </button>
+            </div>
           </div>
+
           <div className='w-full space-y-4'>
             {state?.message && (
               <p className='text-sm text-red-500'>{state.message}</p>
@@ -57,6 +70,8 @@ const LoginForm = () => {
                 label='Password'
                 type='login'
                 placeholder='Password here'
+                hasForgotPassword
+                forgotPasswordRoute={() => router.push('forgot-password')}
               />
             </div>
           </div>

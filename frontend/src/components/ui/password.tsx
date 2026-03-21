@@ -14,6 +14,8 @@ interface PasswordProps
   className?: string;
   label?: string;
   errorMsg?: string;
+  hasForgotPassword?: boolean;
+  forgotPasswordRoute?: () => void;
 }
 
 const passwordInputVariants = cva(
@@ -27,6 +29,8 @@ const passwordInputVariants = cva(
  * @param {object} validation
  * @param {string} errorMsg
  * @param {enum} type 'login' | 'signup' | 'off'
+ * @param {boolean} hasForgotPassword default(false)
+ * @param {funtion} forgotPasswordRoute required hasForgotPassword = true
  * @param {any} props
  */
 const PasswordInput = ({
@@ -36,6 +40,8 @@ const PasswordInput = ({
   label,
   validation,
   errorMsg,
+  hasForgotPassword = false,
+  forgotPasswordRoute,
   ...props
 }: PasswordProps) => {
   const context = useFormContext();
@@ -61,7 +67,17 @@ const PasswordInput = ({
   return (
     <PasswordInputPrimitive.Root>
       <div className='flex flex-col gap-y-1 w-full'>
-        {label && <Label htmlFor={`password_${name}`}>{label}</Label>}
+        <div className="flex justify-between items-center">
+          {label && <Label htmlFor={`password_${name}`}>{label}</Label>}
+          {hasForgotPassword && (
+            <button
+              onClick={forgotPasswordRoute}
+              className='text-xs font-normal cursor-pointer text-muted-foreground hover:text-black dark:hover:text-white'
+            >
+              Forgot your Password?
+            </button>
+          )}
+        </div>
         <div className='relative flex items-center' id={name}>
           <PasswordInputPrimitive.Input
             {...register(name, validation)}

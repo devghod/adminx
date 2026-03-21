@@ -13,7 +13,7 @@ import {
   ViewIcon,
 } from '@/components/ui/icons';
 import { ToolTip } from '@/components/ui/tooltips';
-import { Datatable } from '@/components/Datatable';
+import { Datatable } from '@/components/datatable';
 import {
   DialogMenu,
   DialogMenuClose,

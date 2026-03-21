@@ -9,7 +9,7 @@ const LoginPage = () => {
   return (
     <div className='w-full px-4 py-8 justify-items-center space-y-6'>
       <LoginForm />
-      <div className='w-full md:w-80'>
+      {/* <div className='w-full md:w-80'>
         <div className='flex justify-between px-2'>
           <button
             onClick={() => router.push('register')}
@@ -24,7 +24,7 @@ const LoginPage = () => {
             Forgot Password?
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
