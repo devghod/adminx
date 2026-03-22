@@ -12,22 +12,22 @@ const NavMenuContent = NavMenuPrimitive.Content;
 const navMenuLinkVariants = cva(`
   flex 
   w-full 
-  transition-all
-  delay-150
   mx-1
   py-2 
   px-4 
   data-active:rounded-lg
   data-active:border-slate-500/10
-  data-active:bg-cyan-600
-  data-active:dark:bg-gray-800
+  data-active:bg-black
+  data-active:dark:bg-white
+  data-active:text-white
+  data-active:dark:text-black
   border
   border-transparent
   rounded-lg
   hover:dark:border-violet-500/10
-  hover:bg-cyan-500/20
-  hover:text-cyan-700
-  hover:dark:text-cyan-500
+  hover:bg-gray-500/20
+  hover:text-gray-700
+  hover:dark:text-gray-500
   hover:dark:bg-gray-900
 `);
 
@@ -72,12 +72,12 @@ const navMenuItemVariants = cva('flex rounded mx-1');
 const NavMenuItem = React.forwardRef<
   React.ElementRef<typeof NavMenuPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof NavMenuPrimitive.Item> &
-    VariantProps<typeof navMenuItemVariants> & {
-      className?: string;
-      onClick?: React.MouseEventHandler<HTMLDivElement>;
-      onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
-      onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
-    }
+  VariantProps<typeof navMenuItemVariants> & {
+    className?: string;
+    onClick?: React.MouseEventHandler<HTMLDivElement>;
+    onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
+    onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
+  }
 >(({ children, className, ...props }, forwardedRef) => {
   return (
     <NavMenuPrimitive.Item
@@ -97,9 +97,9 @@ const navMenuIndicatorVariants = cva('bg-sky-500');
 const NavMenuIndicator = React.forwardRef<
   React.ElementRef<typeof NavMenuPrimitive.Indicator>,
   React.ComponentPropsWithoutRef<typeof NavMenuPrimitive.Indicator> &
-    VariantProps<typeof navMenuIndicatorVariants> & {
-      className?: string;
-    }
+  VariantProps<typeof navMenuIndicatorVariants> & {
+    className?: string;
+  }
 >(({ className, ...props }, ref) => {
   return (
     <NavMenuPrimitive.Indicator

@@ -21,9 +21,7 @@ const MenuLink = ({
     <ToolTip title={title} className='text-xs' avoidCollisions>
       <NavMenuLink
         active={isActive}
-        className={`transition-all duration-500
-          ${isShrink ? 'w-24 md:w-24' : 'w-full'}
-        `}
+        className={` ${isShrink ? 'w-24 md:w-24' : 'w-full'}`}
       >
         <NextLink
           className={`w-full ${isShrink && 'justify-center'}`}
@@ -31,7 +29,7 @@ const MenuLink = ({
         >
           <div
             className={`content-center
-              ${isActive ? `font-semibold text-cyan-50 dark:text-cyan-500` : 'text-gray-600 dark:text-gray-50'}
+              ${isActive ? `font-semibold ` : ''}
               ${isShrink ? 'h-[24px]' : 'mr-4'}
             `}
             aria-hidden='true'
@@ -39,14 +37,12 @@ const MenuLink = ({
             {icon}
           </div>
           <div
-            className={`transition-all ease-in-out duration-500
-              ${isShrink ? 'opacity-0' : 'opacity-100'}
-            `}
+            className={`${isShrink ? 'opacity-0' : 'opacity-100'}`}
           >
             {!isShrink && (
               <div
-                className={`transition-all duration-500
-                  ${isActive ? 'text-cyan-50 dark:text-white' : 'text-gray-500 dark:text-slate-400'}
+                className={`
+                  ${isActive ? '' : ''}
                 `}
               >
                 {title}
