@@ -1,8 +1,9 @@
 import { createColumnHelper } from '@tanstack/react-table';
-import { TUsers as TAccounts } from '@/stores/accountStore/type';
+import { TUser } from '@/stores/accountStore/type';
 import { Badge } from '@/components/ui/badge';
+import { dateFormat } from '@/utils/dateHelper';
 
-export const columnHelper = createColumnHelper<TAccounts>();
+export const columnHelper = createColumnHelper<TUser>();
 
 export const columns = [
   columnHelper.accessor('_id', {
@@ -93,5 +94,15 @@ export const columns = [
     footer: props => (
       <div className='text-left'>{props.column.id}</div>
     ),
+  }),
+  columnHelper.accessor('date_created', {
+    id: 'date_created',
+    enableGlobalFilter: true,
+    header: () => <div className='text-left'>Date Created</div>,
+    cell: info => {
+      const value = info.getValue();
+      if (value == null || value === '') return null;
+      return dateFormat(value);
+    },
   }),
 ];

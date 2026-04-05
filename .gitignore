@@ -5,6 +5,7 @@
 /frontend/.next/
 /frontend/DS_Store
 /frontend/yarn.lock
+/frontend/tsconfig.tsbuildinfo
 
 #/backend/node_modules/
 /backend/node_modules/

@@ -9,7 +9,7 @@ const CardListItem = memo(({ user }: { user: any }) => {
       : 'No Name';
   const email = user?.email ? user.email : '';
   const createdAt = user?.date_created
-    ? dateFormat(user.date_created, 'MM/DD/YYYY')
+    ? dateFormat(user.date_created)
     : '';
   const mobile = user?.mobile ? user.mobile : '';
 

@@ -129,7 +129,7 @@ const ActivityCard = ({ log }: { log: TLog }) => {
         </div>
         <div className=''>
           <div className='text-gray-500 text-xs'>
-            {dateFormat(log?.date_created, 'MM/DD/YYYY')}
+            {dateFormat(log?.date_created)}
           </div>
         </div>
       </div>

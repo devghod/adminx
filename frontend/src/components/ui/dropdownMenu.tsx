@@ -29,9 +29,9 @@ const DropdownMenuContent = React.forwardRef<
   React.ComponentPropsWithoutRef<
     typeof DropdownMenuPrimitive.Content
   > &
-    VariantProps<typeof dropdownMenuItemVariants> & {
-      className?: string;
-    }
+  VariantProps<typeof dropdownMenuItemVariants> & {
+    className?: string;
+  }
 >(({ children, className, ...props }, forwardedRef) => {
   return (
     <DropdownMenuPrimitive.Portal>
@@ -51,7 +51,7 @@ DropdownMenuContent.displayName = 'DropdownMenuContent';
 const DropdownMenuLabel = DropdownMenuPrimitive.Label;
 
 const dropdownMenuItemVariants = cva(
-  'group relative font-semibold flex h-[25px] select-none items-center justify-between rounded hover:bg-sky-200 dark:hover:bg-sky-500 p-4 text-[13px] leading-none outline-none',
+  'group relative font-medium flex h-[25px] select-none items-center justify-between rounded hover:bg-sky-200 dark:hover:bg-sky-500 p-4 text-[13px] leading-none outline-none',
 );
 
 /**
@@ -67,12 +67,12 @@ const dropdownMenuItemVariants = cva(
 const DropdownMenuItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Root> &
-    VariantProps<typeof dropdownMenuItemVariants> & {
-      className?: string;
-      onClick?: React.MouseEventHandler<HTMLDivElement>;
-      onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
-      onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
-    }
+  VariantProps<typeof dropdownMenuItemVariants> & {
+    className?: string;
+    onClick?: React.MouseEventHandler<HTMLDivElement>;
+    onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
+    onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
+  }
 >(({ children, className, ...props }, forwardedRef) => {
   return (
     <DropdownMenuPrimitive.Item
