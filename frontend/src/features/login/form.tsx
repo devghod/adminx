@@ -34,15 +34,17 @@ const LoginForm = () => {
     <FormProvider {...methods}>
       <form action={action} className='w-full md:w-80'>
         <div className='px-4 py-4 justify-items-center space-y-6'>
-          <div className="w-full flex justify-between">
+          <div className='w-full flex justify-between'>
             <div className=''>
               <div className='font-bold text-2xl uppercase tracking-wide'>
                 Admin
                 <span className=''>X</span>
               </div>
-              <p className='text-sm text-muted-foreground font-normal'>Login Form</p>
+              <p className='text-sm text-muted-foreground font-normal'>
+                Login Form
+              </p>
             </div>
-            <div className="">
+            <div className=''>
               <button
                 onClick={() => router.push('register')}
                 className='text-xs cursor-pointer text-muted-foreground hover:text-black dark:hover:text-white'
@@ -71,7 +73,9 @@ const LoginForm = () => {
                 type='login'
                 placeholder='Password here'
                 hasForgotPassword
-                forgotPasswordRoute={() => router.push('forgot-password')}
+                forgotPasswordRoute={() =>
+                  router.push('forgot-password')
+                }
               />
             </div>
           </div>

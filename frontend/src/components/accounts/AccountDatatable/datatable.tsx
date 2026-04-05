@@ -160,6 +160,7 @@ const AccountDatatable = () => {
         page={page}
         total={totalUsers}
         searchBar
+        hasBorder
         fnQuery={fetchUsersPaginated}
         fnSetSize={setSize}
         fnSetFilters={setFilters}

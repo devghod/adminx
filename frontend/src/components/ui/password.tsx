@@ -67,8 +67,10 @@ const PasswordInput = ({
   return (
     <PasswordInputPrimitive.Root>
       <div className='flex flex-col gap-y-1 w-full'>
-        <div className="flex justify-between items-center">
-          {label && <Label htmlFor={`password_${name}`}>{label}</Label>}
+        <div className='flex justify-between items-center'>
+          {label && (
+            <Label htmlFor={`password_${name}`}>{label}</Label>
+          )}
           {hasForgotPassword && (
             <button
               onClick={forgotPasswordRoute}

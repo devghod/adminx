@@ -14,15 +14,13 @@ const UnderConstruction = () => {
         alt='Under Construction'
         priority
       />
-      <div className='text-slate-800 dark:text-slate-200 text-lg font-semibold mt-2'>
-        Site is Under Construction
-      </div>
+      <div className='text-lg mt-2'>Site is Under Construction</div>
       <div className='w-full'>
         <button
           className='flex items-center m-2 text-sky-600 dark:text-sky-300 hover:text-sky-800 cursor-pointer tracking-wide'
           onClick={() => router.back()}
         >
-          Return <BackIcon />
+          Return <BackIcon className='h-4' />
         </button>
       </div>
     </div>

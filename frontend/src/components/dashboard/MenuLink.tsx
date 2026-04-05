@@ -41,7 +41,7 @@ const MenuLink = ({
           >
             {!isShrink && (
               <div
-                className={`
+                className={`text-sm
                   ${isActive ? '' : ''}
                 `}
               >

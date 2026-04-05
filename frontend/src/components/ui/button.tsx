@@ -20,7 +20,7 @@ const buttonVariants = cva(
         'fill-info':
           'bg-sky-600 dark:bg-sky-600/50 text-gray-50 hover:bg-sky-600/90',
         'fill-neutral':
-          'bg-gray-600 dark:bg-gray-300/50 text-gray-50 hover:bg-gray-600/90',
+          'bg-gray-600 dark:bg-gray-400/50 text-gray-50 hover:bg-gray-600/90',
 
         'outline-primary':
           'border border-blue-600 bg-white text-blue-600 hover:bg-blue-50 hover:text-blue-700',
@@ -33,7 +33,7 @@ const buttonVariants = cva(
         'outline-info':
           'border border-sky-600 bg-white text-sky-600 hover:bg-sky-50 hover:text-sky-700',
         'outline-neutral':
-          'border border-gray-300 bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-700',
+          'border border-gray-400 bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-700',
 
         'ghost-primary':
           'bg-transparent text-blue-600 hover:bg-blue-50 hover:text-blue-700',
@@ -46,7 +46,7 @@ const buttonVariants = cva(
         'ghost-info':
           'bg-transparent text-sky-600 hover:bg-sky-50 hover:text-sky-700',
         'ghost-neutral':
-          'bg-transparent text-gray-300 hover:bg-gray-50 hover:text-gray-700',
+          'bg-transparent text-gray-400 hover:bg-gray-50 hover:text-gray-700',
 
         'link-primary':
           'text-blue-600 underline-offset-4 hover:underline',
@@ -59,7 +59,19 @@ const buttonVariants = cva(
         'link-info':
           'text-sky-600 underline-offset-4 hover:underline',
         'link-neutral':
-          'text-gray-300 underline-offset-4 hover:underline',
+          'text-gray-400 underline-offset-4 hover:underline',
+
+        'icon-primary':
+          'bg-transparent text-blue-600 hover:text-blue-700',
+        'icon-success':
+          'bg-transparent text-teal-600 hover:text-teal-700',
+        'icon-danger':
+          'bg-transparent text-red-600 hover:text-red-700',
+        'icon-warning':
+          'bg-transparent text-amber-600 hover:text-amber-700',
+        'icon-info': 'bg-transparent text-sky-600 hover:text-sky-700',
+        'icon-neutral':
+          'bg-transparent text-gray-400 hover:text-gray-700',
       },
       size: {
         xs: 'rounded-xs p-1',

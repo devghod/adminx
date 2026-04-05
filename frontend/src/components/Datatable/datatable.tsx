@@ -3,6 +3,7 @@ import {
   getCoreRowModel,
   flexRender,
   getPaginationRowModel,
+  getSortedRowModel,
 } from '@tanstack/react-table';
 import {
   Table,
@@ -12,7 +13,12 @@ import {
   TableRow,
   TableCell,
 } from '@/components/ui/table';
-import { LoadingIcon } from '@/components/ui/icons';
+import {
+  LoadingIcon,
+  SortIcon,
+  SortAscIcon,
+  SortDescIcon,
+} from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import { SelectBasic as Select } from '@/components/ui/select';
 import { InputBasic as Input } from '@/components/ui/input';
@@ -41,7 +47,7 @@ const Datatable = ({
   page,
   total,
   headerBgColor = 'bg-gray-100 dark:bg-gray-800',
-  headerTextColor = 'text-slate-500 dark:text-slate-400',
+  headerTextColor = 'text-muted-foreground',
   isLoading = false,
   searchBar = false,
   hasBorder = false,
@@ -97,6 +103,8 @@ const Datatable = ({
     getPaginationRowModel: getPaginationRowModel(),
     manualPagination: true, // turn off client-side pagination
     rowCount: total,
+    getSortedRowModel: getSortedRowModel(),
+    enableSorting: true,
     state: {
       pagination,
       columnVisibility,
@@ -137,7 +145,7 @@ const Datatable = ({
         <div className='absolute inset-0 bg-white/90 dark:bg-black/90 rounded-xl pointer-events-none'>
           <div className='flex flex-col items-center justify-center h-full'>
             <LoadingIcon />
-            <span className='mt-2 text-gray-600 font-medium text-lg select-none'>
+            <span className='mt-2 text-gray-600 text-sm select-none'>
               Loading...
             </span>
           </div>
@@ -177,7 +185,6 @@ const Datatable = ({
                   .map((headerGroup: any) => (
                     <TableRow
                       key={headerGroup.id}
-                      // className={`${hasBorder && 'divide-x divide-slate-500/20 border'}`}
                       className={`${hasBorder && 'border dark:border-gray-500/40'}`}
                     >
                       {headerGroup.headers.map((header: any) => (
@@ -185,14 +192,33 @@ const Datatable = ({
                           key={header.id}
                           colSpan={header.colSpan}
                           style={{ width: `${header.getSize()}px` }}
-                          className={`${headerBgColor} ${headerTextColor} py-3 px-3 text-sm font-bold sm:font-semibold`}
+                          className={`${headerBgColor} ${headerTextColor} py-3 px-3 text-sm sm:text-xs font-normal`}
                         >
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext(),
-                              )}
+                          <div className='flex'>
+                            {header.isPlaceholder
+                              ? null
+                              : flexRender(
+                                  header.column.columnDef.header,
+                                  header.getContext(),
+                                )}
+
+                            {header.column.columnDef
+                              .enableSorting && (
+                              <Button
+                                onClick={header.column.getToggleSortingHandler()}
+                                size='sm'
+                                theme='icon-neutral'
+                              >
+                                {header.column.getIsSorted() ===
+                                  'asc' && <SortAscIcon />}
+                                {header.column.getIsSorted() ===
+                                  'desc' && <SortDescIcon />}
+                                {!header.column.getIsSorted() && (
+                                  <SortIcon />
+                                )}
+                              </Button>
+                            )}
+                          </div>
                         </TableHead>
                       ))}
                     </TableRow>
@@ -303,3 +329,26 @@ const PaginationComponent = ({
     />
   </div>
 );
+
+const SortHeader = ({
+  column,
+  title,
+}: {
+  column: any;
+  title: string;
+}) => {
+  const sorted = column.getIsSorted();
+
+  return (
+    <button
+      onClick={column.getToggleSortingHandler()}
+      className='flex items-center gap-2'
+    >
+      {title}
+
+      {sorted === 'asc' && '🔼'}
+      {sorted === 'desc' && '🔽'}
+      {!sorted && '↕️'}
+    </button>
+  );
+};

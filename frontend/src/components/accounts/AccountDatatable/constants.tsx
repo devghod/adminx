@@ -31,6 +31,7 @@ export const columns = [
     footer: props => (
       <div className='text-left'>{props.column.id}</div>
     ),
+    sortingFn: 'alphanumeric',
   }),
   columnHelper.accessor('status', {
     size: 100,
@@ -60,6 +61,8 @@ export const columns = [
     footer: props => (
       <div className='text-left'>{props.column.id}</div>
     ),
+    enableSorting: true,
+    sortingFn: 'alphanumeric',
   }),
   columnHelper.accessor('middle_name', {
     id: 'middle_name',
