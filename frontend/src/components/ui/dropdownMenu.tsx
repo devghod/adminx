@@ -29,9 +29,9 @@ const DropdownMenuContent = React.forwardRef<
   React.ComponentPropsWithoutRef<
     typeof DropdownMenuPrimitive.Content
   > &
-  VariantProps<typeof dropdownMenuItemVariants> & {
-    className?: string;
-  }
+    VariantProps<typeof dropdownMenuItemVariants> & {
+      className?: string;
+    }
 >(({ children, className, ...props }, forwardedRef) => {
   return (
     <DropdownMenuPrimitive.Portal>
@@ -67,12 +67,12 @@ const dropdownMenuItemVariants = cva(
 const DropdownMenuItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Root> &
-  VariantProps<typeof dropdownMenuItemVariants> & {
-    className?: string;
-    onClick?: React.MouseEventHandler<HTMLDivElement>;
-    onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
-    onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
-  }
+    VariantProps<typeof dropdownMenuItemVariants> & {
+      className?: string;
+      onClick?: React.MouseEventHandler<HTMLDivElement>;
+      onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
+      onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
+    }
 >(({ children, className, ...props }, forwardedRef) => {
   return (
     <DropdownMenuPrimitive.Item
