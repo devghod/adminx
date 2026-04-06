@@ -4,7 +4,7 @@ import MenuDashboard from '@/components/dashboard/Menu';
 import BodyDashoard from '@/components/dashboard/Body';
 
 export const metadata: Metadata = {
-  title: 'AdminX | Dashboard',
+  title: 'ADMINX | Dashboard',
   description: 'My All-in-One Web Application',
   icons: '/images/favicon.ico',
 };

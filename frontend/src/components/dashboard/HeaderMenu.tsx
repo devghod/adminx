@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,12 +19,16 @@ import {
 } from '@/components/ui/icons';
 import { logout } from '@/features/login/authentications';
 import { useAccountStore } from '@/stores/accountStore';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const fallbackImg =
   'data:image/svg+xml;base64,PHN2ZyBzdHJva2U9IiNGRkZGRkYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMCIgdmlld0JveD0iMCAwIDI0IDI0IiBoZWlnaHQ9IjIwMHB4IiB3aWR0aD0iMjAwcHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB4PSIyIiB5PSIyIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjIiIHJ4PSIyIj48L3JlY3Q+PC9zdmc+Cg==';
 
 const HeaderMenu = () => {
+  const router = useRouter();
+  const { profile } = useAccountStore();
+  const { _id } = profile;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -41,11 +44,21 @@ const HeaderMenu = () => {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className='space-y-1 border border-slate-200 dark:border-slate-800 rounded-lg shadow-lg p-2 mt-2'>
-        <DropdownMenuItem className='text-slate-800 dark:text-slate-200'>
+        <DropdownMenuItem
+          className='text-slate-800 dark:text-slate-200'
+          onClick={() =>
+            router.push(`/dashboard/accounts/${_id}/profile`)
+          }
+        >
           Profile <UsersIcon />
         </DropdownMenuItem>
 
-        <DropdownMenuItem className='text-slate-800 dark:text-slate-200'>
+        <DropdownMenuItem
+          className='text-slate-800 dark:text-slate-200'
+          onClick={() =>
+            router.push(`/dashboard/accounts/${_id}/settings`)
+          }
+        >
           Settings <GearIcon />
         </DropdownMenuItem>
 

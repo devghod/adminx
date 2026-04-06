@@ -10,6 +10,7 @@ export const columns = [
     id: '_id',
     size: 100,
     enableSorting: false,
+    meta: { display: false },
     header: () => <div className='text-left'>ID</div>,
     cell: (props: any) => (
       <div className='text-left'>{props.getValue()}</div>

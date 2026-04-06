@@ -4,6 +4,7 @@ import { useEffect, useState, useTransition } from 'react';
 import {
   HomeIcon,
   // ServicesIcon,
+  UserRolesIcon,
   UsersIcon,
   TradeIcon,
   OpenSidebarSolidIcon,
@@ -30,6 +31,11 @@ const MenuData = [
     title: 'Account',
     url: '/dashboard/accounts',
     icon: <UsersIcon className='w-5 h-5' />,
+  },
+  {
+    title: 'Roles',
+    url: '/dashboard/roles',
+    icon: <UserRolesIcon className='w-5 h-5' />,
   },
   // {
   //   title: 'Service',
